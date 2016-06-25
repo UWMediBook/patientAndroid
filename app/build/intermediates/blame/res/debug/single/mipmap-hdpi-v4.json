@@ -1,0 +1,14 @@
+[
+    {
+        "merged": "C:\\Users\\Kevin\\Desktop\\School\\GitHub\\MediBook\\Doctor\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-hdpi-v4\\ic_launcher.png",
+        "source": "C:\\Users\\Kevin\\Desktop\\School\\GitHub\\MediBook\\Doctor\\app\\src\\main\\res\\mipmap-hdpi\\ic_launcher.png"
+    },
+    {
+        "merged": "C:\\Users\\Kevin\\Desktop\\School\\GitHub\\MediBook\\Android\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-hdpi-v4\\ic_launcher.png",
+        "source": "C:\\Users\\Kevin\\Desktop\\School\\GitHub\\MediBook\\Android\\app\\src\\main\\res\\mipmap-hdpi\\ic_launcher.png"
+    },
+    {
+        "merged": "C:\\Users\\Kevin\\Desktop\\School\\GitHub\\MediBook\\Patient\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-hdpi-v4\\ic_launcher.png",
+        "source": "C:\\Users\\Kevin\\Desktop\\School\\GitHub\\MediBook\\Patient\\app\\src\\main\\res\\mipmap-hdpi\\ic_launcher.png"
+    }
+]

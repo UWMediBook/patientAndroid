@@ -1,0 +1,14 @@
+[
+    {
+        "merged": "C:\\Users\\Kevin\\Desktop\\School\\GitHub\\MediBook\\Patient\\app\\build\\intermediates\\res\\merged\\debug\\menu\\menu_main.xml",
+        "source": "C:\\Users\\Kevin\\Desktop\\School\\GitHub\\MediBook\\Patient\\app\\src\\main\\res\\menu\\menu_main.xml"
+    },
+    {
+        "merged": "C:\\Users\\Kevin\\Desktop\\School\\GitHub\\MediBook\\Android\\app\\build\\intermediates\\res\\merged\\debug\\menu\\menu_main.xml",
+        "source": "C:\\Users\\Kevin\\Desktop\\School\\GitHub\\MediBook\\Android\\app\\src\\main\\res\\menu\\menu_main.xml"
+    },
+    {
+        "merged": "C:\\Users\\Kevin\\Desktop\\School\\GitHub\\MediBook\\Doctor\\app\\build\\intermediates\\res\\merged\\debug\\menu\\menu_main.xml",
+        "source": "C:\\Users\\Kevin\\Desktop\\School\\GitHub\\MediBook\\Doctor\\app\\src\\main\\res\\menu\\menu_main.xml"
+    }
+]

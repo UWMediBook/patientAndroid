@@ -4,30 +4,73 @@
     api-level="23"
     density="420dpi"
     format="7"
-    timestamp="40681470013498"
-    token="-3879001395092934890" >
+    timestamp="1904836168616"
+    token="-3879001395092934890"
+    verifier="COMPATIBLE" >
 
     <task
         name="javac"
-        duration="22099" />
+        duration="15871" />
     <task
         name="instant-run-dex"
-        duration="0" />
+        duration="14107" />
     <task
         name="instant-run-transform"
-        duration="7448" />
+        duration="777" />
     <task
         name="verifier"
-        duration="1326" />
+        duration="106" />
 
     <artifact
-        location="C:\Users\jason\Documents\CS446\patientAndroid\patientAndroid\app\build\outputs\apk\app-debug.apk"
-        type="MAIN" />
+        location="C:\Users\jason\Documents\CS446\patientAndroid\patientAndroid\app\build\intermediates\reload-dex\debug\classes.dex"
+        type="RELOAD_DEX" />
 
-    <build timestamp="40681470013498" >
+    <build timestamp="835743026034" >
         <artifact
             location="C:\Users\jason\Documents\CS446\patientAndroid\patientAndroid\app\build\outputs\apk\app-debug.apk"
             type="MAIN" />
+    </build>
+    <build
+        timestamp="1332923049254"
+        verifier="COMPATIBLE" >
+        <artifact
+            location="C:\Users\jason\Documents\CS446\patientAndroid\patientAndroid\app\build\intermediates\builds\debug\1332923049254\classes.dex"
+            type="RELOAD_DEX" />
+    </build>
+    <build
+        timestamp="1547489283524"
+        verifier="COMPATIBLE" >
+        <artifact
+            location="C:\Users\jason\Documents\CS446\patientAndroid\patientAndroid\app\build\intermediates\builds\debug\1547489283524\classes.dex"
+            type="RELOAD_DEX" />
+    </build>
+    <build
+        timestamp="1600222108938"
+        verifier="COMPATIBLE" >
+        <artifact
+            location="C:\Users\jason\Documents\CS446\patientAndroid\patientAndroid\app\build\intermediates\builds\debug\1600222108938\classes.dex"
+            type="RELOAD_DEX" />
+    </build>
+    <build
+        timestamp="1685725370474"
+        verifier="COMPATIBLE" >
+        <artifact
+            location="C:\Users\jason\Documents\CS446\patientAndroid\patientAndroid\app\build\intermediates\builds\debug\1685725370474\classes.dex"
+            type="RELOAD_DEX" />
+    </build>
+    <build
+        timestamp="1835078841361"
+        verifier="COMPATIBLE" >
+        <artifact
+            location="C:\Users\jason\Documents\CS446\patientAndroid\patientAndroid\app\build\intermediates\builds\debug\1835078841361\classes.dex"
+            type="RELOAD_DEX" />
+    </build>
+    <build
+        timestamp="1904836168616"
+        verifier="COMPATIBLE" >
+        <artifact
+            location="C:\Users\jason\Documents\CS446\patientAndroid\patientAndroid\app\build\intermediates\reload-dex\debug\classes.dex"
+            type="RELOAD_DEX" />
     </build>
 
 </instant-run>

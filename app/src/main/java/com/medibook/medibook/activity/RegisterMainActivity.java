@@ -1,6 +1,8 @@
 package com.medibook.medibook.activity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -15,17 +17,19 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.android.gms.appindexing.Action;
+import com.google.android.gms.appindexing.AppIndex;
+import com.google.android.gms.common.api.GoogleApiClient;
 import com.medibook.medibook.R;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
-public class RegisterMainActivity extends AppCompatActivity implements View.OnClickListener{
-    String tag_json_obj = "json_obj_req";
-    private static final String REGISTER_URL =  "http://52.41.78.184:8000/api/userviewset";
+public class RegisterMainActivity extends AppCompatActivity implements View.OnClickListener {
 
     private EditText etFname;
     private EditText etLname;
@@ -57,30 +61,34 @@ public class RegisterMainActivity extends AppCompatActivity implements View.OnCl
         butNext.setOnClickListener(this);
     }
 
-    private void registerUser(){
-
+    private void registerUser() {
+        String REGISTER_URL = "http://52.41.78.184:8000/api/userviewset";
         RequestQueue rQueue = Volley.newRequestQueue(this);
 
-        final String first_name = etFname.getText().toString().trim();
-        final String last_name = etLname.getText().toString().trim();
-        final String address = etAddress.getText().toString().trim();
-        final String gender = etGender.getText().toString().trim();
-        //final Date birthday = etDOB.getText().toString();
-        final String email = etEmail.getText().toString().trim();
-        final String password = etPassword.getText().toString().trim();
-        final String HealthCard = etHCNum.getText().toString().trim();
+        String first_name = etFname.getText().toString().trim();
+        String last_name = etLname.getText().toString().trim();
+        String address = etAddress.getText().toString().trim();
+        String gender = etGender.getText().toString().trim();
+        String birthday = etDOB.getText().toString().trim();
+        String email = etEmail.getText().toString().trim();
+        String password = etPassword.getText().toString().trim();
+        String HealthCard = etHCNum.getText().toString().trim();
 
-            Map<String,String> params = new HashMap<String,String>();
-            params.put("first_name",first_name);
-            params.put("last_name",last_name);
-            params.put("address",address);
-            params.put("gender",gender);
-            params.put("birthday",null);
-            params.put("email",email);
-            params.put("password",password);
-            params.put("healthcard",HealthCard);
+        JSONObject params = new JSONObject();
+        try {
+            params.put("first_name", first_name);
+            params.put("last_name", last_name);
+            params.put("address", address);
+            params.put("gender", gender);
+            params.put("birthday", birthday);
+            params.put("email", email);
+            params.put("password", password);
+            params.put("healthcard", HealthCard);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
 
-            JsonObjectRequest jor = new JsonObjectRequest(Request.Method.POST, REGISTER_URL,new JSONObject(params), new Response.Listener<JSONObject>() {
+        JsonObjectRequest jor = new JsonObjectRequest(Request.Method.POST, REGISTER_URL, params, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
                 Toast.makeText(RegisterMainActivity.this, "post success", Toast.LENGTH_SHORT).show();
@@ -91,22 +99,23 @@ public class RegisterMainActivity extends AppCompatActivity implements View.OnCl
                 Toast.makeText(RegisterMainActivity.this, "error", Toast.LENGTH_SHORT).show();
                 error.printStackTrace();
             }
-        }){
+        }) {
 
             @Override
-            public Map<String,String> getHeaders() throws AuthFailureError{
-                HashMap<String,String> headers = new HashMap<String, String>();
-                headers.put("Content-Type","application/json; charset=utf-8");
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                HashMap<String, String> headers = new HashMap<String, String>();
+                headers.put("Content-Type", "application/json; charset=utf-8");
                 return headers;
             }
         };
         rQueue.add(jor);
     }
-    public void onClick(View v){
-        if (v == butNext){
+
+    public void onClick(View v) {
+        if (v == butNext) {
             registerUser();
             Intent intent = new Intent(RegisterMainActivity.this, EmergencyContactActivity.class);
-            intent.putExtra("EMAIL",etEmail.getText().toString());
+            intent.putExtra("EMAIL", etEmail.getText().toString());
             startActivity(intent);
         }
     }

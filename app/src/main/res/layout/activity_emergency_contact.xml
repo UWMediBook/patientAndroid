@@ -44,10 +44,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/etRelationship"
+        android:hint="Relationship"
         android:layout_below="@+id/etPhoneNumber"
         android:layout_alignParentStart="true"
-        android:layout_alignEnd="@+id/etLname"
-        android:hint="Relationship" />
+        android:layout_alignEnd="@+id/etPhoneNumber" />
 
     <Button
         android:layout_width="wrap_content"
@@ -56,4 +56,13 @@
         android:id="@+id/butNext"
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Emergency Contact Information"
+        android:id="@+id/tvEmergContact"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true" />
 </RelativeLayout>

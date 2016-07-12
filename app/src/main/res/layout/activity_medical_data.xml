@@ -9,34 +9,6 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".medibook.MedicalDataActivity">
 
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/etHCNumber"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="85dp"
-        android:layout_alignParentEnd="true"
-        android:hint="Health Card Number" />
-
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/etKnownAllergies"
-        android:layout_below="@+id/etHCNumber"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentEnd="true"
-        android:hint="Known Allergies" />
-
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/etPrimaryDoctor"
-        android:layout_below="@+id/etKnownAllergies"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentEnd="true"
-        android:hint="Primary Phycisian Name" />
-
     <CheckBox
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -54,5 +26,62 @@
         android:layout_below="@+id/cbTerms"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="50dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Known Allergies"
+        android:id="@+id/tvAllergies"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/etAllergy"
+        android:layout_below="@+id/tvAllergies"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:text="Name of Allergy" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/etSeverity"
+        android:layout_below="@+id/etAllergy"
+        android:layout_alignParentStart="true"
+        android:layout_alignEnd="@+id/etAllergy"
+        android:text="Severity" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Primary Doctor"
+        android:id="@+id/tvDoctor"
+        android:layout_below="@+id/etSeverity"
+        android:layout_marginTop="45dp"
+        android:layout_alignEnd="@+id/etSeverity"
+        android:layout_alignParentStart="true" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/etFName"
+        android:layout_below="@+id/tvDoctor"
+        android:layout_alignParentStart="true"
+        android:layout_alignEnd="@+id/tvDoctor"
+        android:text="First Name" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/etLName"
+        android:layout_below="@+id/etFName"
+        android:layout_alignParentStart="true"
+        android:layout_alignEnd="@+id/etFName"
+        android:text="Last Name" />
 
 </RelativeLayout>

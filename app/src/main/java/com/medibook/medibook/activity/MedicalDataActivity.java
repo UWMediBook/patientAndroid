@@ -16,8 +16,9 @@ public class MedicalDataActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_medical_data);
 
-        final EditText etKnownAllergies = (EditText) findViewById(R.id.etKnownAllergies);
-        final EditText etPrimaryDoctor = (EditText) findViewById(R.id.etPrimaryDoctor);
+        final EditText allergy = (EditText) findViewById(R.id.etAllergy);
+        final EditText first_name = (EditText) findViewById(R.id.etFname);
+        final EditText last_name = (EditText) findViewById(R.id.etLname);
 
         final Button butCreate = (Button) findViewById(R.id.butCreateAccount);
 

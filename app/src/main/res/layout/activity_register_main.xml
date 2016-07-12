@@ -91,9 +91,10 @@
         android:inputType="number"
         android:ems="10"
         android:id="@+id/etHCNumber"
-        android:layout_below="@+id/etGender"
-        android:layout_alignParentStart="true"
+        android:hint="Health Card Number"
+        android:layout_alignBaseline="@+id/butNext"
+        android:layout_alignBottom="@+id/butNext"
         android:layout_alignParentEnd="true"
-        android:hint="Health Card Number" />
+        android:layout_marginEnd="153dp" />
 
 </RelativeLayout>

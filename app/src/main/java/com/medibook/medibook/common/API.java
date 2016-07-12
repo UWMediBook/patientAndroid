@@ -7,9 +7,16 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.NetworkError;
+import com.android.volley.NetworkResponse;
+import com.android.volley.NoConnectionError;
+import com.android.volley.ParseError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
+import com.android.volley.ServerError;
+import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
@@ -42,39 +49,65 @@ public class API {
         this.rootView = ((Activity)context).getWindow().getDecorView().findViewById(android.R.id.content);
     }
 
-    /*
-    public void postUser(final String fname, final String lname, final String address, final String gender, final String email, final String password, final String healthcard){
-        showProgessDialog();
-        String url = "http://52.41.78.184:8000/api/userviewset/";
-        JsonObjectRequest JOR = new JsonObjectRequest(Request.Method.POST, url, null, new Response.Listener<JSONObject>() {
+
+    public void postUser(final String fname, final String lname, final String address, final String gender, final String birthday, final String email, final String password, final String healthcard){
+        String REGISTER_URL = "http://52.41.78.184:8000/api/users/";
+
+        JSONObject params = new JSONObject();
+
+        try {
+            params.put("first_name", fname);
+            params.put("last_name", lname);
+            params.put("address", address);
+            params.put("gender", gender);
+            params.put("birthday", birthday);
+            params.put("email", email);
+            params.put("password", password);
+            params.put("healthcard", healthcard);
+            params.put("doctor_id","1");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        JsonObjectRequest jor = new JsonObjectRequest(Request.Method.POST, REGISTER_URL, params, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
-
-                Log.d(TAG, response.toString());
-            },new Response.ErrorListener()
-            {
-
             }
-                protected Map<String,String> getParams(){
-                    Map<String,String> params = new HashMap<String,String>();
-                    params.put("first_name",fname);
-                    params.put("last_name",lname);
-                    params.put("address",address);
-                    params.put("gender",gender);
-                    params.put("birthday",null);
-                    params.put("email",email);
-                    params.put("password",password);
-                    params.put("healthcard",healthcard);
-
-                    return params;
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                NetworkResponse networkResponse = error.networkResponse;
+                if (networkResponse != null) {
+                    Log.e("Volley", "Error. HTTP Status Code:"+networkResponse.statusCode);
+                }
+                if (error instanceof TimeoutError) {
+                    Log.e("Volley", "TimeoutError");
+                }else if(error instanceof NoConnectionError){
+                    Log.e("Volley", "NoConnectionError");
+                } else if (error instanceof AuthFailureError) {
+                    Log.e("Volley", "AuthFailureError");
+                } else if (error instanceof ServerError) {
+                    Log.e("Volley", "ServerError");
+                } else if (error instanceof NetworkError) {
+                    Log.e("Volley", "NetworkError");
+                } else if (error instanceof ParseError) {
+                    Log.e("Volley", "ParseError");
+                }
             }
-        }
-        });
-    } */
+        }){
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                HashMap<String, String> headers = new HashMap<String, String>();
+                headers.put("Content-Type", "application/json; charset=utf-8");
+                return headers;
+            }
+
+        };
+        this.queue.add(jor);
+    }
 
     public void getUser(String email_string) {
         String url = "http://52.41.78.184:8000/api/users/?email=" + email_string;
-        System.out.println(url);
+
         // Request a string response from the provided URL.
         StringRequest stringRequest= new StringRequest(Request.Method.GET, url,
                 new Response.Listener<String>() {

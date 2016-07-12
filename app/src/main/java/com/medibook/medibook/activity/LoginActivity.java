@@ -92,10 +92,21 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         });
 
         Button mEmailSignInButton = (Button) findViewById(R.id.email_sign_in_button);
+        Button mRegisterButton = (Button) findViewById(R.id.RegisterButton);
+
         mEmailSignInButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
                 attemptLogin();
+            }
+        });
+
+        mRegisterButton.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(LoginActivity.this, RegisterMainActivity.class);
+                intent.putExtra("EMAIL",mEmailView.getText().toString());
+                startActivity(intent);
             }
         });
 
@@ -403,7 +414,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     }
 
     private void changeActivity(){
-        Intent intent = new Intent(this, RegisterMainActivity.class);
+        Intent intent = new Intent(this, UserAreaActivity.class);
+        intent.putExtra("EMAIL",mEmailView.getText().toString());
         startActivity(intent);
     }
 }

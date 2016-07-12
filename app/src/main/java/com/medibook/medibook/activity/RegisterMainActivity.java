@@ -8,6 +8,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -69,7 +70,17 @@ public class RegisterMainActivity extends AppCompatActivity implements View.OnCl
         final String password = etPassword.getText().toString().trim();
         final String HealthCard = etHCNum.getText().toString().trim();
 
-        JsonObjectRequest jor = new JsonObjectRequest(Request.Method.POST, REGISTER_URL,null, new Response.Listener<JSONObject>() {
+            Map<String,String> params = new HashMap<String,String>();
+            params.put("first_name",first_name);
+            params.put("last_name",last_name);
+            params.put("address",address);
+            params.put("gender",gender);
+            params.put("birthday",null);
+            params.put("email",email);
+            params.put("password",password);
+            params.put("healthcard",HealthCard);
+
+            JsonObjectRequest jor = new JsonObjectRequest(Request.Method.POST, REGISTER_URL,new JSONObject(params), new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
                 Toast.makeText(RegisterMainActivity.this, "post success", Toast.LENGTH_SHORT).show();
@@ -81,20 +92,12 @@ public class RegisterMainActivity extends AppCompatActivity implements View.OnCl
                 error.printStackTrace();
             }
         }){
+
             @Override
-            protected Map<String,String> getParams(){
-                Map<String,String> params = new HashMap<String,String>();
-                params.put("first_name",first_name);
-                params.put("last_name",last_name);
-                params.put("address",address);
-                params.put("gender",gender);
-                params.put("birthday",null);
-                params.put("email",email);
-                params.put("password",password);
-                params.put("healthcard",HealthCard);
-
-                return params;
-
+            public Map<String,String> getHeaders() throws AuthFailureError{
+                HashMap<String,String> headers = new HashMap<String, String>();
+                headers.put("Content-Type","application/json; charset=utf-8");
+                return headers;
             }
         };
         rQueue.add(jor);
@@ -102,7 +105,9 @@ public class RegisterMainActivity extends AppCompatActivity implements View.OnCl
     public void onClick(View v){
         if (v == butNext){
             registerUser();
-            startActivity(new Intent(this,EmergencyContactActivity.class));
+            Intent intent = new Intent(RegisterMainActivity.this, EmergencyContactActivity.class);
+            intent.putExtra("EMAIL",etEmail.getText().toString());
+            startActivity(intent);
         }
     }
 }

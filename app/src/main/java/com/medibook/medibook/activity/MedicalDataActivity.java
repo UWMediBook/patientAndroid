@@ -24,8 +24,12 @@ public class MedicalDataActivity extends AppCompatActivity {
         butCreate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent createIntent = new Intent(MedicalDataActivity.this, UserAreaActivity.class);
-                MedicalDataActivity.this.startActivity(createIntent);
+
+                Intent intentMD = getIntent();
+                String email = intentMD.getStringExtra("EMAIL");
+                Intent intent = new Intent(MedicalDataActivity.this, UserAreaActivity.class);
+                intent.putExtra("EMAIL",email);
+                startActivity(intent);
             }
         });
     }

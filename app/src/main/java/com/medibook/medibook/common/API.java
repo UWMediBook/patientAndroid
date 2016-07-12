@@ -44,10 +44,17 @@ public class API {
 
     /*
     public void postUser(final String fname, final String lname, final String address, final String gender, final String email, final String password, final String healthcard){
+        showProgessDialog();
         String url = "http://52.41.78.184:8000/api/userviewset/";
         JsonObjectRequest JOR = new JsonObjectRequest(Request.Method.POST, url, null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
+
+                Log.d(TAG, response.toString());
+            },new Response.ErrorListener()
+            {
+
+            }
                 protected Map<String,String> getParams(){
                     Map<String,String> params = new HashMap<String,String>();
                     params.put("first_name",fname);
@@ -61,27 +68,26 @@ public class API {
 
                     return params;
             }
-        }, new Response.ErrorListener(){
-
-            }
+        }
         });
-    }*/
+    } */
 
-    public void getUser(Integer id) {
-        String url = "http://52.41.78.184:8000/api/userviewset/" + id;
-
+    public void getUser(String email_string) {
+        String url = "http://52.41.78.184:8000/api/users/?email=" + email_string;
+        System.out.println(url);
         // Request a string response from the provided URL.
         StringRequest stringRequest= new StringRequest(Request.Method.GET, url,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
                         try{
-                            JSONObject jsonUser = new JSONObject(response);
-                            System.out.println(jsonUser.getString("first_name"));
+                            JSONArray jsonArray = new JSONArray(response);
+                            JSONObject jsonUserID = jsonArray.getJSONObject(0);
+                            JSONObject jsonUser = jsonArray.getJSONObject(0).getJSONObject("fields");
                             User user = new User(
                                     jsonUser.getString("first_name"),
                                     jsonUser.getString("last_name"),
-                                    jsonUser.getInt("id"),
+                                    jsonUserID.getInt("pk"),
                                     jsonUser.getString("gender"),
                                     jsonUser.getString("address"),
                                     jsonUser.getString("birthday"),

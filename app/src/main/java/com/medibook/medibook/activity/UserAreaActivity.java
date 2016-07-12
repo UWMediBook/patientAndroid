@@ -1,5 +1,6 @@
 package com.medibook.medibook.activity;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.view.menu.MenuItemImpl;
@@ -26,8 +27,9 @@ public class UserAreaActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_area);
-
+        Intent intent = getIntent();
+        String email = intent.getStringExtra("EMAIL");
         API apiHandler = new API(this);
-        apiHandler.getUser(1);
+        apiHandler.getUser(email);
     }
 }

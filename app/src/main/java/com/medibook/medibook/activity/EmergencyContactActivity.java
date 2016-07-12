@@ -27,8 +27,11 @@ public class EmergencyContactActivity extends AppCompatActivity {
         butNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent MDIntent = new Intent(EmergencyContactActivity.this, MedicalDataActivity.class);
-                EmergencyContactActivity.this.startActivity(MDIntent);
+                Intent intentEC = getIntent();
+                String email = intentEC.getStringExtra("EMAIL");
+                Intent intent = new Intent(EmergencyContactActivity.this, MedicalDataActivity.class);
+                intent.putExtra("EMAIL",email);
+                startActivity(intent);
             }
         });
     }

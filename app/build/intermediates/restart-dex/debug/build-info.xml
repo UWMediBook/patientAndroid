@@ -4,30 +4,41 @@
     api-level="23"
     density="420dpi"
     format="7"
-    timestamp="2750183532390"
+    timestamp="9907230204633"
     token="-3879001395092934890" >
 
     <task
         name="javac"
-        duration="14522" />
+        duration="10413" />
     <task
         name="instant-run-dex"
         duration="0" />
     <task
         name="instant-run-transform"
-        duration="5118" />
+        duration="578" />
     <task
         name="verifier"
-        duration="1113" />
+        duration="219" />
 
     <artifact
-        location="C:\Users\jason\Documents\CS446\patientAndroid\patientAndroid\app\build\outputs\apk\app-debug.apk"
-        type="MAIN" />
+        location="C:\Users\jason\Documents\CS446\patientAndroid\patientAndroid\app\build\intermediates\transforms\dex\debug\folders\1000\5\slice_6\classes.dex"
+        type="DEX" />
+    <artifact
+        location="C:\Users\jason\Documents\CS446\patientAndroid\patientAndroid\app\build\intermediates\transforms\dex\debug\folders\1000\5\slice_0\classes.dex"
+        type="DEX" />
 
-    <build timestamp="2750183532390" >
+    <build timestamp="9199240197280" >
         <artifact
             location="C:\Users\jason\Documents\CS446\patientAndroid\patientAndroid\app\build\outputs\apk\app-debug.apk"
             type="MAIN" />
+    </build>
+    <build timestamp="9907230204633" >
+        <artifact
+            location="C:\Users\jason\Documents\CS446\patientAndroid\patientAndroid\app\build\intermediates\transforms\dex\debug\folders\1000\5\slice_6\classes.dex"
+            type="DEX" />
+        <artifact
+            location="C:\Users\jason\Documents\CS446\patientAndroid\patientAndroid\app\build\intermediates\transforms\dex\debug\folders\1000\5\slice_0\classes.dex"
+            type="DEX" />
     </build>
 
 </instant-run>

@@ -23,6 +23,8 @@ public class User {
         this.healthcard = healthcard;
     }
 
+    public Integer getId(){return this.id;}
+
     public String getName(){
         return this.first_name + " " + this.last_name;
     }

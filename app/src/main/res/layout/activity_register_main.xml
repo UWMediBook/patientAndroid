@@ -92,9 +92,7 @@
         android:ems="10"
         android:id="@+id/etHCNumber"
         android:hint="Health Card Number"
-        android:layout_alignBaseline="@+id/butNext"
-        android:layout_alignBottom="@+id/butNext"
-        android:layout_alignParentEnd="true"
-        android:layout_marginEnd="153dp" />
+        android:layout_below="@+id/etGender"
+        android:layout_alignParentStart="true" />
 
 </RelativeLayout>

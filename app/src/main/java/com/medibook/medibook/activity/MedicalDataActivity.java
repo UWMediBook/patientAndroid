@@ -8,30 +8,55 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.medibook.medibook.R;
+import com.medibook.medibook.common.API;
 
-public class MedicalDataActivity extends AppCompatActivity {
+public class MedicalDataActivity extends AppCompatActivity implements View.OnClickListener{
+    private EditText etAllergy;
+    private EditText etSeverity;
+    private EditText etFirst_name;
+    private EditText etLast_name;
+    private Button butCreate;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_medical_data);
 
-        final EditText allergy = (EditText) findViewById(R.id.etAllergy);
-        final EditText first_name = (EditText) findViewById(R.id.etFname);
-        final EditText last_name = (EditText) findViewById(R.id.etLname);
+        etAllergy = (EditText) findViewById(R.id.etAllergy);
+        etSeverity = (EditText) findViewById(R.id.etSeverity);
+        etFirst_name = (EditText) findViewById(R.id.etFName);
+        etLast_name = (EditText) findViewById(R.id.etLName);
+        butCreate = (Button) findViewById(R.id.butCreateAccount);
 
-        final Button butCreate = (Button) findViewById(R.id.butCreateAccount);
+        butCreate.setOnClickListener(this);
 
-        butCreate.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                Intent intentMD = getIntent();
-                String email = intentMD.getStringExtra("EMAIL");
-                Intent intent = new Intent(MedicalDataActivity.this, UserAreaActivity.class);
-                intent.putExtra("EMAIL",email);
-                startActivity(intent);
-            }
-        });
     }
+
+    private void addMedicalData(String email){
+        String allergy = etAllergy.getText().toString().trim();
+        String severity = etSeverity.getText().toString().trim();
+        String first_name = etFirst_name.getText().toString().trim();
+        String last_name = etLast_name.getText().toString().trim();
+
+        API handler = new API(this);
+        Integer id = handler.getUserID(email);
+
+        handler.postUserAllergy(allergy,severity,id);
+        handler.postUserPrimaryDoctor(first_name,last_name);
+
+
+    }
+
+    @Override
+    public void onClick(View v) {
+        if (v == butCreate ) {
+            Intent intentMD = getIntent();
+            String email = intentMD.getStringExtra("EMAIL");
+            addMedicalData(email);
+            Intent intent = new Intent(MedicalDataActivity.this, UserAreaActivity.class);
+            intent.putExtra("EMAIL", email);
+            startActivity(intent);
+        }
+    }
+
 }

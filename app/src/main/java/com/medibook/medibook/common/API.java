@@ -43,6 +43,8 @@ public class API {
     private RequestQueue queue;
     private View rootView;
 
+    private int user_id;
+
     public API(Context context){
         // Instantiate the RequestQueue.
         this.queue = Volley.newRequestQueue(context);
@@ -88,7 +90,7 @@ public class API {
     }
 
     public void postUserAllergy(final String allergy_name, final String severity, final Integer user_id){
-        String ALLERGY_URL = "http://52.41.78.184:8000/allergies/";
+        String ALLERGY_URL = "http://52.41.78.184:8000/api/allergies/";
 
         JSONObject params = new JSONObject();
 
@@ -123,7 +125,7 @@ public class API {
     }
 
     public void postUserPrimaryDoctor(final String first_name,final String last_name){
-        String DOCTOR_URL = "http://52.41.78.184:8000/doctors/";
+        String DOCTOR_URL = "http://52.41.78.184:8000/api/doctors/";
 
         JSONObject params = new JSONObject();
 
@@ -242,6 +244,8 @@ public class API {
                             TextView userBirthday = (TextView) rootView.findViewById(R.id.user_birthday);
                             TextView userHealthcard = (TextView) rootView.findViewById(R.id.user_health_card);
 
+                            user_id = user.getId();
+
                             userName.setText("Name: " + user.getName());
                             userGender.setText("Gender: " + user.getGender());
                             userBirthday.setText("Birthday: " + user.getBirthday());
@@ -262,6 +266,7 @@ public class API {
         });
         // Add the request to the RequestQueue.
         this.queue.add(stringRequest);
+        this.queue.start();
     }
 
 
@@ -293,9 +298,14 @@ public class API {
         this.queue.add(stringRequest);
     }
 
-    public Integer getUserID(String email){
+    public int getUserId(String email){
+        getUser(email);
+        return user_id;
+    }
+    /*
+    public void getUserID(String email){
         String url = "http://52.41.78.184:8000/api/users/?email=" + email;
-        final int[] user_id = new int[1];
+
         // Request a string response from the provided URL.
         StringRequest stringRequest= new StringRequest(Request.Method.GET, url,
                 new Response.Listener<String>() {
@@ -316,7 +326,8 @@ public class API {
                                     jsonUser.getString("password"),
                                     jsonUser.getString("healthcard")
                             );
-                            user_id[0] = user.getId();
+                            user_id = user.getId();
+                            System.out.println("OLD USER ID"+ user_id);
                         } catch(JSONException j){
                             Log.e("JSON Conversion", "Failed to convert JSON to User");
                             j.printStackTrace();
@@ -331,10 +342,8 @@ public class API {
 
         // Add the request to the RequestQueue.
         this.queue.add(stringRequest);
-
-        return user_id[0];
     }
-
+*/
     public void getDoctor(Integer doctor_id) {
         String url = "http://52.41.78.184:8000/api/primarydoctor/" + doctor_id;
 

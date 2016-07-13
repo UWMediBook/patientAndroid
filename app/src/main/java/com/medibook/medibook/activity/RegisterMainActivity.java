@@ -85,7 +85,7 @@ public class RegisterMainActivity extends AppCompatActivity implements View.OnCl
         String HealthCard = etHCNum.getText().toString().trim();
 
         API handler = new API(this);
-    //    handler.postUser(first_name,last_name,address,gender,birthday,email,password,HealthCard);
+        handler.postUser(first_name,last_name,address,gender,birthday,email,password,HealthCard);
     }
 
     public void onClick(View v) {

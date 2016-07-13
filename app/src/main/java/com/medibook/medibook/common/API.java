@@ -38,11 +38,13 @@ import java.util.Map;
 
 /**
  * Created by Kevin on 6/19/2016.
+ *
+ * Modified by Jason on 7/13/2016
+ * Modified by Jesper on 7/13/2016
  */
 public class API {
     private RequestQueue queue;
     private View rootView;
-
     private int user_id;
 
     public API(Context context){
@@ -51,7 +53,7 @@ public class API {
         this.rootView = ((Activity)context).getWindow().getDecorView().findViewById(android.R.id.content);
     }
 
-    public void postEmergencyContact(final String first_name,final String last_name, final String phone_number, final String relationship, final String user_id){
+    public void postEmergencyContact(final String first_name,final String last_name, final String phone_number, final String relationship, final int user_id){
         String EMERGENCY_CONTACT_URL = "http://52.41.78.184:8000/api/emergencycontactviewset/";
 
         JSONObject params = new JSONObject();
@@ -89,7 +91,8 @@ public class API {
         this.queue.add(jor);
     }
 
-    public void postUserAllergy(final String allergy_name, final String severity, final Integer user_id){
+    // Post the Allergy information about the user to the allergy databsae
+    public void postUserAllergy(final String allergy_name, final String severity, final int user_id){
         String ALLERGY_URL = "http://52.41.78.184:8000/api/allergies/";
 
         JSONObject params = new JSONObject();
@@ -97,7 +100,7 @@ public class API {
         try {
             params.put("first_name", allergy_name);
             params.put("severity", severity);
-            params.put("user_id", user_id);
+            params.put("user", user_id);
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -124,6 +127,7 @@ public class API {
         this.queue.add(jor);
     }
 
+    // Posts the information entered by the user about their primary doctor to the doctor database
     public void postUserPrimaryDoctor(final String first_name,final String last_name){
         String DOCTOR_URL = "http://52.41.78.184:8000/api/doctors/";
 
@@ -159,6 +163,7 @@ public class API {
         this.queue.add(jor);
     }
 
+    // Posts the users personal information entered by the user to the user database.
     public void postUser(final String fname, final String lname, final String address, final String gender, final String birthday, final String email, final String password, final String healthcard){
         String REGISTER_URL = "http://52.41.78.184:8000/api/users/";
 
@@ -214,6 +219,7 @@ public class API {
         this.queue.add(jor);
     }
 
+    // Gets the users information from the users database
     public void getUser(String email_string) {
         String url = "http://52.41.78.184:8000/api/users/?email=" + email_string;
 
@@ -269,8 +275,6 @@ public class API {
         this.queue.start();
     }
 
-
-
     public void getAllergiesByUser(Integer user_id) {
         String url = "http://52.41.78.184:8000/api/allergies/?user_id=" + user_id;
 
@@ -298,52 +302,13 @@ public class API {
         this.queue.add(stringRequest);
     }
 
+    // Attempt to get the users Id from the getUser function to use throughout rest of app
+    //   does not work as intended
     public int getUserId(String email){
         getUser(email);
         return user_id;
     }
-    /*
-    public void getUserID(String email){
-        String url = "http://52.41.78.184:8000/api/users/?email=" + email;
 
-        // Request a string response from the provided URL.
-        StringRequest stringRequest= new StringRequest(Request.Method.GET, url,
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        try{
-                            JSONArray jsonArray = new JSONArray(response);
-                            JSONObject jsonUserID = jsonArray.getJSONObject(0);
-                            JSONObject jsonUser = jsonArray.getJSONObject(0).getJSONObject("fields");
-                            User user = new User(
-                                    jsonUser.getString("first_name"),
-                                    jsonUser.getString("last_name"),
-                                    jsonUserID.getInt("pk"),
-                                    jsonUser.getString("gender"),
-                                    jsonUser.getString("address"),
-                                    jsonUser.getString("birthday"),
-                                    jsonUser.getString("email"),
-                                    jsonUser.getString("password"),
-                                    jsonUser.getString("healthcard")
-                            );
-                            user_id = user.getId();
-                            System.out.println("OLD USER ID"+ user_id);
-                        } catch(JSONException j){
-                            Log.e("JSON Conversion", "Failed to convert JSON to User");
-                            j.printStackTrace();
-                        }
-                    }
-                }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Log.e("Get User API", "That didn't work!");
-            }
-        });
-
-        // Add the request to the RequestQueue.
-        this.queue.add(stringRequest);
-    }
-*/
     public void getDoctor(Integer doctor_id) {
         String url = "http://52.41.78.184:8000/api/primarydoctor/" + doctor_id;
 

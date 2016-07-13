@@ -8,31 +8,48 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.medibook.medibook.R;
+import com.medibook.medibook.common.API;
 
-public class EmergencyContactActivity extends AppCompatActivity {
+public class EmergencyContactActivity extends AppCompatActivity implements View.OnClickListener{
 
+    private EditText etFirstName;
+    private EditText etLastName;
+    private EditText etRelationship;
+    private EditText etPhoneNumber;
+    private Button buttonNext;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_emergency_contact);
 
+        etFirstName = (EditText) findViewById(R.id.etFname);
+        etLastName = (EditText) findViewById(R.id.etLname);
+        etRelationship = (EditText) findViewById(R.id.etRelationship);
+        etPhoneNumber = (EditText) findViewById(R.id.etPhoneNumber);
+        buttonNext = (Button) findViewById(R.id.butNext);
 
-        final EditText etFname = (EditText) findViewById(R.id.etFname);
-        final EditText etLname = (EditText) findViewById(R.id.etLname);
-        final EditText etRelationship = (EditText) findViewById(R.id.etRelationship);
-        final EditText etPhoneNumber = (EditText) findViewById(R.id.etPhoneNumber);
+        buttonNext.setOnClickListener(this);
 
-        final Button butNext = (Button) findViewById(R.id.butNext);
+    }
 
-        butNext.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intentEC = getIntent();
-                String email = intentEC.getStringExtra("EMAIL");
-                Intent intent = new Intent(EmergencyContactActivity.this, MedicalDataActivity.class);
-                intent.putExtra("EMAIL",email);
-                startActivity(intent);
-            }
-        });
+    public void addEmergencyContact(String email){
+        String first_name = etFirstName.getText().toString().trim();
+        String last_name = etLastName.getText().toString().trim();
+        String relationship = etRelationship.getText().toString().trim();
+        String phonenumber = etPhoneNumber.getText().toString().trim();
+
+        API handler = new API(this);
+        handler.postEmergencyContact(first_name,last_name,phonenumber,relationship,1);
+    }
+
+    public void onClick(View v) {
+        if (v == buttonNext) {
+            Intent intentEC = getIntent();
+            String email = intentEC.getStringExtra("EMAIL");
+            addEmergencyContact(email);
+            Intent intent = new Intent(EmergencyContactActivity.this, MedicalDataActivity.class);
+            intent.putExtra("EMAIL", email);
+            startActivity(intent);
+        }
     }
 }

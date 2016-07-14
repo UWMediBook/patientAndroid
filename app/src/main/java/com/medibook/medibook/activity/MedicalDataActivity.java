@@ -1,6 +1,7 @@
 package com.medibook.medibook.activity;
 
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -56,5 +57,4 @@ public class MedicalDataActivity extends AppCompatActivity implements View.OnCli
             startActivity(intent);
         }
     }
-
 }

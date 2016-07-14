@@ -1,5 +1,6 @@
 package com.medibook.medibook.activity;
 
+import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -9,6 +10,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.DatePicker;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
@@ -36,6 +38,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -53,6 +56,7 @@ public class RegisterMainActivity extends AppCompatActivity implements View.OnCl
 
     private Button butNext;
 
+    private int mYear, mMonth, mDay;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -62,7 +66,7 @@ public class RegisterMainActivity extends AppCompatActivity implements View.OnCl
         etLname = (EditText) findViewById(R.id.etLname);
         etAddress = (EditText) findViewById(R.id.etAddress);
         etGender = (EditText) findViewById(R.id.etGender);
-        etDOB = (EditText) findViewById(R.id.etBirthday);
+        etDOB = (EditText) findViewById(R.id.etDOB);
         etEmail = (EditText) findViewById(R.id.etEmail);
         etPassword = (EditText) findViewById(R.id.etPassword);
         etHCNum = (EditText) findViewById(R.id.etHCNumber);
@@ -70,22 +74,23 @@ public class RegisterMainActivity extends AppCompatActivity implements View.OnCl
         butNext = (Button) findViewById(R.id.butNext);
 
         butNext.setOnClickListener(this);
+        etDOB.setOnClickListener(this);
     }
 
     private void registerUser() {
-
 
         String first_name = etFname.getText().toString().trim();
         String last_name = etLname.getText().toString().trim();
         String address = etAddress.getText().toString().trim();
         String gender = etGender.getText().toString().trim();
-        String birthday = etDOB.getText().toString().trim();
+        final Calendar dob = Calendar.getInstance();
+        dob.set(mYear, mMonth, mDay);
         String email = etEmail.getText().toString().trim();
         String password = etPassword.getText().toString().trim();
         String HealthCard = etHCNum.getText().toString().trim();
 
         API handler = new API(this);
-        handler.postUser(first_name,last_name,address,gender,birthday,email,password,HealthCard);
+        handler.postUser(first_name,last_name,address,gender,dob,email,password,HealthCard);
     }
 
     public void onClick(View v) {
@@ -94,6 +99,20 @@ public class RegisterMainActivity extends AppCompatActivity implements View.OnCl
             Intent intent = new Intent(RegisterMainActivity.this, EmergencyContactActivity.class);
             intent.putExtra("EMAIL", etEmail.getText().toString());
             startActivity(intent);
+        }else if(v == etDOB){
+            final Calendar c = Calendar.getInstance();
+            mYear = c.get(Calendar.YEAR);
+            mMonth = c.get(Calendar.MONTH);
+            mDay = c.get(Calendar.DAY_OF_MONTH);
+
+
+            DatePickerDialog dpd = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
+                @Override
+                public void onDateSet(DatePicker view, int year, int month, int day) {
+                    etDOB.setText(day + "/" + (month + 1) + "/" +year);
+                }
+            }, mYear, mMonth, mDay);
+            dpd.show();
         }
     }
 }

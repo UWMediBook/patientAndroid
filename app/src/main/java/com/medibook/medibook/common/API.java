@@ -2,6 +2,7 @@ package com.medibook.medibook.common;
 
 import android.app.Activity;
 import android.content.Context;
+import android.os.AsyncTask;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
@@ -32,6 +33,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -164,8 +166,11 @@ public class API {
     }
 
     // Posts the users personal information entered by the user to the user database.
-    public void postUser(final String fname, final String lname, final String address, final String gender, final String birthday, final String email, final String password, final String healthcard){
+    public void postUser(final String fname, final String lname, final String address, final String gender, final Calendar birthday, final String email, final String password, final String healthcard){
         String REGISTER_URL = "http://52.41.78.184:8000/api/users/";
+
+        //String dob = String.valueOf(birthday.get(Calendar.YEAR)) + "-" + String.valueOf(birthday.get(Calendar.MONTH) + "-" + String.valueOf(birthday.get(Calendar.DAY_OF_MONTH)));
+
 
         JSONObject params = new JSONObject();
 
@@ -306,6 +311,9 @@ public class API {
     //   does not work as intended
     public int getUserId(String email){
         getUser(email);
+        getUID guid = new getUID();
+        guid.execute((Void)null);
+        System.out.println("User Id is currently: " + user_id);
         return user_id;
     }
 
@@ -361,6 +369,27 @@ public class API {
         });
         // Add the request to the RequestQueue.
         this.queue.add(stringRequest);
+    }
+
+    public class getUID extends AsyncTask<Void,Void,Boolean> {
+
+        @Override
+        protected Boolean doInBackground(Void... params) {
+
+            try{
+                Thread.sleep(2000);
+            }catch(InterruptedException e){
+                return false;
+            }
+            return true;
+        }
+
+        @Override
+        protected void onPostExecute(Boolean success) {
+            if (success){
+                System.out.println("asynctask worked");
+            }
+        }
     }
 
 }

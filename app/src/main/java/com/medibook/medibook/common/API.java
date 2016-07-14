@@ -98,9 +98,9 @@ public class API {
         JSONObject params = new JSONObject();
 
         try {
-            params.put("first_name", allergy_name);
-            params.put("severity", severity);
             params.put("user", user_id);
+            params.put("name", allergy_name);
+            params.put("severity", severity);
         } catch (JSONException e) {
             e.printStackTrace();
         }

@@ -36,6 +36,10 @@
             android:value="@integer/google_play_services_version" />
 
         <activity android:name="com.medibook.medibook.activity.ViewProfileActivity" />
+        <activity android:name="com.medibook.medibook.activity.ViewPrescriptionsActivity" />
+        <activity android:name="com.medibook.medibook.activity.ViewPastVisitsActivity" />
+        <activity android:name="com.medibook.medibook.activity.ViewPastOperationsActivity" />
+        <activity android:name="com.medibook.medibook.activity.ViewAllergiesActivity" />
     </application>
 
 </manifest>

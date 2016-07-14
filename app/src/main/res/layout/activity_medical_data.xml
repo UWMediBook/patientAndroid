@@ -15,8 +15,9 @@
         android:text="I Agree to the Terms of Service"
         android:id="@+id/cbTerms"
         android:checked="false"
-        android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_below="@+id/etFName"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="59dp" />
 
     <Button
         android:layout_width="wrap_content"
@@ -44,7 +45,7 @@
         android:layout_below="@+id/tvAllergies"
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true"
-        android:text="Name of Allergy" />
+        android:hint="Name of Allergy" />
 
     <EditText
         android:layout_width="wrap_content"
@@ -53,7 +54,7 @@
         android:layout_below="@+id/etAllergy"
         android:layout_alignParentStart="true"
         android:layout_alignEnd="@+id/etAllergy"
-        android:text="Severity" />
+        android:hint="Severity" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -73,15 +74,15 @@
         android:layout_below="@+id/tvDoctor"
         android:layout_alignParentStart="true"
         android:layout_alignEnd="@+id/tvDoctor"
-        android:text="First Name" />
+        android:hint="First Name" />
 
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/etLName"
-        android:layout_below="@+id/etFName"
+        android:layout_centerVertical="true"
         android:layout_alignParentStart="true"
         android:layout_alignEnd="@+id/etFName"
-        android:text="Last Name" />
+        android:hint="Last Name" />
 
 </RelativeLayout>

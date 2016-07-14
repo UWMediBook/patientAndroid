@@ -39,8 +39,8 @@ public class MedicalDataActivity extends AppCompatActivity implements View.OnCli
         String last_name = etLast_name.getText().toString().trim();
 
         API handler = new API(this);
-        //int id = handler.getUserId(email);
-
+        int id = handler.getUserId(email);
+        System.out.println("The User id is: "+id);
         handler.postUserAllergy(allergy,severity,1);
         handler.postUserPrimaryDoctor(first_name,last_name);
     }
@@ -51,7 +51,7 @@ public class MedicalDataActivity extends AppCompatActivity implements View.OnCli
             Intent intentMD = getIntent();
             String email = intentMD.getStringExtra("EMAIL");
             addMedicalData(email);
-            Intent intent = new Intent(MedicalDataActivity.this, UserAreaActivity.class);
+            Intent intent = new Intent(MedicalDataActivity.this, ViewProfileActivity.class);
             intent.putExtra("EMAIL", email);
             startActivity(intent);
         }

@@ -1,6 +1,6 @@
 -- Merging decision tree log ---
 manifest
-ADDED from C:\Users\jason\Documents\CS446\patientAndroid\app\src\main\AndroidManifest.xml:2:1-35:12
+ADDED from C:\Users\jason\Documents\CS446\patientAndroid\app\src\main\AndroidManifest.xml:2:1-39:12
 	package
 		ADDED from C:\Users\jason\Documents\CS446\patientAndroid\app\src\main\AndroidManifest.xml:3:5-36
 		INJECTED from C:\Users\jason\Documents\CS446\patientAndroid\app\src\main\AndroidManifest.xml
@@ -18,7 +18,7 @@ ADDED from C:\Users\jason\Documents\CS446\patientAndroid\app\src\main\AndroidMan
 	android:name
 		ADDED from C:\Users\jason\Documents\CS446\patientAndroid\app\src\main\AndroidManifest.xml:5:22-64
 application
-ADDED from C:\Users\jason\Documents\CS446\patientAndroid\app\src\main\AndroidManifest.xml:7:5-33:19
+ADDED from C:\Users\jason\Documents\CS446\patientAndroid\app\src\main\AndroidManifest.xml:7:5-37:19
 MERGED from [com.android.support:appcompat-v7:23.4.0] C:\Users\jason\Documents\CS446\patientAndroid\app\build\intermediates\exploded-aar\com.android.support\appcompat-v7\23.4.0\AndroidManifest.xml:25:5-20
 MERGED from [com.android.support:animated-vector-drawable:23.4.0] C:\Users\jason\Documents\CS446\patientAndroid\app\build\intermediates\exploded-aar\com.android.support\animated-vector-drawable\23.4.0\AndroidManifest.xml:7:5-20
 MERGED from [com.android.support:support-vector-drawable:23.4.0] C:\Users\jason\Documents\CS446\patientAndroid\app\build\intermediates\exploded-aar\com.android.support\support-vector-drawable\23.4.0\AndroidManifest.xml:7:5-20
@@ -89,9 +89,25 @@ MERGED from [com.google.android.gms:play-services-basement:8.1.0] C:\Users\jason
 	android:name
 		ADDED from C:\Users\jason\Documents\CS446\patientAndroid\app\src\main\AndroidManifest.xml:29:13-58
 activity#com.medibook.medibook.activity.ViewProfileActivity
-ADDED from C:\Users\jason\Documents\CS446\patientAndroid\app\src\main\AndroidManifest.xml:32:9-75
+ADDED from C:\Users\jason\Documents\CS446\patientAndroid\app\src\main\AndroidManifest.xml:32:9-66
 	android:name
 		ADDED from C:\Users\jason\Documents\CS446\patientAndroid\app\src\main\AndroidManifest.xml:32:19-63
+activity#com.medibook.medibook.activity.ViewPrescriptionsActivity
+ADDED from C:\Users\jason\Documents\CS446\patientAndroid\app\src\main\AndroidManifest.xml:33:9-72
+	android:name
+		ADDED from C:\Users\jason\Documents\CS446\patientAndroid\app\src\main\AndroidManifest.xml:33:19-69
+activity#com.medibook.medibook.activity.ViewPastVisitsActivity
+ADDED from C:\Users\jason\Documents\CS446\patientAndroid\app\src\main\AndroidManifest.xml:34:9-69
+	android:name
+		ADDED from C:\Users\jason\Documents\CS446\patientAndroid\app\src\main\AndroidManifest.xml:34:19-66
+activity#com.medibook.medibook.activity.ViewPastOperationsActivity
+ADDED from C:\Users\jason\Documents\CS446\patientAndroid\app\src\main\AndroidManifest.xml:35:9-73
+	android:name
+		ADDED from C:\Users\jason\Documents\CS446\patientAndroid\app\src\main\AndroidManifest.xml:35:19-70
+activity#com.medibook.medibook.activity.ViewAllergiesActivity
+ADDED from C:\Users\jason\Documents\CS446\patientAndroid\app\src\main\AndroidManifest.xml:36:9-77
+	android:name
+		ADDED from C:\Users\jason\Documents\CS446\patientAndroid\app\src\main\AndroidManifest.xml:36:19-65
 uses-sdk
 INJECTED from C:\Users\jason\Documents\CS446\patientAndroid\app\src\main\AndroidManifest.xml reason: use-sdk injection requested
 MERGED from [com.android.support:appcompat-v7:23.4.0] C:\Users\jason\Documents\CS446\patientAndroid\app\build\intermediates\exploded-aar\com.android.support\appcompat-v7\23.4.0\AndroidManifest.xml:21:5-23:78

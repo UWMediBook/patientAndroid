@@ -29,7 +29,11 @@
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
 
-        <activity android:name=".activity.ViewProfileActivity"></activity>
+        <activity android:name=".activity.ViewProfileActivity" />
+        <activity android:name=".activity.ViewPrescriptionsActivity" />
+        <activity android:name=".activity.ViewPastVisitsActivity" />
+        <activity android:name=".activity.ViewPastOperationsActivity" />
+        <activity android:name=".activity.ViewAllergiesActivity"></activity>
     </application>
 
 </manifest>

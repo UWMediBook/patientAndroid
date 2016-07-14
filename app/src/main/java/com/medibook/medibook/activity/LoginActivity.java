@@ -414,7 +414,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     }
 
     private void changeActivity(){
-        Intent intent = new Intent(this, UserAreaActivity.class);
+        Intent intent = new Intent(this, ViewProfileActivity.class);
         intent.putExtra("EMAIL",mEmailView.getText().toString());
         startActivity(intent);
     }

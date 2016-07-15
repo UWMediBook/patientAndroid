@@ -33,7 +33,11 @@ public class User {
         switch(this.gender){
             case "M":
                 return "Male";
+            case "m":
+                return "Male";
             case "F":
+                return "Female";
+            case "f":
                 return "Female";
             default:
                 return "Unknown";

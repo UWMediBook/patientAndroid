@@ -11,12 +11,12 @@ import com.medibook.medibook.R;
 import com.medibook.medibook.common.API;
 
 public class EmergencyContactActivity extends AppCompatActivity implements View.OnClickListener{
-
     private EditText etFirstName;
     private EditText etLastName;
     private EditText etRelationship;
     private EditText etPhoneNumber;
     private Button buttonNext;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,7 +29,6 @@ public class EmergencyContactActivity extends AppCompatActivity implements View.
         buttonNext = (Button) findViewById(R.id.butNext);
 
         buttonNext.setOnClickListener(this);
-
     }
 
     public void addEmergencyContact(String email){

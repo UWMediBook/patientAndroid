@@ -30,7 +30,6 @@ public class MedicalDataActivity extends AppCompatActivity implements View.OnCli
         butCreate = (Button) findViewById(R.id.butCreateAccount);
 
         butCreate.setOnClickListener(this);
-
     }
 
     private void addMedicalData(String email) {
@@ -38,14 +37,12 @@ public class MedicalDataActivity extends AppCompatActivity implements View.OnCli
         String severity = etSeverity.getText().toString().trim();
         String first_name = etFirst_name.getText().toString().trim();
         String last_name = etLast_name.getText().toString().trim();
-        int id = 0;
 
         API handler = new API(this);
         handler.postUserPrimaryDoctor(first_name, last_name);
         handler.userAllergyData(email,allergy, severity);
     }
 
-    @Override
     public void onClick(View v) {
         if (v == butCreate) {
             Intent intentMD = getIntent();
@@ -54,7 +51,6 @@ public class MedicalDataActivity extends AppCompatActivity implements View.OnCli
             Intent intent = new Intent(MedicalDataActivity.this, ViewProfileActivity.class);
             intent.putExtra("EMAIL", email);
             startActivity(intent);
-
         }
     }
 }

@@ -94,14 +94,14 @@ public class API {
 
     // Post the Allergy information about the user to the allergy databsae
     public void postUserAllergy(final String allergy_name, final String severity, final int user_id){
-        String ALLERGY_URL = "http://52.41.78.184:8000/api/allergies/";
+        String ALLERGY_URL = "http://52.41.78.184:8000/api/allergyviewset/";
 
         JSONObject params = new JSONObject();
 
         try {
-            params.put("user", user_id);
             params.put("name", allergy_name);
             params.put("severity", severity);
+            params.put("user", user_id);
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -126,6 +126,33 @@ public class API {
             }
         };
         this.queue.add(jor);
+    }
+
+    public void getAllergiesByUser(Integer user_id) {
+        String url = "http://52.41.78.184:8000/api/allergies/?user_id=" + user_id;
+
+        // Request a string response from the provided URL.
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        try{
+                            //TODO: complete the assignment
+                            JSONArray jsonAllergies = new JSONArray(response);
+                            Allergy allergy = new Allergy(1, "", 1);
+
+                        } catch(JSONException j){
+                            Log.e("JSON Conversion", "Failed to convert allergy to JSON");
+                        }
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.e("Get Allergy API", "That didn't work!");
+            }
+        });
+        // Add the request to the RequestQueue.
+        this.queue.add(stringRequest);
     }
 
     // Posts the information entered by the user about their primary doctor to the doctor database
@@ -223,6 +250,11 @@ public class API {
         this.queue.add(jor);
     }
 
+    // Updates the user table
+    public void updateUser(int user_id){
+        
+    }
+
     // Gets the users information from the users database
     public void getUser(String email_string) {
         String url = "http://52.41.78.184:8000/api/users/?email=" + email_string;
@@ -274,7 +306,6 @@ public class API {
         });
         // Add the request to the RequestQueue.
         this.queue.add(stringRequest);
-        this.queue.start();
     }
 
     public void getUserId(String email_string, final DataCallback callback) {
@@ -298,33 +329,6 @@ public class API {
             @Override
             public void onErrorResponse(VolleyError error) {
                 Log.e("Get User API", "That didn't work!");
-            }
-        });
-        // Add the request to the RequestQueue.
-        this.queue.add(stringRequest);
-    }
-
-    public void getAllergiesByUser(Integer user_id) {
-        String url = "http://52.41.78.184:8000/api/allergies/?user_id=" + user_id;
-
-        // Request a string response from the provided URL.
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        try{
-                            //TODO: complete the assignment
-                            JSONArray jsonAllergies = new JSONArray(response);
-                            Allergy allergy = new Allergy(1, "", 1);
-
-                        } catch(JSONException j){
-                            Log.e("JSON Conversion", "Failed to convert allergy to JSON");
-                        }
-                    }
-                }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Log.e("Get Allergy API", "That didn't work!");
             }
         });
         // Add the request to the RequestQueue.

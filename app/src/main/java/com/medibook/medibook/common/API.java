@@ -47,7 +47,6 @@ import java.util.Map;
 public class API {
     private RequestQueue queue;
     private View rootView;
-    private int user_id;
 
     public API(Context context){
         // Instantiate the RequestQueue.
@@ -254,9 +253,7 @@ public class API {
                             TextView userAddress = (TextView) rootView.findViewById(R.id.user_address);
                             TextView userBirthday = (TextView) rootView.findViewById(R.id.user_birthday);
                             TextView userHealthcard = (TextView) rootView.findViewById(R.id.user_health_card);
-
-                            user_id = user.getId();
-
+                            
                             userName.setText("Name: " + user.getName());
                             userGender.setText("Gender: " + user.getGender());
                             userBirthday.setText("Birthday: " + user.getBirthday());
@@ -278,6 +275,33 @@ public class API {
         // Add the request to the RequestQueue.
         this.queue.add(stringRequest);
         this.queue.start();
+    }
+
+    public void getUserId(String email_string, final DataCallback callback) {
+        String url = "http://52.41.78.184:8000/api/users/?email=" + email_string;
+
+        // Request a string response from the provided URL.
+        StringRequest stringRequest= new StringRequest(Request.Method.GET, url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        try{
+                            JSONArray jsonArray = new JSONArray(response);
+                            JSONObject jsonUserID = jsonArray.getJSONObject(0);
+                            callback.onSuccess(jsonUserID);
+                        } catch(JSONException j){
+                            Log.e("JSON Conversion", "Failed to convert JSON to User");
+                            j.printStackTrace();
+                        }
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.e("Get User API", "That didn't work!");
+            }
+        });
+        // Add the request to the RequestQueue.
+        this.queue.add(stringRequest);
     }
 
     public void getAllergiesByUser(Integer user_id) {
@@ -305,16 +329,6 @@ public class API {
         });
         // Add the request to the RequestQueue.
         this.queue.add(stringRequest);
-    }
-
-    // Attempt to get the users Id from the getUser function to use throughout rest of app
-    //   does not work as intended
-    public int getUserId(String email){
-        getUser(email);
-        getUID guid = new getUID();
-        guid.execute((Void)null);
-        System.out.println("User Id is currently: " + user_id);
-        return user_id;
     }
 
     public void getDoctor(Integer doctor_id) {
@@ -371,25 +385,45 @@ public class API {
         this.queue.add(stringRequest);
     }
 
-    public class getUID extends AsyncTask<Void,Void,Boolean> {
-
-        @Override
-        protected Boolean doInBackground(Void... params) {
-
-            try{
-                Thread.sleep(2000);
-            }catch(InterruptedException e){
-                return false;
+    // waits to get the User id of the user then calls the post allergy method if successful
+    public void userAllergyData(String email,String allergy,String severity){
+        final String userAllergy = allergy;
+        final String userSeverity = severity;
+        getUserId(email, new DataCallback() {
+            @Override
+            public void onSuccess(JSONObject result) {
+                try{
+                    int uid = result.getInt("pk");
+                    postUserAllergy(userAllergy,userSeverity,uid);
+                }catch (JSONException e){
+                    e.printStackTrace();
+                }
             }
-            return true;
-        }
+        });
+    }
 
-        @Override
-        protected void onPostExecute(Boolean success) {
-            if (success){
-                System.out.println("asynctask worked");
+    // waits to get the User if of the user then calls the post emergency contact method if successful
+    public void userEmergContData(String email, String fname, String lname, String phone, String relationship){
+        final String userFirstName = fname;
+        final String userLastName = lname;
+        final String userPhoneNum = phone;
+        final String userRelationship = relationship;
+
+        getUserId(email, new DataCallback(){
+            @Override
+            public void onSuccess(JSONObject result) {
+                try {
+                    int uid = result.getInt("pk");
+                    postEmergencyContact(userFirstName,userLastName,userPhoneNum,userRelationship,uid);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
             }
-        }
+        });
+    }
+
+    public interface DataCallback{
+        void onSuccess (JSONObject result);
     }
 
 }

@@ -100,7 +100,7 @@ public class RegisterMainActivity extends AppCompatActivity implements View.OnCl
             intent.putExtra("EMAIL", etEmail.getText().toString());
             startActivity(intent);
         }else if(v == etDOB){
-            final Calendar c = Calendar.getInstance();
+            Calendar c = Calendar.getInstance();
             mYear = c.get(Calendar.YEAR);
             mMonth = c.get(Calendar.MONTH);
             mDay = c.get(Calendar.DAY_OF_MONTH);

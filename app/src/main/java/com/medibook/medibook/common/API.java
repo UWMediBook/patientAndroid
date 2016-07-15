@@ -169,7 +169,7 @@ public class API {
     public void postUser(final String fname, final String lname, final String address, final String gender, final Calendar birthday, final String email, final String password, final String healthcard){
         String REGISTER_URL = "http://52.41.78.184:8000/api/users/";
 
-        //String dob = String.valueOf(birthday.get(Calendar.YEAR)) + "-" + String.valueOf(birthday.get(Calendar.MONTH) + "-" + String.valueOf(birthday.get(Calendar.DAY_OF_MONTH)));
+        String dob = String.valueOf(birthday.get(Calendar.YEAR)) + "/" + String.valueOf(birthday.get(Calendar.MONTH) + "/" + String.valueOf(birthday.get(Calendar.DAY_OF_MONTH)));
 
 
         JSONObject params = new JSONObject();
@@ -179,7 +179,7 @@ public class API {
             params.put("last_name", lname);
             params.put("address", address);
             params.put("gender", gender);
-            params.put("birthday", birthday);
+            params.put("birthday", dob);
             params.put("email", email);
             params.put("password", password);
             params.put("healthcard", healthcard);

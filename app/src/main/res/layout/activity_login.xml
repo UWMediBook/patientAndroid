@@ -68,6 +68,7 @@
                     android:inputType="textEmailAddress"
                     android:maxLines="1"
                     android:singleLine="true"
+                    android:imeOptions="actionNext"
                     android:textColor="#FFFFFF"
                     android:textColorHint="#FFFFFF"/>
 
@@ -87,7 +88,9 @@
                     android:imeOptions="actionUnspecified"
                     android:inputType="textPassword"
                     android:maxLines="1"
-                    android:singleLine="true" />
+                    android:singleLine="true"
+                    android:textColor="#FFFFFF"
+                    android:textColorHint="#FFFFFF"/>
 
             </android.support.design.widget.TextInputLayout>
 

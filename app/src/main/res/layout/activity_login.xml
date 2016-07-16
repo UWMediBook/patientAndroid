@@ -8,9 +8,23 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context=".medibook.LoginActivity">
+    tools:context=".medibook.LoginActivity"
+    android:weightSum="1"
+    android:background="@drawable/bg_darkened1">
 
     <!-- Login progress -->
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="317dp"
+        android:id="@+id/Logo">
+
+        <ImageView
+            android:layout_width="433dp"
+            android:layout_height="362dp"
+            android:id="@+id/imageView"
+            android:layout_gravity="center"
+            android:src="@drawable/icon"/>
+    </FrameLayout>
     <ProgressBar
         android:id="@+id/login_progress"
         style="?android:attr/progressBarStyleLarge"

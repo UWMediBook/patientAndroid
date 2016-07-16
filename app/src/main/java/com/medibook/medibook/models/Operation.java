@@ -5,6 +5,7 @@ import org.json.JSONObject;
 
 /**
  * Created by Kevin on 6/19/2016.
+ * Updated by Jason on 7/15/2016
  */
 public class Operation {
 
@@ -15,6 +16,10 @@ public class Operation {
         this.operation_id = operation_id;
         this.user_id = user_id;
         this.operation = operation;
+    }
+
+    public String getOperation(){
+        return this.operation;
     }
 
     public String toJson(){

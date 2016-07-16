@@ -25,13 +25,17 @@ import com.android.volley.toolbox.Volley;
 import com.medibook.medibook.R;
 import com.medibook.medibook.activity.RegisterMainActivity;
 import com.medibook.medibook.models.Allergy;
+import com.medibook.medibook.models.Contact;
 import com.medibook.medibook.models.Doctor;
+import com.medibook.medibook.models.Operation;
 import com.medibook.medibook.models.Prescription;
 import com.medibook.medibook.models.User;
+import com.medibook.medibook.models.Visit;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.w3c.dom.Text;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -54,6 +58,55 @@ public class API {
         this.rootView = ((Activity)context).getWindow().getDecorView().findViewById(android.R.id.content);
     }
 
+    // Gets the user emergency contact information
+    public void getEmergencyContact(int user_id){
+        String url = "http://52.41.78.184:8000/api/emergencycontacts/?user=" + user_id;
+
+        // Request a string response from the provided URL.
+        StringRequest stringRequest= new StringRequest(Request.Method.GET, url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        try{
+                            JSONArray jsonArray = new JSONArray(response);
+                            JSONObject jsonContact = jsonArray.getJSONObject(0).getJSONObject("fields");
+                            Contact contact = new Contact(
+                                    jsonContact.getInt("id"),
+                                    jsonContact.getInt("user"),
+                                    jsonContact.getString("first_name"),
+                                    jsonContact.getString("last_name"),
+                                    jsonContact.getString("phone_number"),
+                                    jsonContact.getString("relationship")
+                            );
+                            TextView contactName = (TextView) rootView.findViewById(R.id.user_name);
+                            TextView contactPhoneNumber = (TextView) rootView.findViewById(R.id.user_gender);
+                            TextView contactRelationship = (TextView) rootView.findViewById(R.id.user_email);
+
+                            contactName.setText("Name: " + contact.getName());
+                            contactPhoneNumber.setText("Phone Number: " + contact.getPhone_number());
+                            contactRelationship.setText("Relationship: " + contact.getRelationship());
+
+                        } catch(JSONException j){
+                            Log.e("JSON Conversion", "Failed to convert JSON to User");
+                            j.printStackTrace();
+                        }
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.e("Emergency Contact API", "That didn't work!");
+            }
+        });
+        // Add the request to the RequestQueue.
+        this.queue.add(stringRequest);
+    }
+
+    // Updates the users Emergency contact information
+    public void updateEmergencyContact(){
+
+    }
+
+    // Post Emergency Contact information about the user to the emergency contact database
     public void postEmergencyContact(final String first_name,final String last_name, final String phone_number, final String relationship, final int user_id){
         String EMERGENCY_CONTACT_URL = "http://52.41.78.184:8000/api/emergencycontactviewset/";
 
@@ -128,27 +181,40 @@ public class API {
         this.queue.add(jor);
     }
 
-    public void getAllergiesByUser(Integer user_id) {
+    // Gets the list of the users allergies along with the severity of the allergy
+    public void getAllergy(int user_id) {
         String url = "http://52.41.78.184:8000/api/allergies/?user_id=" + user_id;
 
         // Request a string response from the provided URL.
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
+        StringRequest stringRequest= new StringRequest(Request.Method.GET, url,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
                         try{
-                            //TODO: complete the assignment
-                            JSONArray jsonAllergies = new JSONArray(response);
-                            Allergy allergy = new Allergy(1, "", 1);
+                            JSONArray jsonArray = new JSONArray(response);
+                            JSONObject jsonAllergy = jsonArray.getJSONObject(0).getJSONObject("fields");
+                           Allergy allergy = new Allergy(
+                                   jsonAllergy.getInt("id"),
+                                   jsonAllergy.getString("allergy"),
+                                   jsonAllergy.getString("severity"),
+                                   jsonAllergy.getInt("allergy_id")
+                            );
+
+                            TextView allergyName = (TextView) rootView.findViewById(R.id.user_name);
+                            TextView allergySeverity = (TextView) rootView.findViewById(R.id.user_gender);
+
+                            allergyName.setText("Name: " + allergy.getAllergyName());
+                            allergySeverity.setText("Severity: " + allergy.getSeverity());
 
                         } catch(JSONException j){
-                            Log.e("JSON Conversion", "Failed to convert allergy to JSON");
+                            Log.e("JSON Conversion", "Failed to convert JSON to User");
+                            j.printStackTrace();
                         }
                     }
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Log.e("Get Allergy API", "That didn't work!");
+                Log.e("GET allergy API", "That didn't work!");
             }
         });
         // Add the request to the RequestQueue.
@@ -252,7 +318,7 @@ public class API {
 
     // Updates the user table
     public void updateUser(int user_id){
-        
+
     }
 
     // Gets the users information from the users database
@@ -308,6 +374,160 @@ public class API {
         this.queue.add(stringRequest);
     }
 
+    // Gets the users primary doctor information
+    public void getPrimaryDoctor(int doctor_id) {
+        String url = "http://52.41.78.184:8000/api/primarydoctor/" + doctor_id;
+
+        // Request a string response from the provided URL.
+        StringRequest stringRequest= new StringRequest(Request.Method.GET, url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        try{
+                            JSONArray jsonArray = new JSONArray(response);
+                            JSONObject jsonPrimaryDoctor = jsonArray.getJSONObject(0).getJSONObject("fields");
+                            Doctor doctor = new Doctor(
+                                    jsonPrimaryDoctor.getInt("id"),
+                                    jsonPrimaryDoctor.getString("first_name"),
+                                    jsonPrimaryDoctor.getString("last_name")
+                            );
+
+                            TextView doctorName = (TextView) rootView.findViewById(R.id.user_name);
+
+                            doctorName.setText("Name: " + doctor.getName());
+
+                        } catch(JSONException j){
+                            Log.e("JSON Conversion", "Failed to convert JSON to User");
+                            j.printStackTrace();
+                        }
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.e("GET Doctor API", "That didn't work!");
+            }
+        });
+        // Add the request to the RequestQueue.
+        this.queue.add(stringRequest);
+    }
+
+    // Updates the Users Primary doctor information
+    public void updateDoctor(){
+
+    }
+
+    // Gets the users prescriptions
+    public void getPrescriptions(int user_id) {
+        String url = "http://52.41.78.184:8000/api/prescriptions/?user_id=" + user_id;
+
+        // Request a string response from the provided URL.
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        try{
+                            JSONArray jsonArray = new JSONArray(response);
+                            JSONObject jsonPrescription = jsonArray.getJSONObject(0).getJSONObject("fields");
+                            Prescription prescription = new Prescription(
+                                    jsonPrescription.getInt("id"),
+                                    jsonPrescription.getInt("user"),
+                                    jsonPrescription.getString("name"),
+                                    jsonPrescription.getString("dosage")
+                            );
+
+                            TextView prescriptionName = (TextView) rootView.findViewById(R.id.user_name);
+                            TextView prescriptionDosage = (TextView) rootView.findViewById(R.id.user_email);
+
+                            prescriptionName.setText("Name of prescription: " + prescription.getName());
+                            prescriptionDosage.setText("Dosage: " + prescription.getPrescription());
+
+                        } catch(JSONException j){
+                            Log.e("JSON Conversion", "Failed to convert allergy to JSON");
+                        }
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.e("Get Prescription API", "That didn't work!");
+            }
+        });
+        // Add the request to the RequestQueue.
+        this.queue.add(stringRequest);
+    }
+
+    // Get the users past operations
+    public void getPastOperations(int user_id){
+        String url = "http://52.41.78.184:8000/api/operations/?user_id=" + user_id;
+
+        // Request a string response from the provided URL.
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        try{
+                            JSONArray jsonArray = new JSONArray(response);
+                            JSONObject jsonOperation = jsonArray.getJSONObject(0).getJSONObject("fields");
+                            Operation operation = new Operation(
+                                    jsonOperation.getInt("id"),
+                                    jsonOperation.getInt("user"),
+                                    jsonOperation.getString("operation")
+                            );
+
+                            TextView operationName = (TextView) rootView.findViewById(R.id.user_name);
+
+                            operationName.setText("Operation: " + operation.getOperation());
+
+                        } catch(JSONException j){
+                            Log.e("JSON Conversion", "Failed to convert allergy to JSON");
+                        }
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.e("Get Operation API", "That didn't work!");
+            }
+        });
+        // Add the request to the RequestQueue.
+        this.queue.add(stringRequest);
+    }
+
+    // Gets the users past visits to a medical facility
+    public void getPastVisits(int user_id){
+        String url = "http://52.41.78.184:8000/api/visits/?user_id=" + user_id;
+
+        // Request a string response from the provided URL.
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        try{
+                            JSONArray jsonArray = new JSONArray(response);
+                            JSONObject jsonVisit = jsonArray.getJSONObject(0).getJSONObject("fields");
+                            Visit visit = new Visit(
+                                    jsonVisit.getInt("id"),
+                                    jsonVisit.getInt("user"),
+                                    jsonVisit.getString("visit")
+                            );
+
+                            TextView visitInfo = (TextView) rootView.findViewById(R.id.user_name);
+
+                            visitInfo.setText("Visit Information: " + visit.getVisit());
+
+                        } catch(JSONException j){
+                            Log.e("JSON Conversion", "Failed to convert allergy to JSON");
+                        }
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.e("Get Past Visit API", "That didn't work!");
+            }
+        });
+        // Add the request to the RequestQueue.
+        this.queue.add(stringRequest);
+    }
+
+    // Gets the user id
     public void getUserId(String email_string, final DataCallback callback) {
         String url = "http://52.41.78.184:8000/api/users/?email=" + email_string;
 
@@ -335,60 +555,6 @@ public class API {
         this.queue.add(stringRequest);
     }
 
-    public void getDoctor(Integer doctor_id) {
-        String url = "http://52.41.78.184:8000/api/primarydoctor/" + doctor_id;
-
-        // Request a string response from the provided URL.
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        try{
-                            //TODO: complete this
-                            JSONObject jsonDoctor = new JSONObject(response);
-                            Doctor doctor = new Doctor(1, "Kevin", "Yang");
-
-                        } catch(JSONException j){
-                            Log.e("JSON Conversion", "Failed to convert allergy to JSON");
-                        }
-                    }
-                }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Log.e("Get Allergy API", "That didn't work!");
-            }
-        });
-        // Add the request to the RequestQueue.
-        this.queue.add(stringRequest);
-    }
-
-    public void getPrescriptionsByUser(Integer user_id) {
-        String url = "http://52.41.78.184:8000/api/prescriptions/?user_id=" + user_id;
-
-        // Request a string response from the provided URL.
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        try{
-                            //TODO: complete this
-                            JSONArray jsonPrescriptions = new JSONArray(response);
-                            Prescription prescription = new Prescription(1, 1, "");
-
-                        } catch(JSONException j){
-                            Log.e("JSON Conversion", "Failed to convert allergy to JSON");
-                        }
-                    }
-                }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Log.e("Get Allergy API", "That didn't work!");
-            }
-        });
-        // Add the request to the RequestQueue.
-        this.queue.add(stringRequest);
-    }
-
     // waits to get the User id of the user then calls the post allergy method if successful
     public void userAllergyData(String email,String allergy,String severity){
         final String userAllergy = allergy;
@@ -406,7 +572,7 @@ public class API {
         });
     }
 
-    // waits to get the User if of the user then calls the post emergency contact method if successful
+    // waits to get the User id of the user then calls the post emergency contact method if successful
     public void userEmergContData(String email, String fname, String lname, String phone, String relationship){
         final String userFirstName = fname;
         final String userLastName = lname;

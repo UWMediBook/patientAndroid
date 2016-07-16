@@ -28,42 +28,28 @@
         android:layout_alignParentStart="true"
         android:layout_alignEnd="@+id/etHCNumber" />
 
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/etAddress"
-        android:hint="Address"
-        android:layout_centerVertical="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentEnd="true" />
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Next"
-        android:id="@+id/butNext"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="43dp" />
 
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/etGender"
-        android:layout_below="@+id/etAddress"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentEnd="true"
-        android:hint="Gender" />
-
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:inputType="number"
+        android:inputType="textEmailAddress"
         android:ems="10"
-        android:id="@+id/etHCNumber"
-        android:hint="Health Card Number"
-        android:layout_below="@+id/etGender"
-        android:layout_alignParentStart="true" />
+        android:id="@+id/etEmail"
+        android:hint="E-mail"
+        android:layout_below="@+id/etLname"
+        android:layout_alignParentStart="true"
+        android:layout_alignEnd="@+id/etAddress" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPassword"
+        android:ems="10"
+        android:id="@+id/etPassword"
+        android:hint="Password"
+        android:layout_below="@+id/etEmail"
+        android:layout_alignStart="@+id/etEmail"
+        android:layout_alignEnd="@+id/etEmail" />
 
     <EditText
         android:layout_width="wrap_content"
@@ -80,23 +66,69 @@
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:inputType="textPassword"
-        android:ems="10"
-        android:id="@+id/etPassword"
-        android:hint="Password"
-        android:layout_below="@+id/etEmail"
-        android:layout_alignStart="@+id/etEmail"
-        android:layout_alignEnd="@+id/etEmail" />
+        android:id="@+id/etAddress"
+        android:hint="Address"
+        android:layout_centerVertical="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true" />
+
+
 
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:inputType="textEmailAddress"
+        android:inputType="number"
         android:ems="10"
-        android:id="@+id/etEmail"
-        android:hint="E-mail"
-        android:layout_below="@+id/etLname"
-        android:layout_alignParentStart="true"
-        android:layout_alignEnd="@+id/etAddress" />
+        android:id="@+id/etHCNumber"
+        android:hint="Health Card Number"
+        android:layout_below="@+id/etAddress"
+        android:layout_alignParentStart="true" />
+    <RadioGroup
+        android:id="@+id/radioGroup1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_below="@+id/etHCNumber"
+        android:layout_marginLeft="-3dp"
+        android:layout_marginBottom="3dp"
+        android:layout_marginTop="3dp">
+
+        <RadioButton
+            android:id="@+id/radioButton1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Male"
+            android:layout_marginRight="15dp"/>
+
+
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/radioGroup1"
+            android:layout_below="@+id/radioGroup1"
+            android:text="Female"
+            android:layout_marginRight="15dp"/>
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/radioGroup1"
+            android:layout_below="@+id/radioGroup1"
+            android:text="Other" />
+
+
+    </RadioGroup>
+
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Next"
+        android:id="@+id/butNext"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="43dp" />
+
+
+
 
 </RelativeLayout>

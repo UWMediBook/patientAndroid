@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.DatePicker;
 import android.widget.EditText;
 
@@ -25,6 +27,7 @@ public class RegisterMainActivity extends AppCompatActivity implements View.OnCl
     private EditText etPassword;
     private EditText etHCNum;
     private Button butNext;
+    private RadioGroup rbg;
     private int mYear, mMonth, mDay;
     Calendar dob = Calendar.getInstance();
 
@@ -37,12 +40,13 @@ public class RegisterMainActivity extends AppCompatActivity implements View.OnCl
         etFname = (EditText) findViewById(R.id.etFname);
         etLname = (EditText) findViewById(R.id.etLname);
         etAddress = (EditText) findViewById(R.id.etAddress);
-        etGender = (EditText) findViewById(R.id.etGender);
+//        etGender = (EditText) findViewById(R.id.etGender);
         etDOB = (EditText) findViewById(R.id.etDOB);
         etEmail = (EditText) findViewById(R.id.etEmail);
         etPassword = (EditText) findViewById(R.id.etPassword);
         etHCNum = (EditText) findViewById(R.id.etHCNumber);
         butNext = (Button) findViewById(R.id.butNext);
+        rbg=(RadioGroup) findViewById(R.id.radioGroup1);
 
         butNext.setOnClickListener(this);
         etDOB.setOnClickListener(this);
@@ -50,10 +54,12 @@ public class RegisterMainActivity extends AppCompatActivity implements View.OnCl
 
     private void registerUser() {
 
+        int selected=rbg.getCheckedRadioButtonId();
+        RadioButton genderBtn=(RadioButton) findViewById(selected);
         String first_name = etFname.getText().toString().trim();
         String last_name = etLname.getText().toString().trim();
         String address = etAddress.getText().toString().trim();
-        String gender = etGender.getText().toString().trim();
+        String gender = genderBtn.getText().toString().trim();
         dob.set(mYear, mMonth, mDay);
         String email = etEmail.getText().toString().trim();
         String password = etPassword.getText().toString().trim();

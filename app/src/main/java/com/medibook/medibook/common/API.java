@@ -261,8 +261,8 @@ public class API {
     public void postUser(final String fname, final String lname, final String address, final String gender, final Calendar birthday, final String email, final String password, final String healthcard){
         String REGISTER_URL = "http://52.41.78.184:8000/api/users/";
 
-        String dob = String.valueOf(birthday.get(Calendar.YEAR)) + "/" + String.valueOf(birthday.get(Calendar.MONTH) + "/" + String.valueOf(birthday.get(Calendar.DAY_OF_MONTH)));
-
+        //String dob = String.valueOf(birthday.get(Calendar.YEAR)) + "/" + String.valueOf(birthday.get(Calendar.MONTH) + "/" + String.valueOf(birthday.get(Calendar.DAY_OF_MONTH)));
+        long dob = birthday.getTimeInMillis()/1000;
 
         JSONObject params = new JSONObject();
 

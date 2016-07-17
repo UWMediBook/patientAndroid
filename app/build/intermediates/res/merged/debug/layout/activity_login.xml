@@ -8,9 +8,34 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context=".medibook.LoginActivity">
+    tools:context=".medibook.LoginActivity"
+    android:weightSum="1"
+    android:background="@drawable/doc_bg2">
 
     <!-- Login progress -->
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="317dp"
+        android:id="@+id/Logo">
+
+        <ImageView
+            android:layout_width="347dp"
+            android:layout_height="290dp"
+            android:id="@+id/imageView"
+            android:layout_gravity="center"
+            android:src="@drawable/icon"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="MediBook"
+            android:id="@+id/textView"
+            android:layout_gravity="center_horizontal|bottom"
+            android:textSize="34dp"
+            android:textColor="#FFFFFF"
+            android:textStyle="bold" />
+    </FrameLayout>
     <ProgressBar
         android:id="@+id/login_progress"
         style="?android:attr/progressBarStyleLarge"
@@ -42,7 +67,10 @@
                     android:hint="@string/prompt_email"
                     android:inputType="textEmailAddress"
                     android:maxLines="1"
-                    android:singleLine="true" />
+                    android:singleLine="true"
+                    android:imeOptions="actionNext"
+                    android:textColor="#FFFFFF"
+                    android:textColorHint="#FFFFFF"/>
 
             </android.support.design.widget.TextInputLayout>
 
@@ -60,24 +88,26 @@
                     android:imeOptions="actionUnspecified"
                     android:inputType="textPassword"
                     android:maxLines="1"
-                    android:singleLine="true" />
+                    android:singleLine="true"
+                    android:textColor="#FFFFFF"
+                    android:textColorHint="#FFFFFF"/>
 
             </android.support.design.widget.TextInputLayout>
 
             <Button
                 android:id="@+id/email_sign_in_button"
-                style="?android:textAppearanceSmall"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:text="@string/action_login"
-                android:textStyle="bold" />
+                />
 
             <Button
                 android:layout_width="388dp"
                 android:layout_height="wrap_content"
                 android:text="Register"
-                android:id="@+id/RegisterButton" />
+                android:id="@+id/RegisterButton"
+                />
 
         </LinearLayout>
     </ScrollView>

@@ -1,0 +1,23 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <item
+        android:id="@+id/one"
+        android:title="Edit Profile"/>
+
+    <item
+        android:id="@+id/two"
+        android:title="View Allergies"/>
+
+    <item
+        android:id="@+id/three"
+        android:title="View Past Operations"/>
+
+    <item
+        android:id="@+id/four"
+        android:title="View Past Visits"/>
+
+    <item
+        android:id="@+id/five"
+        android:title="View Prescriptions"/>
+
+</menu>

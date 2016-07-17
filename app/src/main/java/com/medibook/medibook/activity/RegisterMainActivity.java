@@ -66,7 +66,6 @@ public class RegisterMainActivity extends AppCompatActivity implements View.OnCl
         String HealthCard = etHCNum.getText().toString().trim();
 
         API handler = new API(this);
-        System.out.println("Date of birth is: "+dob);
         handler.postUser(first_name,last_name,address,gender,dob,email,password,HealthCard);
     }
 

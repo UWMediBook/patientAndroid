@@ -9,4 +9,22 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".activity.ViewPrimaryDoctorActivity">
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Primary Doctor Information"
+        android:id="@+id/tvTitle"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Name"
+        android:id="@+id/name_pd"
+        android:layout_marginTop="46dp"
+        android:layout_below="@+id/tvTitle"
+        android:layout_centerHorizontal="true" />
 </RelativeLayout>

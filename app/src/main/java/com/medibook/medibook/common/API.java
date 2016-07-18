@@ -76,8 +76,7 @@ public class API {
                     @Override
                     public void onResponse(String response) {
                         try{
-                            JSONArray jsonArray = new JSONArray(response);
-                            JSONObject jsonContact = jsonArray.getJSONObject(0).getJSONObject("fields");
+                            JSONObject jsonContact = new JSONObject(response);
                             Contact contact = new Contact(
                                     jsonContact.getInt("id"),
                                     jsonContact.getInt("user"),
@@ -86,9 +85,9 @@ public class API {
                                     jsonContact.getString("phone_number"),
                                     jsonContact.getString("relationship")
                             );
-                            TextView contactName = (TextView) rootView.findViewById(R.id.user_name);
-                            TextView contactPhoneNumber = (TextView) rootView.findViewById(R.id.user_gender);
-                            TextView contactRelationship = (TextView) rootView.findViewById(R.id.user_email);
+                            TextView contactName = (TextView) rootView.findViewById(R.id.name_ec);
+                            TextView contactPhoneNumber = (TextView) rootView.findViewById(R.id.phone_number_ec);
+                            TextView contactRelationship = (TextView) rootView.findViewById(R.id.relationship_ec);
 
                             contactName.setText("Name: " + contact.getName());
                             contactPhoneNumber.setText("Phone Number: " + contact.getPhone_number());
@@ -200,19 +199,31 @@ public class API {
                     public void onResponse(String response) {
                         try{
                             JSONArray jsonArray = new JSONArray(response);
-                            JSONObject jsonAllergy = jsonArray.getJSONObject(0).getJSONObject("fields");
-                            Allergy allergy = new Allergy(
-                                  //  jsonAllergy.getInt("id"),
-                                    jsonAllergy.getString("allergy"),
-                                    jsonAllergy.getString("severity")
-                                   // jsonAllergy.getInt("allergy_id")
-                            );
+                            String allergyData = "";
+                            for (int i = 0; i < jsonArray.length(); i++) {
+                                String severityData = "";
+                                JSONObject jsonAllergy = jsonArray.getJSONObject(0).getJSONObject("fields");
+                                Allergy allergy = new Allergy(
+                                        jsonAllergy.getInt("id"),
+                                        jsonAllergy.getString("allergy"),
+                                        jsonAllergy.getString("severity"),
+                                        jsonAllergy.getInt("allergy_id")
+                                );
 
-                            TextView allergyName = (TextView) rootView.findViewById(R.id.user_name);
-                            TextView allergySeverity = (TextView) rootView.findViewById(R.id.user_gender);
+                                if (allergy.getSeverity().equals("S") || allergy.getSeverity().equals("s")){
+                                    severityData = "Severe";
+                                }else if(allergy.getSeverity().equals("m")||allergy.getSeverity().equals("M")){
+                                    severityData = "Mild";
+                                }else{
+                                    severityData = "Unknown";
+                                }
 
-                            allergyName.setText("Name: " + allergy.getAllergyName());
-                            allergySeverity.setText("Severity: " + allergy.getSeverity());
+                                allergyData = allergyData + "Allergy Name: "+ allergy.getAllergyName() +"\nSeverity of Allergy: " + severityData + "\n \n";
+                            }
+
+                            TextView allergyInfo = (TextView) rootView.findViewById(R.id.tvAllergyList);
+
+                            allergyInfo.setText(allergyData);
 
                         } catch(JSONException j){
                             Log.e("JSON Conversion", "Failed to convert JSON to User");
@@ -451,7 +462,7 @@ public class API {
                                     jsonPrimaryDoctor.getString("last_name")
                             );
 
-                            TextView doctorName = (TextView) rootView.findViewById(R.id.user_name);
+                            TextView doctorName = (TextView) rootView.findViewById(R.id.name_pd);
 
                             doctorName.setText("Name: " + doctor.getName());
 
@@ -486,19 +497,21 @@ public class API {
                     public void onResponse(String response) {
                         try{
                             JSONArray jsonArray = new JSONArray(response);
-                            JSONObject jsonPrescription = jsonArray.getJSONObject(0).getJSONObject("fields");
-                            Prescription prescription = new Prescription(
-                                    jsonPrescription.getInt("id"),
-                                    jsonPrescription.getInt("user"),
-                                    jsonPrescription.getString("name"),
-                                    jsonPrescription.getString("dosage")
-                            );
+                            String prescriptionData = "";
+                            for (int i = 0; i < jsonArray.length(); i++) {
+                                JSONObject jsonPrescription = jsonArray.getJSONObject(0).getJSONObject("fields");
+                                Prescription prescription = new Prescription(
+                                        jsonPrescription.getInt("id"),
+                                        jsonPrescription.getInt("user"),
+                                        jsonPrescription.getString("name"),
+                                        jsonPrescription.getString("dosage")
+                                );
+                                prescriptionData = prescriptionData + "Prescription Name: "+ prescription.getName() +"\nDosage for prescription: " +prescription.getPrescription()+ "\n \n";
+                            }
 
-                            TextView prescriptionName = (TextView) rootView.findViewById(R.id.user_name);
-                            TextView prescriptionDosage = (TextView) rootView.findViewById(R.id.user_email);
+                            TextView prescriptionInfo = (TextView) rootView.findViewById(R.id.tvPrescriptionList);
 
-                            prescriptionName.setText("Name of prescription: " + prescription.getName());
-                            prescriptionDosage.setText("Dosage: " + prescription.getPrescription());
+                            prescriptionInfo.setText(prescriptionData);
 
                         } catch(JSONException j){
                             Log.e("JSON Conversion", "Failed to convert allergy to JSON");
@@ -524,18 +537,20 @@ public class API {
                     @Override
                     public void onResponse(String response) {
                         try{
+                            TextView operationName = (TextView) rootView.findViewById(R.id.tvPastOperationList);
+                            String OperationData = "";
                             JSONArray jsonArray = new JSONArray(response);
-                            JSONObject jsonOperation = jsonArray.getJSONObject(0).getJSONObject("fields");
-                            Operation operation = new Operation(
-                                    jsonOperation.getInt("id"),
-                                    jsonOperation.getInt("user"),
-                                    jsonOperation.getString("operation")
-                            );
+                            for (int i = 0; i < jsonArray.length(); i++) {
+                                JSONObject jsonOperation = jsonArray.getJSONObject(i).getJSONObject("fields");
+                                Operation operation = new Operation(
+                                        jsonOperation.getInt("id"),
+                                        jsonOperation.getInt("user"),
+                                        jsonOperation.getString("operation")
+                                );
+                                OperationData = OperationData + "Operation "+ (i+1) +":\n" +operation.getOperation()+ "\n \n";
+                            }
 
-                            TextView operationName = (TextView) rootView.findViewById(R.id.user_name);
-
-                            operationName.setText("Operation: " + operation.getOperation());
-
+                            operationName.setText(OperationData);
                         } catch(JSONException j){
                             Log.e("JSON Conversion", "Failed to convert allergy to JSON");
                         }
@@ -560,17 +575,23 @@ public class API {
                     @Override
                     public void onResponse(String response) {
                         try{
+                            String visitData = "";
                             JSONArray jsonArray = new JSONArray(response);
-                            JSONObject jsonVisit = jsonArray.getJSONObject(0).getJSONObject("fields");
-                            Visit visit = new Visit(
-                                    jsonVisit.getInt("id"),
-                                    jsonVisit.getInt("user"),
-                                    jsonVisit.getString("visit")
-                            );
 
-                            TextView visitInfo = (TextView) rootView.findViewById(R.id.user_name);
+                            for (int i = 0; i < jsonArray.length(); i++) {
 
-                            visitInfo.setText("Visit Information: " + visit.getVisit());
+                                JSONObject jsonVisit = jsonArray.getJSONObject(0).getJSONObject("fields");
+                                Visit visit = new Visit(
+                                        jsonVisit.getInt("id"),
+                                        jsonVisit.getInt("user"),
+                                        jsonVisit.getString("visit")
+                                );
+                                visitData = visitData + "Visit "+ (i+1) +":\n" +visit.getVisit()+ "\n \n";
+
+                            }
+                            TextView visitInfo = (TextView) rootView.findViewById(R.id.tvPastVisitList);
+
+                            visitInfo.setText(visitData);
 
                         } catch(JSONException j){
                             Log.e("JSON Conversion", "Failed to convert allergy to JSON");

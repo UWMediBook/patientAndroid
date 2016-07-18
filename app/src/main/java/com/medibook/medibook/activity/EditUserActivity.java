@@ -20,7 +20,6 @@ public class EditUserActivity extends AppCompatActivity implements View.OnClickL
     private EditText address;
     private String userEmail;
     private Button btnSaveProfile;
-    private Button btnCancel;
 
 
     @Override
@@ -28,7 +27,6 @@ public class EditUserActivity extends AppCompatActivity implements View.OnClickL
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_user);
 
-        btnCancel = (Button) findViewById(R.id.btnCancel);
         btnSaveProfile = (Button) findViewById(R.id.btnSave);
 
         Intent intent = getIntent();
@@ -39,13 +37,6 @@ public class EditUserActivity extends AppCompatActivity implements View.OnClickL
 
     @Override
     public void onClick(View v) {
-        if (v == btnCancel){
-            Toast toast = Toast.makeText(getApplicationContext(),"Profile not edited",Toast.LENGTH_SHORT);
-            toast.show();
-            Intent intent = new Intent(this, ViewProfileActivity.class);
-            intent.putExtra("EMAIL", userEmail);
-            startActivity(intent);
-        }
         if (v== btnSaveProfile){
             name = (EditText) findViewById(R.id.user_name);
             email = (EditText) findViewById(R.id.user_email);

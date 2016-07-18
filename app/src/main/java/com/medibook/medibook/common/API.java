@@ -109,8 +109,42 @@ public class API {
     }
 
     // Updates the users Emergency contact information
-    public void updateEmergencyContact(){
+    public void updateEmergencyContact(final String first_name,final String last_name, final String phone_number, final String relationship, final int user_id){
+        String EMERGENCY_CONTACT_URL = "http://52.41.78.184:8000/api/emergency_contacts/";
 
+        JSONObject params = new JSONObject();
+
+        try {
+            params.put("first_name", first_name);
+            params.put("last_name", last_name);
+            params.put("phone_number", phone_number);
+            params.put("relationship", relationship);
+            params.put("user_id", user_id);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        JsonObjectRequest jor = new JsonObjectRequest(Request.Method.POST, EMERGENCY_CONTACT_URL, params, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                NetworkResponse networkResponse = error.networkResponse;
+                if (networkResponse != null) {
+                    Log.e("Volley", "Error. HTTP Status Code:"+networkResponse.statusCode);
+                }
+            }
+        }){
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                HashMap<String, String> headers = new HashMap<String, String>();
+                headers.put("Content-Type", "application/json; charset=utf-8");
+                return headers;
+            }
+        };
+        this.queue.add(jor);
     }
 
     // Put Emergency Contact information about the user to the emergency contact database
@@ -240,47 +274,10 @@ public class API {
         this.queue.add(stringRequest);
     }
 
-    // Put the information entered by the user about their primary doctor to the doctor database
-    public void putUserPrimaryDoctor(final String first_name,final String last_name){
-        String DOCTOR_URL = "http://52.41.78.184:8000/api/doctors/";
-
-        JSONObject params = new JSONObject();
-
-        try {
-            params.put("first_name", first_name);
-            params.put("last_name", last_name);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
-        JsonObjectRequest jor = new JsonObjectRequest(Request.Method.PUT, DOCTOR_URL, params, new Response.Listener<JSONObject>() {
-            @Override
-            public void onResponse(JSONObject response) {
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                NetworkResponse networkResponse = error.networkResponse;
-                if (networkResponse != null) {
-                    Log.e("Volley", "Error. HTTP Status Code:"+networkResponse.statusCode);
-                }
-            }
-        }){
-            @Override
-            public Map<String, String> getHeaders() throws AuthFailureError {
-                HashMap<String, String> headers = new HashMap<String, String>();
-                headers.put("Content-Type", "application/json; charset=utf-8");
-                return headers;
-            }
-        };
-        this.queue.add(jor);
-    }
-
     // Put the users personal information entered by the user to the user database.
     public void putUser(final String fname, final String lname, final String address, final String gender, final Calendar birthday, final String email, final String password, final String healthcard){
         String REGISTER_URL = "http://52.41.78.184:8000/api/users/";
 
-        //String dob = String.valueOf(birthday.get(Calendar.YEAR)) + "/" + String.valueOf(birthday.get(Calendar.MONTH) + "/" + String.valueOf(birthday.get(Calendar.DAY_OF_MONTH)));
         long dob = birthday.getTimeInMillis()/1000;
 
         JSONObject params = new JSONObject();
@@ -336,8 +333,61 @@ public class API {
     }
 
     // Updates the user table
-    public void updateUser(int user_id){
+    public void updateUser(final String fname, final String lname, final String address, final String gender, final Calendar birthday, final String email, final String password, final String healthcard){
+        String REGISTER_URL = "http://52.41.78.184:8000/api/users/";
 
+        long dob = birthday.getTimeInMillis()/1000;
+
+        JSONObject params = new JSONObject();
+
+        try {
+            params.put("first_name", fname);
+            params.put("last_name", lname);
+            params.put("address", address);
+            params.put("gender", gender);
+            params.put("birthday", dob);
+            params.put("email", email);
+            params.put("password", password);
+            params.put("healthcard", healthcard);
+            params.put("doctor_id","1");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        JsonObjectRequest jor = new JsonObjectRequest(Request.Method.POST, REGISTER_URL, params, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                NetworkResponse networkResponse = error.networkResponse;
+                if (networkResponse != null) {
+                    Log.e("Volley", "Error. HTTP Status Code:"+networkResponse.statusCode);
+                }
+                if (error instanceof TimeoutError) {
+                    Log.e("Volley", "TimeoutError");
+                }else if(error instanceof NoConnectionError){
+                    Log.e("Volley", "NoConnectionError");
+                } else if (error instanceof AuthFailureError) {
+                    Log.e("Volley", "AuthFailureError");
+                } else if (error instanceof ServerError) {
+                    Log.e("Volley", "ServerError");
+                } else if (error instanceof NetworkError) {
+                    Log.e("Volley", "NetworkError");
+                } else if (error instanceof ParseError) {
+                    Log.e("Volley", "ParseError");
+                }
+            }
+        }){
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                HashMap<String, String> headers = new HashMap<String, String>();
+                headers.put("Content-Type", "application/json; charset=utf-8");
+                return headers;
+            }
+
+        };
+        this.queue.add(jor);
     }
 
     // Gets the users information from the users database
@@ -481,9 +531,76 @@ public class API {
         this.queue.add(stringRequest);
     }
 
-    // Updates the Users Primary doctor information
-    public void updateDoctor(){
+    // Put the information entered by the user about their primary doctor to the doctor database
+    public void putPrimaryDoctor(final String first_name,final String last_name){
+        String DOCTOR_URL = "http://52.41.78.184:8000/api/doctors/";
 
+        JSONObject params = new JSONObject();
+
+        try {
+            params.put("first_name", first_name);
+            params.put("last_name", last_name);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        JsonObjectRequest jor = new JsonObjectRequest(Request.Method.PUT, DOCTOR_URL, params, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                NetworkResponse networkResponse = error.networkResponse;
+                if (networkResponse != null) {
+                    Log.e("Volley", "Error. HTTP Status Code:"+networkResponse.statusCode);
+                }
+            }
+        }){
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                HashMap<String, String> headers = new HashMap<String, String>();
+                headers.put("Content-Type", "application/json; charset=utf-8");
+                return headers;
+            }
+        };
+        this.queue.add(jor);
+    }
+
+    // Updates the Users Primary doctor information
+    public void updateDoctor(final String first_name,final String last_name){
+        String DOCTOR_URL = "http://52.41.78.184:8000/api/doctors/";
+
+        JSONObject params = new JSONObject();
+
+        try {
+            params.put("first_name", first_name);
+            params.put("last_name", last_name);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        JsonObjectRequest jor = new JsonObjectRequest(Request.Method.POST, DOCTOR_URL, params, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                NetworkResponse networkResponse = error.networkResponse;
+                if (networkResponse != null) {
+                    Log.e("Volley", "Error. HTTP Status Code:"+networkResponse.statusCode);
+                }
+            }
+        }){
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                HashMap<String, String> headers = new HashMap<String, String>();
+                headers.put("Content-Type", "application/json; charset=utf-8");
+                return headers;
+            }
+        };
+        this.queue.add(jor);
     }
 
     // Gets the users prescriptions

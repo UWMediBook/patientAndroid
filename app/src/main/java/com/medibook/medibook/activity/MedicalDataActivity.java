@@ -39,7 +39,7 @@ public class MedicalDataActivity extends AppCompatActivity implements View.OnCli
         String last_name = etLast_name.getText().toString().trim();
 
         API handler = new API(this);
-        handler.postUserPrimaryDoctor(first_name, last_name);
+        handler.putUserPrimaryDoctor(first_name, last_name);
         handler.userAllergyData(email,allergy, severity);
     }
 

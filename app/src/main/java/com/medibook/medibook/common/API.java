@@ -60,7 +60,7 @@ public class API {
 
     // Gets the user emergency contact information
     public void getEmergencyContact(int user_id){
-        String url = "http://52.41.78.184:8000/api/emergencycontacts/?user=" + user_id;
+        String url = "http://52.41.78.184:8000/api/emergency_contacts/?user=" + user_id;
 
         // Request a string response from the provided URL.
         StringRequest stringRequest= new StringRequest(Request.Method.GET, url,
@@ -106,9 +106,9 @@ public class API {
 
     }
 
-    // Post Emergency Contact information about the user to the emergency contact database
-    public void postEmergencyContact(final String first_name,final String last_name, final String phone_number, final String relationship, final int user_id){
-        String EMERGENCY_CONTACT_URL = "http://52.41.78.184:8000/api/emergencycontactviewset/";
+    // Put Emergency Contact information about the user to the emergency contact database
+    public void putEmergencyContact(final String first_name,final String last_name, final String phone_number, final String relationship, final int user_id){
+        String EMERGENCY_CONTACT_URL = "http://52.41.78.184:8000/api/emergency_contacts/";
 
         JSONObject params = new JSONObject();
 
@@ -117,12 +117,12 @@ public class API {
             params.put("last_name", last_name);
             params.put("phone_number", phone_number);
             params.put("relationship", relationship);
-            params.put("user", user_id);
+            params.put("user_id", user_id);
         } catch (JSONException e) {
             e.printStackTrace();
         }
 
-        JsonObjectRequest jor = new JsonObjectRequest(Request.Method.POST, EMERGENCY_CONTACT_URL, params, new Response.Listener<JSONObject>() {
+        JsonObjectRequest jor = new JsonObjectRequest(Request.Method.PUT, EMERGENCY_CONTACT_URL, params, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
             }
@@ -145,20 +145,20 @@ public class API {
         this.queue.add(jor);
     }
 
-    // Post the Allergy information about the user to the allergy databsae
-    public void postUserAllergy(final String allergy_name, final String severity, final int user_id){
-        String ALLERGY_URL = "http://52.41.78.184:8000/api/allergyviewset/";
+    // Put the Allergy information about the user to the allergy databsae
+    public void putUserAllergy(final String allergy_name, final String severity, final int user_id){
+        String ALLERGY_URL = "http://52.41.78.184:8000/api/allergies/";
 
         JSONObject params = new JSONObject();
 
         try {
             params.put("name", allergy_name);
             params.put("severity", severity);
-            params.put("user", user_id);
+            params.put("user_id", user_id);
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        JsonObjectRequest jor = new JsonObjectRequest(Request.Method.POST, ALLERGY_URL, params, new Response.Listener<JSONObject>() {
+        JsonObjectRequest jor = new JsonObjectRequest(Request.Method.PUT, ALLERGY_URL, params, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
             }
@@ -193,11 +193,11 @@ public class API {
                         try{
                             JSONArray jsonArray = new JSONArray(response);
                             JSONObject jsonAllergy = jsonArray.getJSONObject(0).getJSONObject("fields");
-                           Allergy allergy = new Allergy(
-                                   jsonAllergy.getInt("id"),
-                                   jsonAllergy.getString("allergy"),
-                                   jsonAllergy.getString("severity"),
-                                   jsonAllergy.getInt("allergy_id")
+                            Allergy allergy = new Allergy(
+                                    jsonAllergy.getInt("id"),
+                                    jsonAllergy.getString("allergy"),
+                                    jsonAllergy.getString("severity"),
+                                    jsonAllergy.getInt("allergy_id")
                             );
 
                             TextView allergyName = (TextView) rootView.findViewById(R.id.user_name);
@@ -221,8 +221,8 @@ public class API {
         this.queue.add(stringRequest);
     }
 
-    // Posts the information entered by the user about their primary doctor to the doctor database
-    public void postUserPrimaryDoctor(final String first_name,final String last_name){
+    // Put the information entered by the user about their primary doctor to the doctor database
+    public void putUserPrimaryDoctor(final String first_name,final String last_name){
         String DOCTOR_URL = "http://52.41.78.184:8000/api/doctors/";
 
         JSONObject params = new JSONObject();
@@ -234,7 +234,7 @@ public class API {
             e.printStackTrace();
         }
 
-        JsonObjectRequest jor = new JsonObjectRequest(Request.Method.POST, DOCTOR_URL, params, new Response.Listener<JSONObject>() {
+        JsonObjectRequest jor = new JsonObjectRequest(Request.Method.PUT, DOCTOR_URL, params, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
             }
@@ -257,8 +257,8 @@ public class API {
         this.queue.add(jor);
     }
 
-    // Posts the users personal information entered by the user to the user database.
-    public void postUser(final String fname, final String lname, final String address, final String gender, final Calendar birthday, final String email, final String password, final String healthcard){
+    // Put the users personal information entered by the user to the user database.
+    public void putUser(final String fname, final String lname, final String address, final String gender, final Calendar birthday, final String email, final String password, final String healthcard){
         String REGISTER_URL = "http://52.41.78.184:8000/api/users/";
 
         //String dob = String.valueOf(birthday.get(Calendar.YEAR)) + "/" + String.valueOf(birthday.get(Calendar.MONTH) + "/" + String.valueOf(birthday.get(Calendar.DAY_OF_MONTH)));
@@ -279,7 +279,7 @@ public class API {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        JsonObjectRequest jor = new JsonObjectRequest(Request.Method.POST, REGISTER_URL, params, new Response.Listener<JSONObject>() {
+        JsonObjectRequest jor = new JsonObjectRequest(Request.Method.PUT, REGISTER_URL, params, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
             }
@@ -351,7 +351,7 @@ public class API {
                             TextView userAddress = (TextView) rootView.findViewById(R.id.user_address);
                             TextView userBirthday = (TextView) rootView.findViewById(R.id.user_birthday);
                             TextView userHealthcard = (TextView) rootView.findViewById(R.id.user_health_card);
-                            
+
                             userName.setText("Name: " + user.getName());
                             userGender.setText("Gender: " + user.getGender());
                             userBirthday.setText("Birthday: " + user.getBirthday());
@@ -376,7 +376,7 @@ public class API {
 
     // Gets the users primary doctor information
     public void getPrimaryDoctor(int doctor_id) {
-        String url = "http://52.41.78.184:8000/api/primarydoctor/" + doctor_id;
+        String url = "http://52.41.78.184:8000/api/doctors/" + doctor_id;
 
         // Request a string response from the provided URL.
         StringRequest stringRequest= new StringRequest(Request.Method.GET, url,
@@ -564,7 +564,7 @@ public class API {
             public void onSuccess(JSONObject result) {
                 try{
                     int uid = result.getInt("pk");
-                    postUserAllergy(userAllergy,userSeverity,uid);
+                    putUserAllergy(userAllergy,userSeverity,uid);
                 }catch (JSONException e){
                     e.printStackTrace();
                 }
@@ -584,7 +584,7 @@ public class API {
             public void onSuccess(JSONObject result) {
                 try {
                     int uid = result.getInt("pk");
-                    postEmergencyContact(userFirstName,userLastName,userPhoneNum,userRelationship,uid);
+                    putEmergencyContact(userFirstName,userLastName,userPhoneNum,userRelationship,uid);
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }

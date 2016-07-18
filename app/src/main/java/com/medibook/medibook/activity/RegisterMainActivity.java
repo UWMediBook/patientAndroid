@@ -21,7 +21,6 @@ public class RegisterMainActivity extends AppCompatActivity implements View.OnCl
     private EditText etFname;
     private EditText etLname;
     private EditText etAddress;
-    private EditText etGender;
     private EditText etDOB;
     private EditText etEmail;
     private EditText etPassword;
@@ -40,7 +39,6 @@ public class RegisterMainActivity extends AppCompatActivity implements View.OnCl
         etFname = (EditText) findViewById(R.id.etFname);
         etLname = (EditText) findViewById(R.id.etLname);
         etAddress = (EditText) findViewById(R.id.etAddress);
-//        etGender = (EditText) findViewById(R.id.etGender);
         etDOB = (EditText) findViewById(R.id.etDOB);
         etEmail = (EditText) findViewById(R.id.etEmail);
         etPassword = (EditText) findViewById(R.id.etPassword);
@@ -66,7 +64,7 @@ public class RegisterMainActivity extends AppCompatActivity implements View.OnCl
         String HealthCard = etHCNum.getText().toString().trim();
 
         API handler = new API(this);
-        handler.postUser(first_name,last_name,address,gender,dob,email,password,HealthCard);
+        handler.putUser(first_name,last_name,address,gender,dob,email,password,HealthCard);
     }
 
     public void onClick(View v) {
@@ -85,17 +83,14 @@ public class RegisterMainActivity extends AppCompatActivity implements View.OnCl
                 @Override
                 public void onDateSet(DatePicker view, int year, int month, int day) {
                     etDOB.setText(day + "/" + (month+1) + "/" +year);
-                    System.out.println("Year: " + year + " Month: " + month + " Day: " + day);
 
                     mYear = year;
                     mMonth = month;
                     mDay = day;
-                    System.out.println("After re-setting the variables, Year: " + mYear + " Month: " + mMonth + " Day: " + mDay);
 
                 }
             }, mYear, mMonth, mDay);
             dpd.show();
-            System.out.println("Year: " + mYear + " Month: " + mMonth + " Day: " + mDay);
         }
     }
 }

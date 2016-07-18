@@ -1,23 +1,23 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android" >
 
     <item
-        android:id="@+id/one"
+        android:id="@+id/EditProfile"
         android:title="Edit Profile"/>
 
     <item
-        android:id="@+id/two"
+        android:id="@+id/ViewAllergies"
         android:title="View Allergies"/>
 
     <item
-        android:id="@+id/three"
+        android:id="@+id/ViewPastOp"
         android:title="View Past Operations"/>
 
     <item
-        android:id="@+id/four"
+        android:id="@+id/ViewPastVisits"
         android:title="View Past Visits"/>
 
     <item
-        android:id="@+id/five"
+        android:id="@+id/ViewPrescriptions"
         android:title="View Prescriptions"/>
 
 </menu>

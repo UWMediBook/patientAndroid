@@ -29,11 +29,11 @@ public class UserAreaActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_area);
+
+
         Intent intent = getIntent();
         String email = intent.getStringExtra("EMAIL");
         API apiHandler = new API(this);
         apiHandler.getUser(email);
-
-        PopupMenu popup = new PopupMenu(UserAreaActivity.this, button);
     }
 }

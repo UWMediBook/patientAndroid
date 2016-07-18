@@ -71,4 +71,5 @@
 
     <string name="pref_title_vibrate">Vibrate</string>
     <string name="title_activity_scan">Scan Patient\'s QR</string>
+    <string name="title_activity_testing">testing</string>
 </resources>

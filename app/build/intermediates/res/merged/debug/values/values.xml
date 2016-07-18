@@ -381,6 +381,7 @@
     <string name="title_activity_login">Medibook</string>
     <string name="title_activity_profile">Profile</string>
     <string name="title_activity_scan">Scan Patient\'s QR</string>
+    <string name="title_activity_testing">testing</string>
     <style name="AlertDialog.AppCompat" parent="Base.AlertDialog.AppCompat"/>
     <style name="AlertDialog.AppCompat.Light" parent="Base.AlertDialog.AppCompat.Light"/>
     <style name="Animation.AppCompat.Dialog" parent="Base.Animation.AppCompat.Dialog"/>

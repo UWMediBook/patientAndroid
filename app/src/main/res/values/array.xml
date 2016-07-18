@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="optionsArray">
+        <item>Edit Profile</item>
+        <item>Allergies</item>
+        <item>Past Operations</item>
+        <item>Past Visits</item>
+        <item>Prescriptions</item>
+    </string-array>
+</resources>

@@ -110,7 +110,7 @@ public class API {
 
     // Updates the users Emergency contact information
     public void updateEmergencyContact(final String first_name,final String last_name, final String phone_number, final String relationship, final int user_id){
-        String EMERGENCY_CONTACT_URL = "http://52.41.78.184:8000/api/emergency_contacts/";
+        String EMERGENCY_CONTACT_URL = "http://52.41.78.184:8000/api/users/"+user_id+"/emergency_contact/";
 
         JSONObject params = new JSONObject();
 
@@ -333,8 +333,8 @@ public class API {
     }
 
     // Updates the user table
-    public void updateUser(final String fname, final String lname, final String address, final String gender, final Calendar birthday, final String email, final String password, final String healthcard){
-        String REGISTER_URL = "http://52.41.78.184:8000/api/users/";
+    public void updateUser(final String fname, final String lname, final String address, final String gender, final Calendar birthday, final String email, final String password, final String healthcard,int user_id){
+        String REGISTER_URL = "http://52.41.78.184:8000/api/users/"+user_id;
 
         long dob = birthday.getTimeInMillis()/1000;
 
@@ -568,8 +568,8 @@ public class API {
     }
 
     // Updates the Users Primary doctor information
-    public void updateDoctor(final String first_name,final String last_name){
-        String DOCTOR_URL = "http://52.41.78.184:8000/api/doctors/";
+    public void updateDoctor(final String first_name,final String last_name, int user_id){
+        String DOCTOR_URL = "http://52.41.78.184:8000/api/users/"+user_id+"/doctors/";
 
         JSONObject params = new JSONObject();
 
@@ -875,6 +875,48 @@ public class API {
                 try {
                     int uid = result.getInt("pk");
                     getPrimaryDoctor(uid);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+    }
+
+    public void postUserIdUpdateUser(String userEmail, final String fname, final String lname, final String address, final String gender, final Calendar birthday, final String email, final String password, final String healthcard){
+        getUserId(userEmail, new DataCallback() {
+            @Override
+            public void onSuccess(JSONObject result) {
+                try {
+                    int uid = result.getInt("pk");
+                    updateUser(fname,lname,address,gender,birthday,email,password,healthcard,uid);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+    }
+
+    public void postUserIdUpdateEC(String email, final String first_name, final String last_name, final String relationship, final String phone_number){
+        getUserId(email, new DataCallback() {
+            @Override
+            public void onSuccess(JSONObject result) {
+                try {
+                    int uid = result.getInt("pk");
+                    updateEmergencyContact(first_name,last_name,phone_number,relationship,uid);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+    }
+
+    public void postUserIdUpdatePD(String email, final String first_name, final String last_name){
+        getUserId(email, new DataCallback() {
+            @Override
+            public void onSuccess(JSONObject result) {
+                try {
+                    int uid = result.getInt("pk");
+                    updateDoctor(first_name,last_name,uid);
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }

@@ -38,7 +38,7 @@ public class EmergencyContactActivity extends AppCompatActivity implements View.
         String phonenumber = etPhoneNumber.getText().toString().trim();
 
         API handler = new API(this);
-        handler.userEmergContData(email,first_name,last_name,phonenumber,relationship);
+        handler.putUserEmergContData(email,first_name,last_name,phonenumber,relationship);
     }
 
     public void onClick(View v) {

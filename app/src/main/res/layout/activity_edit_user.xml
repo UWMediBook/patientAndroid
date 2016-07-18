@@ -18,71 +18,72 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentStart="true"
-        android:text="name" />
+        android:hint="Name" />
 
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/user_address"
-        android:text="address"
         android:layout_below="@+id/user_name"
         android:layout_alignParentStart="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignParentEnd="true"
+        android:hint="Address" />
 
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/user_gender"
-        android:text="gender"
         android:layout_below="@+id/user_address"
         android:layout_alignParentStart="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignParentEnd="true"
+        android:hint="Gender" />
 
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/user_email"
-        android:text="email"
         android:layout_below="@+id/user_gender"
         android:layout_alignParentStart="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignParentEnd="true"
+        android:hint="Email" />
 
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/user_health_card"
-        android:text="healthcard number"
         android:layout_below="@+id/user_email"
         android:layout_alignParentEnd="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:hint="Health Card Number" />
 
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/user_birthday"
-        android:text="birthday"
         android:layout_below="@+id/user_health_card"
         android:layout_alignParentStart="true"
-        android:layout_alignParentEnd="true" />
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Cancel"
-        android:id="@+id/btnCancel"
-        android:layout_alignTop="@+id/btnSave"
-        android:layout_alignParentStart="true"
-        android:layout_marginStart="62dp" />
+        android:layout_alignParentEnd="true"
+        android:hint="Birthday" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Save"
         android:id="@+id/btnSave"
-        android:layout_marginStart="48dp"
-        android:layout_marginTop="52dp"
+        android:layout_marginTop="62dp"
+        android:layout_below="@+id/user_password"
+        android:layout_centerHorizontal="true" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPassword"
+        android:ems="10"
+        android:id="@+id/user_password"
         android:layout_below="@+id/user_birthday"
-        android:layout_toEndOf="@+id/btnCancel" />
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:hint="Password" />
 
 </RelativeLayout>
 

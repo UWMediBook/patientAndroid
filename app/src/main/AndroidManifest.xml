@@ -36,6 +36,7 @@
         <activity android:name=".activity.ViewPastVisitsActivity" />
         <activity android:name=".activity.ViewPastOperationsActivity" />
         <activity android:name=".activity.ViewAllergiesActivity" />
+        <activity android:name=".activity.generateQRActivity"></activity>
     </application>
 
 </manifest>

@@ -33,7 +33,7 @@
         jar="C:\Users\jason\Documents\patientAndroid\app\build\intermediates\incremental-classes\debug\instant-run-bootstrap.jar"
         jumboMode="true"
         revision="23.0.3"
-        sha1="5475c3e63d20bc59e19da470a61ea65c9b58cbed">
+        sha1="212a323c75a838f1ec90705a1d792ad5712d3f41">
         <dex dex="C:\Users\jason\Documents\patientAndroid\app\build\intermediates\transforms\dex\debug\folders\1000\10\instant-run-bootstrap_793f838e0f9220369ff40f88f7d3c6f064b96914\classes.dex" />
     </item>
     <item
@@ -68,7 +68,7 @@
         jar="C:\Users\jason\Documents\patientAndroid\app\build\intermediates\incremental-runtime-classes\debug\instant-run.jar"
         jumboMode="true"
         revision="23.0.3"
-        sha1="37627e89c6af411d5b62edd7af848c442a3b5f96">
+        sha1="8870295bb11fd4b7f0712b7e5c09a5ab8435ec21">
         <dex dex="C:\Users\jason\Documents\patientAndroid\app\build\intermediates\transforms\dex\debug\folders\1000\10\instant-run_d18ca76dad7059d6a3291833217a9c6d825fafb8\classes.dex" />
     </item>
     <item
@@ -77,6 +77,13 @@
         revision="23.0.3"
         sha1="de4db3785756bfb0915a9f59a9b3f2fea7407be4">
         <dex dex="C:\Users\jason\Documents\patientAndroid\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-animated-vector-drawable-23.4.0_1fd7ca77b07c37d6e36084d47e297bff52353077\classes.dex" />
+    </item>
+    <item
+        jar="C:\Users\jason\.gradle\caches\modules-2\files-2.1\com.google.zxing\core\3.0.0\ee7d9bc1ce7f847f6de8d089c866831effe8d415\core-3.0.0.jar"
+        jumboMode="true"
+        revision="23.0.3"
+        sha1="ee7d9bc1ce7f847f6de8d089c866831effe8d415">
+        <dex dex="C:\Users\jason\Documents\patientAndroid\app\build\intermediates\transforms\dex\debug\folders\1000\10\core-3.0.0_9966a2900aa2e2f6f927eb9d95338a0a76de4960\classes.dex" />
     </item>
     <item
         jar="C:\Program Files\Android\Android Studio\gradle\m2repository\com\google\code\gson\gson\2.2.4\gson-2.2.4.jar"

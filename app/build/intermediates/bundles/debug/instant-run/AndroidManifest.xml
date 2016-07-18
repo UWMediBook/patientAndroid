@@ -43,6 +43,7 @@
         <activity android:name="com.medibook.medibook.activity.ViewPastVisitsActivity" />
         <activity android:name="com.medibook.medibook.activity.ViewPastOperationsActivity" />
         <activity android:name="com.medibook.medibook.activity.ViewAllergiesActivity" />
+        <activity android:name="com.medibook.medibook.activity.generateQRActivity" />
     </application>
 
 </manifest>

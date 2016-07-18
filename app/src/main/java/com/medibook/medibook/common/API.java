@@ -2,9 +2,14 @@ package com.medibook.medibook.common;
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.Point;
 import android.os.AsyncTask;
 import android.util.Log;
+import android.view.Display;
 import android.view.View;
+import android.view.WindowManager;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -22,8 +27,11 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.zxing.BarcodeFormat;
+import com.google.zxing.WriterException;
 import com.medibook.medibook.R;
 import com.medibook.medibook.activity.RegisterMainActivity;
+import com.medibook.medibook.activity.generateQRActivity;
 import com.medibook.medibook.models.Allergy;
 import com.medibook.medibook.models.Contact;
 import com.medibook.medibook.models.Doctor;
@@ -588,6 +596,36 @@ public class API {
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
+            }
+        });
+    }
+
+    public void userGenerateQR(String email){
+        getUserId(email, new DataCallback() {
+            @Override
+            public void onSuccess(JSONObject result) {
+                try {
+                    int uid = result.getInt("pk");
+                    String qrInputText = uid+"";
+
+                    //Encode with a QR Code image
+                    QRCodeEncoder qrCodeEncoder = new QRCodeEncoder(qrInputText,
+                            null,
+                            Contents.Type.TEXT,
+                            BarcodeFormat.QR_CODE.toString(),
+                            150);
+                    try {
+                        Bitmap bitmap = qrCodeEncoder.encodeAsBitmap();
+                        ImageView myImage = (ImageView) rootView.findViewById(R.id.ivQRcode);
+                        myImage.setImageBitmap(bitmap);
+
+                    } catch (WriterException e) {
+                        e.printStackTrace();
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
             }
         });
     }

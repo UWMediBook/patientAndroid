@@ -43,8 +43,9 @@ public class RegisterMainActivity extends AppCompatActivity implements View.OnCl
         etEmail = (EditText) findViewById(R.id.etEmail);
         etPassword = (EditText) findViewById(R.id.etPassword);
         etHCNum = (EditText) findViewById(R.id.etHCNumber);
+
         butNext = (Button) findViewById(R.id.butNext);
-        rbg=(RadioGroup) findViewById(R.id.radioGroup1);
+        rbg=(RadioGroup) findViewById(R.id.rg1);
 
         butNext.setOnClickListener(this);
         etDOB.setOnClickListener(this);

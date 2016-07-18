@@ -2446,7 +2446,7 @@ containing a value of this type.
         public static final int progress_horizontal=0x7f0d0007;
         public static final int radio=0x7f0d0056;
         public static final int radioButton1=0x7f0d0095;
-        public static final int radioGroup1=0x7f0d0094;
+        public static final int rg1 =0x7f0d0094;
         public static final int right=0x7f0d0024;
         public static final int screen=0x7f0d0028;
         public static final int scroll=0x7f0d0018;

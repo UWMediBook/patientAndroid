@@ -20,7 +20,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".activity.RegisterMainActivity" />
-        <activity android:name=".activity.UserAreaActivity" />
+        <activity android:name=".activity.EditUserActivity" />
         <activity android:name=".activity.EmergencyContactActivity" />
         <activity android:name=".activity.MedicalDataActivity" />
         <!--
@@ -36,7 +36,12 @@
         <activity android:name=".activity.ViewPastVisitsActivity" />
         <activity android:name=".activity.ViewPastOperationsActivity" />
         <activity android:name=".activity.ViewAllergiesActivity" />
-        <activity android:name=".activity.generateQRActivity"></activity>
+        <activity android:name=".activity.generateQRActivity" />
+        <activity
+            android:name=".activity.ViewEmergencyContactActivity"
+            android:label="@string/title_activity_view_emergency_contact"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".activity.ViewPrimaryDoctorActivity"></activity>
     </application>
 
 </manifest>

@@ -27,7 +27,7 @@
             </intent-filter>
         </activity>
         <activity android:name="com.medibook.medibook.activity.RegisterMainActivity" />
-        <activity android:name="com.medibook.medibook.activity.UserAreaActivity" />
+        <activity android:name="com.medibook.medibook.activity.EditUserActivity" />
         <activity android:name="com.medibook.medibook.activity.EmergencyContactActivity" />
         <activity android:name="com.medibook.medibook.activity.MedicalDataActivity" />
         <!--

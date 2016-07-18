@@ -8,19 +8,19 @@ import org.json.JSONObject;
  * Updated by Jason on 7/15/2016.
  */
 public class Allergy {
-    private Integer user_id, allergy_id;
+   // private Integer user_id, allergy_id;
     private String allergy, severity;
 
-    public Allergy(Integer user_id, String allergy, String severity,Integer allergy_id){
-        this.user_id = user_id;
+    public Allergy(String allergy, String severity){
+       // this.user_id = user_id;
         this.allergy = allergy;
         this.severity = severity;
-        this.allergy_id = allergy_id;
+       // this.allergy_id = allergy_id;
     }
 
-    public Integer getUserId(){
-        return this.user_id;
-    }
+   // public Integer getUserId(){
+  //      return this.user_id;
+   // }
 
     public String getAllergyName(){
         return this.allergy;
@@ -31,8 +31,8 @@ public class Allergy {
     public String toJson(){
         JSONObject allergy = new JSONObject();
         try{
-            allergy.put("USER_ID", this.user_id);
-            allergy.put("ALLERGY_ID", this.allergy_id);
+          //  allergy.put("USER_ID", this.user_id);
+          //  allergy.put("ALLERGY_ID", this.allergy_id);
             allergy.put("ALLERGY", this.allergy);
         } catch (JSONException e){
             e.printStackTrace();

@@ -68,7 +68,7 @@ public class API {
 
     // Gets the user emergency contact information
     public void getEmergencyContact(int user_id){
-        String url = "http://52.41.78.184:8000/api/emergency_contacts/?user=" + user_id;
+        String url = "http://52.41.78.184:8000/api/users/" + user_id+"/emergency_contacts/";
 
         // Request a string response from the provided URL.
         StringRequest stringRequest= new StringRequest(Request.Method.GET, url,
@@ -191,7 +191,7 @@ public class API {
 
     // Gets the list of the users allergies along with the severity of the allergy
     public void getAllergy(int user_id) {
-        String url = "http://52.41.78.184:8000/api/allergies/?user_id=" + user_id;
+        String url = "http://52.41.78.184:8000/api/users/"+user_id+"/allergies/";
 
         // Request a string response from the provided URL.
         StringRequest stringRequest= new StringRequest(Request.Method.GET, url,
@@ -202,10 +202,10 @@ public class API {
                             JSONArray jsonArray = new JSONArray(response);
                             JSONObject jsonAllergy = jsonArray.getJSONObject(0).getJSONObject("fields");
                             Allergy allergy = new Allergy(
-                                    jsonAllergy.getInt("id"),
+                                  //  jsonAllergy.getInt("id"),
                                     jsonAllergy.getString("allergy"),
-                                    jsonAllergy.getString("severity"),
-                                    jsonAllergy.getInt("allergy_id")
+                                    jsonAllergy.getString("severity")
+                                   // jsonAllergy.getInt("allergy_id")
                             );
 
                             TextView allergyName = (TextView) rootView.findViewById(R.id.user_name);
@@ -330,6 +330,57 @@ public class API {
     }
 
     // Gets the users information from the users database
+    public void doctorGetUser(int uid) {
+        String url = "http://52.41.78.184:8000/api/users/" + uid;
+
+        // Request a string response from the provided URL.
+        StringRequest stringRequest= new StringRequest(Request.Method.GET, url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        try{
+                            JSONObject jsonUser = new JSONObject(response);
+                            User user = new User(
+                                    jsonUser.getString("first_name"),
+                                    jsonUser.getString("last_name"),
+                                    jsonUser.getInt("id"),
+                                    jsonUser.getString("gender"),
+                                    jsonUser.getString("address"),
+                                    jsonUser.getString("birthday"),
+                                    jsonUser.getString("email"),
+                                    jsonUser.getString("password"),
+                                    jsonUser.getString("healthcard")
+                            );
+                            TextView userName = (TextView) rootView.findViewById(R.id.user_name);
+                            TextView userGender = (TextView) rootView.findViewById(R.id.user_gender);
+                            TextView userEmail = (TextView) rootView.findViewById(R.id.user_email);
+                            TextView userAddress = (TextView) rootView.findViewById(R.id.user_address);
+                            TextView userBirthday = (TextView) rootView.findViewById(R.id.user_birthday);
+                            TextView userHealthcard = (TextView) rootView.findViewById(R.id.user_health_card);
+
+                            userName.setText("Name: " + user.getName());
+                            userGender.setText("Gender: " + user.getGender());
+                            userBirthday.setText("Birthday: " + user.getBirthday());
+                            userHealthcard.setText("Healthcard Number: " + user.getHealthcard());
+                            userAddress.setText("Address: " + user.getAddress());
+                            userEmail.setText("Email: " + user.getEmail());
+
+                        } catch(JSONException j){
+                            Log.e("JSON Conversion", "Failed to convert JSON to User");
+                            j.printStackTrace();
+                        }
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.e("Get User API", "That didn't work!");
+            }
+        });
+        // Add the request to the RequestQueue.
+        this.queue.add(stringRequest);
+    }
+
+    // Gets the users information from the users database
     public void getUser(String email_string) {
         String url = "http://52.41.78.184:8000/api/users/?email=" + email_string;
 
@@ -384,7 +435,7 @@ public class API {
 
     // Gets the users primary doctor information
     public void getPrimaryDoctor(int doctor_id) {
-        String url = "http://52.41.78.184:8000/api/doctors/" + doctor_id;
+        String url = "http://52.41.78.184:8000/api/users/"+doctor_id+"/doctors/";
 
         // Request a string response from the provided URL.
         StringRequest stringRequest= new StringRequest(Request.Method.GET, url,
@@ -426,7 +477,7 @@ public class API {
 
     // Gets the users prescriptions
     public void getPrescriptions(int user_id) {
-        String url = "http://52.41.78.184:8000/api/prescriptions/?user_id=" + user_id;
+        String url = "http://52.41.78.184:8000/api/users/"+user_id+"/prescriptions/";
 
         // Request a string response from the provided URL.
         StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
@@ -465,7 +516,7 @@ public class API {
 
     // Get the users past operations
     public void getPastOperations(int user_id){
-        String url = "http://52.41.78.184:8000/api/operations/?user_id=" + user_id;
+        String url = "http://52.41.78.184:8000/api/user/"+user_id+"/operations/";
 
         // Request a string response from the provided URL.
         StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
@@ -501,7 +552,7 @@ public class API {
 
     // Gets the users past visits to a medical facility
     public void getPastVisits(int user_id){
-        String url = "http://52.41.78.184:8000/api/visits/?user_id=" + user_id;
+        String url = "http://52.41.78.184:8000/api/users/"+user_id+"/visits/";
 
         // Request a string response from the provided URL.
         StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
@@ -563,8 +614,8 @@ public class API {
         this.queue.add(stringRequest);
     }
 
-    // waits to get the User id of the user then calls the post allergy method if successful
-    public void userAllergyData(String email,String allergy,String severity){
+    // waits to get the User id of the user then calls the put allergy method if successful
+    public void putUserAllergyData(String email,String allergy,String severity){
         final String userAllergy = allergy;
         final String userSeverity = severity;
         getUserId(email, new DataCallback() {
@@ -581,7 +632,7 @@ public class API {
     }
 
     // waits to get the User id of the user then calls the post emergency contact method if successful
-    public void userEmergContData(String email, String fname, String lname, String phone, String relationship){
+    public void putUserEmergContData(String email, String fname, String lname, String phone, String relationship){
         final String userFirstName = fname;
         final String userLastName = lname;
         final String userPhoneNum = phone;
@@ -600,6 +651,100 @@ public class API {
         });
     }
 
+    // waits to get the user id of the user then calls the GET users emergency contact information
+    public void getUserIdEmergencyContact(String email){
+        getUserId(email, new DataCallback() {
+            @Override
+            public void onSuccess(JSONObject result) {
+                try {
+                    int uid = result.getInt("pk");
+                    getEmergencyContact(uid);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+    }
+
+    // Wait to get the user id of the user then calls the GET users Allergies
+    public void getUserIdAllergies(String email){
+        getUserId(email, new DataCallback() {
+            @Override
+            public void onSuccess(JSONObject result) {
+                try {
+                    int uid = result.getInt("pk");
+                    getEmergencyContact(uid);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+    }
+
+    // Wait to get the user id of the user then calls the GET users Visits
+    public void getUserIdVisits(String email){
+        getUserId(email, new DataCallback() {
+            @Override
+            public void onSuccess(JSONObject result) {
+                try {
+                    int uid = result.getInt("pk");
+                    getPastVisits(uid);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
+    }
+
+    // Wait to get the user id of the user then calls the GET users Prescriptions
+    public void getUserIdPrescriptions(String email){
+        getUserId(email, new DataCallback() {
+            @Override
+            public void onSuccess(JSONObject result) {
+                try {
+                    int uid = result.getInt("pk");
+                    getPrescriptions(uid);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
+    }
+
+    // Wait to get the user id of the user then calls the GET users Operations
+    public void getUserIdOperations(String email){
+        getUserId(email, new DataCallback() {
+            @Override
+            public void onSuccess(JSONObject result) {
+                try {
+                    int uid = result.getInt("pk");
+                    getPastOperations(uid);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
+    }
+
+    // Wait to get the user if of the user then calls the GET users Primary Doctor
+    public void getUserIdPrimaryDoctor(String email){
+        getUserId(email, new DataCallback() {
+            @Override
+            public void onSuccess(JSONObject result) {
+                try {
+                    int uid = result.getInt("pk");
+                    getPrimaryDoctor(uid);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+    }
+
+    // Generates the users QR code with the user id
     public void userGenerateQR(String email){
         getUserId(email, new DataCallback() {
             @Override

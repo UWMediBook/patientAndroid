@@ -71,7 +71,7 @@ activity#com.medibook.medibook.activity.RegisterMainActivity
 ADDED from C:\Users\jason\Documents\patientAndroid\app\src\main\AndroidManifest.xml:22:9-67
 	android:name
 		ADDED from C:\Users\jason\Documents\patientAndroid\app\src\main\AndroidManifest.xml:22:19-64
-activity#com.medibook.medibook.activity.UserAreaActivity
+activity#com.medibook.medibook.activity.EditUserActivity
 ADDED from C:\Users\jason\Documents\patientAndroid\app\src\main\AndroidManifest.xml:23:9-63
 	android:name
 		ADDED from C:\Users\jason\Documents\patientAndroid\app\src\main\AndroidManifest.xml:23:19-60

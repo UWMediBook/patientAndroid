@@ -7,18 +7,16 @@ import android.os.Bundle;
 import com.medibook.medibook.R;
 import com.medibook.medibook.common.API;
 
-public class ViewAllergiesActivity extends AppCompatActivity {
+public class ViewEmergencyContactActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_view_allergies);
-
+        setContentView(R.layout.activity_view_emergency_contact);
         Intent intent = getIntent();
         String userEmail = intent.getStringExtra("EMAIL");
 
         API handler = new API(this);
-        handler.getUserIdAllergies(userEmail);
-
+        handler.getUserIdEmergencyContact(userEmail);
     }
 }

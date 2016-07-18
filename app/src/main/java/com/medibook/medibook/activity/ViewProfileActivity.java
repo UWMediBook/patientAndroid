@@ -3,21 +3,18 @@ package com.medibook.medibook.activity;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 
 import com.medibook.medibook.R;
 import com.medibook.medibook.common.API;
 
 public class ViewProfileActivity extends AppCompatActivity {
-    private String name;
-    private String email;
-    private String birthday;
-    private String gender;
-    private String healthcard;
-    private String address;
+
+    private Button btnEditProfile;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,7 +41,7 @@ public class ViewProfileActivity extends AppCompatActivity {
         Intent intent;
         switch (item.getItemId()){
             case R.id.EditProfile:
-                intent = new Intent(this, UserAreaActivity.class);
+                intent = new Intent(this, EditUserActivity.class);
                 startActivity(intent);
                 return true;
             case R.id.ViewAllergies:

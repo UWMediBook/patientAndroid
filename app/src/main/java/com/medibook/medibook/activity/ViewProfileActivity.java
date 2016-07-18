@@ -66,12 +66,11 @@ public class ViewProfileActivity extends AppCompatActivity {
 
     /** Swaps fragments in the main content view */
     private void selectItem(int position) {
-        Toast.makeText(this, R.string.app_name, Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, mOptions[position], Toast.LENGTH_SHORT).show();
 
         // Highlight the selected item, update the title, and close the drawer
         mDrawerList.setItemChecked(position, true);
 //        setTitle(mOptions[position]);
-        Log.d("drawer",mOptions[position]);
         mDrawerLayout.closeDrawer(mDrawerList);
     }
 

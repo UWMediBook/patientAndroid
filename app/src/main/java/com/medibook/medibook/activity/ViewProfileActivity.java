@@ -13,8 +13,6 @@ import com.medibook.medibook.common.API;
 
 public class ViewProfileActivity extends AppCompatActivity {
 
-    private Button btnEditProfile;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

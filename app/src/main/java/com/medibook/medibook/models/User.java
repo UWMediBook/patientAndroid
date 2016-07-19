@@ -8,7 +8,8 @@ import org.json.JSONObject;
  */
 
 public class User {
-    private String first_name, last_name, gender, address, birthday, email, password, healthcard;
+    private String first_name, last_name, gender, address, email, password, healthcard;
+    private Long birthday;
     private Integer id;
     private Doctor doctor;
 
@@ -17,7 +18,7 @@ public class User {
                 Integer id,
                 String gender,
                 String address,
-                String birthday,
+                Long birthday,
                 String email,
                 String password,
                 String healthcard,
@@ -59,7 +60,7 @@ public class User {
         return this.address;
     }
 
-    public String getBirthday(){
+    public Long getBirthday(){
         return this.birthday;
     }
 

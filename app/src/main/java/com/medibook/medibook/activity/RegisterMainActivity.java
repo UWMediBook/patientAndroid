@@ -15,6 +15,7 @@ import com.medibook.medibook.R;
 import com.medibook.medibook.common.API;
 
 import java.util.Calendar;
+import java.util.TimeZone;
 
 public class RegisterMainActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -29,7 +30,6 @@ public class RegisterMainActivity extends AppCompatActivity implements View.OnCl
     private RadioGroup rbg;
     private int mYear, mMonth, mDay;
     Calendar dob = Calendar.getInstance();
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,6 +59,7 @@ public class RegisterMainActivity extends AppCompatActivity implements View.OnCl
         String last_name = etLname.getText().toString().trim();
         String address = etAddress.getText().toString().trim();
         String gender = genderBtn.getText().toString().trim();
+        dob.setTimeZone(TimeZone.getTimeZone("UTC"));
         dob.set(mYear, mMonth, mDay);
         String email = etEmail.getText().toString().trim();
         String password = etPassword.getText().toString().trim();
@@ -77,6 +78,7 @@ public class RegisterMainActivity extends AppCompatActivity implements View.OnCl
             finish();
         }else if(v == etDOB){
             Calendar c = Calendar.getInstance();
+            c.setTimeZone(TimeZone.getTimeZone("UTC"));
             mYear = c.get(Calendar.YEAR);
             mMonth = c.get(Calendar.MONTH);
             mDay = c.get(Calendar.DAY_OF_MONTH);

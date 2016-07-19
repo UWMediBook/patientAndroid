@@ -64,6 +64,8 @@ import java.util.concurrent.TimeoutException;
 public class API {
     private RequestQueue queue;
     private View rootView;
+    private SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+
 
     public API(Context context){
         // Instantiate the RequestQueue.
@@ -415,7 +417,7 @@ public class API {
                                     jsonUser.getInt("id"),
                                     jsonUser.getString("gender"),
                                     jsonUser.getString("address"),
-                                    jsonUser.getString("birthday"),
+                                    jsonUser.getLong("birthday"),
                                     jsonUser.getString("email"),
                                     jsonUser.getString("password"),
                                     jsonUser.getString("healthcard"),
@@ -467,7 +469,7 @@ public class API {
                                     jsonUserData.getInt("id"),
                                     jsonUserData.getString("gender"),
                                     jsonUserData.getString("address"),
-                                    jsonUserData.getString("birthday"),
+                                    jsonUserData.getLong("birthday"),
                                     jsonUserData.getString("email"),
                                     jsonUserData.getString("password"),
                                     jsonUserData.getString("healthcard"),
@@ -482,7 +484,7 @@ public class API {
 
                             userName.setText("Name: " + user.getName());
                             userGender.setText("Gender: " + user.getGender());
-                            userBirthday.setText("Birthday: " + user.getBirthday());
+                            userBirthday.setText("Birthday: " + sdf.format(user.getBirthday()*1000));
                             userHealthcard.setText("Healthcard Number: " + user.getHealthcard());
                             userAddress.setText("Address: " + user.getAddress());
                             userEmail.setText("Email: " + user.getEmail());
@@ -527,7 +529,7 @@ public class API {
                         jsonUser.getInt("id"),
                         jsonUser.getString("gender"),
                         jsonUser.getString("address"),
-                        jsonUser.getString("birthday"),
+                        jsonUser.getLong("birthday"),
                         jsonUser.getString("email"),
                         jsonUser.getString("password"),
                         jsonUser.getString("healthcard"),
@@ -763,7 +765,6 @@ public class API {
                                         jsonObjectVisit.getLong("created_at")
 
                                 );
-                                SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 
                                 visitData = visitData + "Visit on "+ sdf.format(visit.getCreated()*1000) +":\n" +visit.getVisit()+ "\n \n";
 

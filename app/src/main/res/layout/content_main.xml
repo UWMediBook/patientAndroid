@@ -16,10 +16,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:id="@+id/user_name"
-        android:hint="name"
-        android:layout_marginTop="32dp"
-        android:layout_below="@+id/tvTitle" />
+        android:id="@+id/etFname"
+        android:hint="First Name"
+        android:layout_marginTop="37dp"
+        android:layout_below="@+id/tvTitle"
+        android:layout_alignStart="@+id/user_gender" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -27,26 +28,26 @@
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:id="@+id/user_email"
         android:hint="email"
-        android:layout_below="@+id/user_name"
-        android:layout_alignParentStart="true" />
+        android:layout_below="@+id/user_last_name"
+        android:layout_alignStart="@+id/user_last_name" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:id="@+id/user_birthday"
+        android:hint="birthday"
         android:layout_below="@+id/user_email"
-        android:layout_alignParentStart="true"
-        android:hint="birthday" />
+        android:layout_alignStart="@+id/user_email" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:id="@+id/user_gender"
+        android:hint="gender"
         android:layout_below="@+id/user_birthday"
-        android:layout_alignParentStart="true"
-        android:hint="gender" />
+        android:layout_toEndOf="@+id/tvTitle" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -55,7 +56,7 @@
         android:id="@+id/user_address"
         android:hint="address"
         android:layout_below="@+id/user_gender"
-        android:layout_alignParentStart="true" />
+        android:layout_alignStart="@+id/user_birthday" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -64,7 +65,7 @@
         android:id="@+id/user_health_card"
         android:hint="health card number"
         android:layout_below="@+id/user_address"
-        android:layout_alignParentStart="true" />
+        android:layout_alignStart="@+id/user_address" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -73,6 +74,78 @@
         android:text="User Information"
         android:id="@+id/tvTitle"
         android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:id="@+id/user_last_name"
+        android:layout_below="@+id/etFname"
+        android:layout_toEndOf="@+id/tvTitle"
+        android:hint="Last Name" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="First Name:"
+        android:id="@+id/textView13"
+        android:layout_alignBottom="@+id/etFname"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Last Name:"
+        android:id="@+id/textView14"
+        android:layout_below="@+id/textView13"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Email:"
+        android:id="@+id/textView15"
+        android:layout_below="@+id/textView14"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Birthday:"
+        android:id="@+id/textView16"
+        android:layout_below="@+id/textView15"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Gender:"
+        android:id="@+id/textView17"
+        android:layout_below="@+id/textView16"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Healthcard:"
+        android:id="@+id/textView18"
+        android:layout_alignBottom="@+id/user_health_card"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Address:"
+        android:id="@+id/textView19"
+        android:layout_above="@+id/textView18"
         android:layout_alignParentStart="true" />
 
 </RelativeLayout>

@@ -37,7 +37,7 @@ public class EditUserActivity extends AppCompatActivity implements View.OnClickL
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_user);
 
-        name = (EditText) findViewById(R.id.user_name);
+        name = (EditText) findViewById(R.id.etFname);
         email = (EditText) findViewById(R.id.user_email);
         birthday = (EditText) findViewById(R.id.user_birthday);
         address = (EditText) findViewById(R.id.user_address);

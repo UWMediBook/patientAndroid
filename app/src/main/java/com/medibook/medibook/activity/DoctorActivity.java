@@ -21,15 +21,6 @@ public class DoctorActivity extends AppCompatActivity {
         setContentView(R.layout.activity_doctor);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-//        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-//        fab.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-//                        .setAction("Action", null).show();
-//            }
-//        });
     }
 
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -43,13 +34,11 @@ public class DoctorActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item){
         Intent intent;
-        Intent intentEmail = getIntent();
-        String email = intentEmail.getStringExtra("EMAIL");
         switch (item.getItemId()){
-            case R.id.EditProfile:
-                intent = new Intent(this, EditUserActivity.class);
-                startActivity(intent);
-                return true;
+//            case R.id.EditProfile:
+//                intent = new Intent(this, EditUserActivity.class);
+//                startActivity(intent);
+//                return true;
             case R.id.action_scan:
                 intent = new Intent(this, ScanActivity.class);
                 startActivity(intent);

@@ -505,11 +505,10 @@ public class API {
     }
 
     // Gets the users information from the users database
-    public User getUserById(Integer user_id) {
+    public User getUserById(final Integer user_id) {
         String USER_URL = "http://52.41.78.184:8000/api/users/" + user_id + "/";
 
-        JSONObject params = new JSONObject();
-
+        // Request a string response from the provided URL.
         RequestFuture<JSONObject> future = RequestFuture.newFuture();
 
         JsonObjectRequest request = new JsonObjectRequest(USER_URL, null, future, future);
@@ -523,7 +522,7 @@ public class API {
                         jsonDoctor.getString("first_name"),
                         jsonDoctor.getString("last_name")
                 );
-                return new User(
+                User user = new User(
                         jsonUser.getString("first_name"),
                         jsonUser.getString("last_name"),
                         jsonUser.getInt("id"),
@@ -535,9 +534,13 @@ public class API {
                         jsonUser.getString("healthcard"),
                         doctor
                 );
-            } catch(JSONException j){
-                j.printStackTrace();
+                return user;
+
+            } catch(JSONException je){
+                je.printStackTrace();
+                return null;
             }
+
         } catch (InterruptedException e) {
             // Exception handling
             e.printStackTrace();
@@ -1041,7 +1044,7 @@ public class API {
         this.queue.add(request);
         try {
             JSONObject response = future.get(5, TimeUnit.SECONDS); // Blocks for at most 5 seconds.
-            Integer is_doctor = 0;
+            Integer is_doctor;
             try{
                 is_doctor = response.getInt("is_doctor");
                 return is_doctor;
@@ -1060,5 +1063,7 @@ public class API {
         }
         return -1;
     }
+
+
 
 }

@@ -74,6 +74,7 @@ public class RegisterMainActivity extends AppCompatActivity implements View.OnCl
             Intent intent = new Intent(RegisterMainActivity.this, EmergencyContactActivity.class);
             intent.putExtra("EMAIL", etEmail.getText().toString());
             startActivity(intent);
+            finish();
         }else if(v == etDOB){
             Calendar c = Calendar.getInstance();
             mYear = c.get(Calendar.YEAR);

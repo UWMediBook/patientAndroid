@@ -43,6 +43,11 @@
         <activity android:name="com.medibook.medibook.activity.ViewPastOperationsActivity" />
         <activity android:name="com.medibook.medibook.activity.ViewAllergiesActivity" />
         <activity android:name="com.medibook.medibook.activity.generateQRActivity" />
+        <activity
+            android:name="com.medibook.medibook.activity.ViewEmergencyContactActivity"
+            android:label="@string/title_activity_view_emergency_contact"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name="com.medibook.medibook.activity.ViewPrimaryDoctorActivity" />
     </application>
 
 </manifest>

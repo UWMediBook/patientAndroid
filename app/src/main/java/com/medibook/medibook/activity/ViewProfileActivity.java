@@ -39,6 +39,8 @@ public class ViewProfileActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item){
         Intent intent;
+        Intent intentEmail = getIntent();
+        String email = intentEmail.getStringExtra("EMAIL");
         switch (item.getItemId()){
             case R.id.EditProfile:
                 intent = new Intent(this, EditUserActivity.class);
@@ -46,6 +48,11 @@ public class ViewProfileActivity extends AppCompatActivity {
                 return true;
             case R.id.ViewAllergies:
                 intent = new Intent(this, ViewAllergiesActivity.class);
+                startActivity(intent);
+                return true;
+            case R.id.ViewEmergencyContact:
+                intent = new Intent(this,ViewEmergencyContactActivity.class);
+                intent.putExtra("EMAIL", email);
                 startActivity(intent);
                 return true;
             case R.id.ViewPastOp:
@@ -57,14 +64,16 @@ public class ViewProfileActivity extends AppCompatActivity {
                 startActivity(intent);
                 return true;
             case R.id.generateQR:
-                Intent intentQR = getIntent();
-                String email = intentQR.getStringExtra("EMAIL");
                 intent = new Intent(this,generateQRActivity.class);
                 intent.putExtra("EMAIL", email);
                 startActivity(intent);
                 return true;
             case R.id.ViewPrescriptions:
                 intent = new Intent(this, ViewPrescriptionsActivity.class);
+                startActivity(intent);
+                return true;
+            case R.id.ViewPrimaryDoctor:
+                intent = new Intent(this, ViewPrimaryDoctorActivity.class);
                 startActivity(intent);
                 return true;
             default:

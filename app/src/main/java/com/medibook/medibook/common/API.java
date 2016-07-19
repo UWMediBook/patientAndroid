@@ -76,10 +76,12 @@ public class API {
                     @Override
                     public void onResponse(String response) {
                         try{
-                            JSONObject jsonContact = new JSONObject(response);
+                            JSONArray jsonArray = new JSONArray(response);
+                            JSONObject jsonContact = jsonArray.getJSONObject(0);
+                            JSONObject jsonContactUID = jsonContact.getJSONObject("user");
                             Contact contact = new Contact(
                                     jsonContact.getInt("id"),
-                                    jsonContact.getInt("user"),
+                                    jsonContactUID.getInt("id"),
                                     jsonContact.getString("first_name"),
                                     jsonContact.getString("last_name"),
                                     jsonContact.getString("phone_number"),
@@ -616,7 +618,7 @@ public class API {
                             JSONArray jsonArray = new JSONArray(response);
                             String prescriptionData = "";
                             for (int i = 0; i < jsonArray.length(); i++) {
-                                JSONObject jsonPrescription = jsonArray.getJSONObject(0).getJSONObject("fields");
+                                JSONObject jsonPrescription = jsonArray.getJSONObject(i);
                                 Prescription prescription = new Prescription(
                                         jsonPrescription.getInt("id"),
                                         jsonPrescription.getInt("user"),
@@ -658,7 +660,7 @@ public class API {
                             String OperationData = "";
                             JSONArray jsonArray = new JSONArray(response);
                             for (int i = 0; i < jsonArray.length(); i++) {
-                                JSONObject jsonOperation = jsonArray.getJSONObject(i).getJSONObject("fields");
+                                JSONObject jsonOperation = jsonArray.getJSONObject(i);
                                 Operation operation = new Operation(
                                         jsonOperation.getInt("id"),
                                         jsonOperation.getInt("user"),
@@ -697,7 +699,7 @@ public class API {
 
                             for (int i = 0; i < jsonArray.length(); i++) {
 
-                                JSONObject jsonVisit = jsonArray.getJSONObject(0).getJSONObject("fields");
+                                JSONObject jsonVisit = jsonArray.getJSONObject(i);
                                 Visit visit = new Visit(
                                         jsonVisit.getInt("id"),
                                         jsonVisit.getInt("user"),

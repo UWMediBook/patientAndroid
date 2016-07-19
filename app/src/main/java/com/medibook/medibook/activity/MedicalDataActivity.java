@@ -51,6 +51,7 @@ public class MedicalDataActivity extends AppCompatActivity implements View.OnCli
             Intent intent = new Intent(MedicalDataActivity.this, ViewProfileActivity.class);
             intent.putExtra("EMAIL", email);
             startActivity(intent);
+            finish();
         }
     }
 }

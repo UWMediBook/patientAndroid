@@ -382,6 +382,7 @@
     <string name="title_activity_profile">Profile</string>
     <string name="title_activity_scan">Scan Patient\'s QR</string>
     <string name="title_activity_testing">testing</string>
+    <string name="title_activity_view_emergency_contact">ViewEmergencyContactActivity</string>
     <style name="AlertDialog.AppCompat" parent="Base.AlertDialog.AppCompat"/>
     <style name="AlertDialog.AppCompat.Light" parent="Base.AlertDialog.AppCompat.Light"/>
     <style name="Animation.AppCompat.Dialog" parent="Base.Animation.AppCompat.Dialog"/>

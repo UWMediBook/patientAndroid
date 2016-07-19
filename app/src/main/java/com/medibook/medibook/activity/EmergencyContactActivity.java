@@ -49,6 +49,7 @@ public class EmergencyContactActivity extends AppCompatActivity implements View.
             Intent intent = new Intent(EmergencyContactActivity.this, MedicalDataActivity.class);
             intent.putExtra("EMAIL", email);
             startActivity(intent);
+            finish();
         }
     }
 }

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="com.medibook.medibook.activity.EditEmergencyContactActivity">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Edit Emergency Contact Data"
+        android:id="@+id/textView4"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/first_name_ec"
+        android:layout_below="@+id/textView4"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:text="First name" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/last_name_ec"
+        android:layout_below="@+id/first_name_ec"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:text="Last Name" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/relationship_ec"
+        android:layout_below="@+id/last_name_ec"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:text="relationship" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/phone_number_ec"
+        android:layout_below="@+id/relationship_ec"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:text="Phone Number" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Save Updates"
+        android:id="@+id/btnSaveEC"
+        android:layout_below="@+id/phone_number_ec"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="60dp" />
+</RelativeLayout>

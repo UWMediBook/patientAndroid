@@ -58,7 +58,7 @@
         android:ems="10"
         android:id="@+id/etDOB"
         android:hint="Date of Birth"
-        android:focusable="false"
+        android:focusable="true"
         android:layout_below="@+id/etPassword_2"
         android:layout_alignStart="@+id/etPassword_2"
         android:layout_alignEnd="@+id/etPassword_2" />
@@ -101,7 +101,8 @@
         android:layout_below="@+id/etPassword"
         android:layout_alignParentEnd="true"
         android:hint="Re-Enter Password"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:password="true" />
 
 
     <RadioGroup

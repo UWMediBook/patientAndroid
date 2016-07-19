@@ -33,13 +33,17 @@ public class MedicalDataActivity extends AppCompatActivity implements View.OnCli
     }
 
     private boolean addMedicalData(String email) {
-        boolean postAllergy = false;
-        boolean postDoctor = false;
+        boolean postAllergy;
+        boolean postDoctor;
         if (etAllergy.length() == 0 && etSeverity.length() == 0) {
             postAllergy = false;
+        }else{
+            postAllergy = true;
         }
         if (etFirst_name.length() == 0 && etLast_name.length() == 0) {
             postDoctor = false;
+        }else{
+            postDoctor = true;
         }
 
         if ((etAllergy.length() == 0 && etSeverity.length() != 0) || (etAllergy.length() != 0 && etSeverity.length() == 0) || (etFirst_name.length() == 0 && etLast_name.length() != 0) || (etFirst_name.length() != 0 && etLast_name.length() == 0)) {

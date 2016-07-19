@@ -94,13 +94,15 @@ public class API {
                                     jsonContact.getString("phone_number"),
                                     jsonContact.getString("relationship")
                             );
-                            TextView contactName = (TextView) rootView.findViewById(R.id.name_ec);
+                            TextView contactFirstName = (TextView) rootView.findViewById(R.id.first_name_ec);
+                            TextView contactLastName = (TextView) rootView.findViewById(R.id.last_name_ec);
                             TextView contactPhoneNumber = (TextView) rootView.findViewById(R.id.phone_number_ec);
                             TextView contactRelationship = (TextView) rootView.findViewById(R.id.relationship_ec);
 
-                            contactName.setText("Name: " + contact.getName());
-                            contactPhoneNumber.setText("Phone Number: " + contact.getPhone_number());
-                            contactRelationship.setText("Relationship: " + contact.getRelationship());
+                            contactFirstName.setText(contact.getFirst_name());
+                            contactLastName.setText(contact.getLast_name());
+                            contactPhoneNumber.setText(contact.getPhone_number());
+                            contactRelationship.setText(contact.getRelationship());
 
                         } catch(JSONException j){
                             Log.e("JSON Conversion", "Failed to convert JSON to User");
@@ -118,8 +120,8 @@ public class API {
     }
 
     // Updates the users Emergency contact information
-    public void updateEmergencyContact(final String first_name,final String last_name, final String phone_number, final String relationship, final int user_id){
-        String EMERGENCY_CONTACT_URL = "http://52.41.78.184:8000/api/users/"+user_id+"/emergency_contact/";
+    public void updateEmergencyContact(final String first_name,final String last_name, final String phone_number, final String relationship, final int eid){
+        String EMERGENCY_CONTACT_URL = "http://52.41.78.184:8000/api/emergency_contacts/"+eid+"/";
 
         JSONObject params = new JSONObject();
 
@@ -128,7 +130,6 @@ public class API {
             params.put("last_name", last_name);
             params.put("phone_number", phone_number);
             params.put("relationship", relationship);
-            params.put("user_id", user_id);
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -819,6 +820,34 @@ public class API {
         this.queue.add(stringRequest);
     }
 
+    public void getECID(int uid, final DataCallback callback) {
+        String url = "http://52.41.78.184:8000/api/users/"+uid+"/emergency_contacts/";
+
+        // Request a string response from the provided URL.
+        StringRequest stringRequest= new StringRequest(Request.Method.GET, url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        try{
+                            JSONArray jsonArray = new JSONArray(response);
+                            JSONObject jsonECID = jsonArray.getJSONObject(0);
+                            callback.onSuccess(jsonECID);
+                        } catch(JSONException j){
+                            Log.e("JSON Conversion", "Failed to convert JSON to User");
+                            j.printStackTrace();
+                        }
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.e("Get User API", "That didn't work!");
+                error.printStackTrace();
+            }
+        });
+        // Add the request to the RequestQueue.
+        this.queue.add(stringRequest);
+    }
+
     // waits to get the User id of the user then calls the put allergy method if successful
     public void putUserAllergyData(String email,String allergy,String severity){
         final String userAllergy = allergy;
@@ -969,7 +998,17 @@ public class API {
             public void onSuccess(JSONObject result) {
                 try {
                     int uid = result.getInt("pk");
-                    updateEmergencyContact(first_name,last_name,phone_number,relationship,uid);
+                    getECID(uid, new DataCallback() {
+                        @Override
+                        public void onSuccess(JSONObject result) {
+                            try {
+                                int eid = result.getInt("id");
+                                updateEmergencyContact(first_name,last_name,phone_number,relationship,eid);
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    });
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -991,7 +1030,7 @@ public class API {
         });
     }
 
-    // Generates the users QR code with the user id
+    // Generates the users QR code Fwith the user id
     public void userGenerateQR(String email){
         getUserId(email, new DataCallback() {
             @Override

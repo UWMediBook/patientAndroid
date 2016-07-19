@@ -22,44 +22,77 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/first_name_ec"
-        android:layout_below="@+id/textView4"
         android:layout_alignParentStart="true"
-        android:layout_alignParentEnd="true"
-        android:text="First name" />
-
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/last_name_ec"
-        android:layout_below="@+id/first_name_ec"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentEnd="true"
-        android:text="Last Name" />
+        android:layout_below="@+id/textView11"
+        android:layout_alignParentEnd="true" />
 
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/relationship_ec"
-        android:layout_below="@+id/last_name_ec"
+        android:layout_below="@+id/textView10"
         android:layout_alignParentStart="true"
-        android:layout_alignParentEnd="true"
-        android:text="relationship" />
+        android:layout_alignEnd="@+id/last_name_ec" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Last Name"
+        android:id="@+id/textView9"
+        android:layout_below="@+id/first_name_ec"
+        android:layout_alignEnd="@+id/textView11" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Relationship"
+        android:id="@+id/textView10"
+        android:layout_below="@+id/textView12"
+        android:layout_marginTop="37dp"
+        android:layout_alignEnd="@+id/relationship_ec"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="First Name"
+        android:id="@+id/textView11"
+        android:layout_below="@+id/textView4"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="60dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Phone Number"
+        android:id="@+id/textView12"
+        android:layout_below="@+id/last_name_ec"
+        android:layout_alignStart="@+id/textView9" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/last_name_ec"
+        android:layout_below="@+id/textView9"
+        android:layout_alignParentStart="true"
+        android:layout_alignEnd="@+id/first_name_ec" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Save Update"
+        android:id="@+id/btnSave"
+        android:layout_below="@+id/relationship_ec"
+        android:layout_centerHorizontal="true" />
 
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/phone_number_ec"
-        android:layout_below="@+id/relationship_ec"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentEnd="true"
-        android:text="Phone Number" />
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Save Updates"
-        android:id="@+id/btnSaveEC"
-        android:layout_below="@+id/phone_number_ec"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="60dp" />
+        android:layout_below="@+id/textView12"
+        android:layout_alignStart="@+id/textView12"
+        android:layout_alignEnd="@+id/last_name_ec" />
 </RelativeLayout>

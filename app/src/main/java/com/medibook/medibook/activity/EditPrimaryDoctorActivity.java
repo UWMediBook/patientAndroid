@@ -14,16 +14,34 @@ import com.medibook.medibook.common.API;
 public class EditPrimaryDoctorActivity extends AppCompatActivity implements View.OnClickListener{
     private EditText fname;
     private EditText lname;
+    private EditText phonenum;
+    private EditText address;
     private Button btnSave;
+
+    private String userEmail;
+
+    private String[] olddata = new String[4];
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_primary_doctor);
 
-        fname = (EditText) findViewById(R.id.first_name_pd);
-        lname = (EditText) findViewById(R.id.last_name_pd);
+        fname = (EditText) findViewById(R.id.firstname_pd);
+        lname = (EditText) findViewById(R.id.lastname_pd);
+        phonenum = (EditText) findViewById(R.id.phonenumber_pd);
+        address = (EditText) findViewById(R.id.address_pd);
         btnSave = (Button) findViewById(R.id.btnSave);
+
+        Intent intentPD = getIntent();
+        userEmail = intentPD.getStringExtra("EMAIL");
+        API handler = new API(this);
+        handler.getUserIdPrimaryDoctor(userEmail);
+
+        olddata[0] = fname.getText().toString().trim();
+        olddata[1] = lname.getText().toString().trim();
+        olddata[2] = phonenum.getText().toString().trim();
+        olddata[3] = address.getText().toString().trim();
 
         btnSave.setOnClickListener(this);
 

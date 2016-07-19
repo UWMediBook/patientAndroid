@@ -15,9 +15,9 @@
         android:text="I Agree to the Terms of Service"
         android:id="@+id/cbTerms"
         android:checked="false"
-        android:layout_below="@+id/etFName"
+        android:layout_below="@+id/editText"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="59dp" />
+        android:layout_marginTop="36dp" />
 
     <Button
         android:layout_width="wrap_content"
@@ -25,8 +25,7 @@
         android:text="Create Account"
         android:id="@+id/butCreateAccount"
         android:layout_below="@+id/cbTerms"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="50dp" />
+        android:layout_centerHorizontal="true" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -84,5 +83,27 @@
         android:layout_below="@+id/etFName"
         android:layout_alignParentStart="true"
         android:layout_alignEnd="@+id/etFName" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="phone"
+        android:ems="10"
+        android:id="@+id/etPhoneHome"
+        android:layout_below="@+id/etLName"
+        android:layout_alignParentStart="true"
+        android:layout_alignEnd="@+id/etLName"
+        android:hint="Phone Number" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPostalAddress"
+        android:ems="10"
+        android:id="@+id/editText"
+        android:layout_below="@+id/etPhoneHome"
+        android:layout_alignParentStart="true"
+        android:layout_alignEnd="@+id/etPhoneHome"
+        android:hint="Address" />
 
 </RelativeLayout>

@@ -3,6 +3,8 @@ package com.medibook.medibook.models;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.SimpleDateFormat;
+
 /**
  * Created by Kevin on 6/18/2016.
  */
@@ -12,6 +14,9 @@ public class User {
     private Long birthday;
     private Integer id;
     private Doctor doctor;
+
+    private SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+
 
     public User(String first_name,
                 String last_name,
@@ -37,6 +42,10 @@ public class User {
 
     public Integer getId(){return this.id;}
 
+    public String getFirst_name(){return this.first_name;}
+
+    public String getLast_name(){return this.last_name;}
+
     public String getName(){
         return this.first_name + " " + this.last_name;
     }
@@ -60,8 +69,8 @@ public class User {
         return this.address;
     }
 
-    public Long getBirthday(){
-        return this.birthday;
+    public String getBirthday(){
+        return (sdf.format(this.birthday * 1000));
     }
 
     public String getEmail(){

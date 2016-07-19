@@ -15,61 +15,6 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:id="@+id/etFname"
-        android:hint="First Name"
-        android:layout_marginTop="37dp"
-        android:layout_below="@+id/tvTitle"
-        android:layout_alignStart="@+id/user_gender" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:id="@+id/user_email"
-        android:hint="email"
-        android:layout_below="@+id/user_last_name"
-        android:layout_alignStart="@+id/user_last_name" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:id="@+id/user_birthday"
-        android:hint="birthday"
-        android:layout_below="@+id/user_email"
-        android:layout_alignStart="@+id/user_email" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:id="@+id/user_gender"
-        android:hint="gender"
-        android:layout_below="@+id/user_birthday"
-        android:layout_toEndOf="@+id/tvTitle" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:id="@+id/user_address"
-        android:hint="address"
-        android:layout_below="@+id/user_gender"
-        android:layout_alignStart="@+id/user_birthday" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:id="@+id/user_health_card"
-        android:hint="health card number"
-        android:layout_below="@+id/user_address"
-        android:layout_alignStart="@+id/user_address" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="User Information"
         android:id="@+id/tvTitle"
@@ -80,72 +25,127 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:id="@+id/user_last_name"
-        android:layout_below="@+id/etFname"
-        android:layout_toEndOf="@+id/tvTitle"
-        android:hint="Last Name" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="First Name:"
-        android:id="@+id/textView13"
-        android:layout_alignBottom="@+id/etFname"
-        android:layout_alignParentStart="true" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Last Name:"
-        android:id="@+id/textView14"
-        android:layout_below="@+id/textView13"
-        android:layout_alignParentStart="true" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Email:"
-        android:id="@+id/textView15"
-        android:layout_below="@+id/textView14"
-        android:layout_alignParentStart="true" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Birthday:"
-        android:id="@+id/textView16"
-        android:layout_below="@+id/textView15"
-        android:layout_alignParentStart="true" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Gender:"
+        android:text="First Name: "
         android:id="@+id/textView17"
-        android:layout_below="@+id/textView16"
-        android:layout_alignParentStart="true" />
+        android:layout_below="@+id/tvTitle"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="31dp" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Healthcard:"
+        android:text="Last Name: "
         android:id="@+id/textView18"
-        android:layout_alignBottom="@+id/user_health_card"
+        android:layout_below="@+id/textView17"
         android:layout_alignParentStart="true" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Address:"
+        android:text="E-mail: "
         android:id="@+id/textView19"
-        android:layout_above="@+id/textView18"
+        android:layout_below="@+id/textView28"
         android:layout_alignParentStart="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Gender: "
+        android:id="@+id/textView28"
+        android:layout_below="@+id/textView18"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Birthday: "
+        android:id="@+id/textView29"
+        android:layout_below="@+id/textView19"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Health Card #: "
+        android:id="@+id/textView30"
+        android:layout_below="@+id/textView29"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Address: "
+        android:id="@+id/textView31"
+        android:layout_below="@+id/textView30"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:id="@+id/user_first_name"
+        android:layout_alignBottom="@+id/textView17"
+        android:layout_alignParentEnd="true"
+        android:layout_toEndOf="@+id/textView30" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:id="@+id/user_last_name"
+        android:layout_below="@+id/user_first_name"
+        android:layout_alignParentEnd="true"
+        android:layout_toEndOf="@+id/textView30" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:id="@+id/user_gender"
+        android:layout_below="@+id/user_last_name"
+        android:layout_alignParentEnd="true"
+        android:layout_toEndOf="@+id/textView30" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:id="@+id/user_email"
+        android:layout_below="@+id/user_gender"
+        android:layout_alignParentEnd="true"
+        android:layout_toEndOf="@+id/textView30" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:id="@+id/user_birthday"
+        android:layout_below="@+id/user_email"
+        android:layout_alignParentEnd="true"
+        android:layout_toEndOf="@+id/textView30" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:id="@+id/user_health_card"
+        android:layout_below="@+id/user_birthday"
+        android:layout_alignParentEnd="true"
+        android:layout_alignStart="@+id/user_birthday" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:id="@+id/user_address"
+        android:layout_below="@+id/user_health_card"
+        android:layout_alignParentEnd="true"
+        android:layout_alignStart="@+id/user_health_card" />
 
 </RelativeLayout>

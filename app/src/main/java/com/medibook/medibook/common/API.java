@@ -65,7 +65,6 @@ import java.util.concurrent.TimeoutException;
 public class API {
     private RequestQueue queue;
     private View rootView;
-    private SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 
 
     public API(Context context) {
@@ -477,19 +476,21 @@ public class API {
                                     jsonUserData.getString("healthcard"),
                                     null
                             );
-                            TextView userName = (TextView) rootView.findViewById(R.id.user_name);
+                            TextView userFirstName = (TextView) rootView.findViewById(R.id.user_first_name);
+                            TextView userLastName = (TextView) rootView.findViewById(R.id.user_last_name);
                             TextView userGender = (TextView) rootView.findViewById(R.id.user_gender);
                             TextView userEmail = (TextView) rootView.findViewById(R.id.user_email);
                             TextView userAddress = (TextView) rootView.findViewById(R.id.user_address);
                             TextView userBirthday = (TextView) rootView.findViewById(R.id.user_birthday);
                             TextView userHealthcard = (TextView) rootView.findViewById(R.id.user_health_card);
 
-                            userName.setText("Name: " + user.getName());
-                            userGender.setText("Gender: " + user.getGender());
-                            userBirthday.setText("Birthday: " + sdf.format(user.getBirthday() * 1000));
-                            userHealthcard.setText("Healthcard Number: " + user.getHealthcard());
-                            userAddress.setText("Address: " + user.getAddress());
-                            userEmail.setText("Email: " + user.getEmail());
+                            userFirstName.setText(user.getFirst_name());
+                            userLastName.setText(user.getLast_name());
+                            userGender.setText(user.getGender());
+                            userBirthday.setText(user.getBirthday());
+                            userHealthcard.setText(user.getHealthcard());
+                            userAddress.setText(user.getAddress());
+                            userEmail.setText(user.getEmail());
 
                         } catch (JSONException j) {
                             Log.e("JSON Conversion", "Failed to convert JSON to User");
@@ -603,14 +604,17 @@ public class API {
     }
 
     // Put the information entered by the user about their primary doctor to the doctor database
-    public void putPrimaryDoctor(final String first_name, final String last_name) {
-        String DOCTOR_URL = "http://52.41.78.184:8000/api/doctors/";
+    public void putPrimaryDoctor(final String first_name, final String last_name, final String address, final String phone_number, final int user_id) {
+        String DOCTOR_URL = "http://52.41.78.184:8000/api/physicians/";
 
         JSONObject params = new JSONObject();
 
         try {
+            params.put("user_id", user_id);
             params.put("first_name", first_name);
             params.put("last_name", last_name);
+            params.put("address", address);
+            params.put("phone_number", phone_number);
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -639,14 +643,16 @@ public class API {
     }
 
     // Updates the Users Primary doctor information
-    public void updateDoctor(final String first_name, final String last_name, int user_id) {
-        String DOCTOR_URL = "http://52.41.78.184:8000/api/users/" + user_id + "/doctors/";
+    public void updateDoctor(final String first_name, final String last_name, final String address, final String phone_number,int doctor_id) {
+        String DOCTOR_URL = "http://52.41.78.184:8000/api/physicians/"+ doctor_id+"/";
 
         JSONObject params = new JSONObject();
 
         try {
             params.put("first_name", first_name);
             params.put("last_name", last_name);
+            params.put("address",address);
+            params.put("phone_number",phone_number);
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -780,7 +786,7 @@ public class API {
 
                                 );
 
-                                visitData = visitData + "Visit on " + sdf.format(visit.getCreated() * 1000) + ":\n" + visit.getVisit() + "\n \n";
+                                visitData = visitData + "Visit on " + visit.getCreated() + ":\n" + visit.getVisit() + "\n \n";
 
                             }
                             TextView visitInfo = (TextView) rootView.findViewById(R.id.tvPastVisitList);
@@ -858,6 +864,34 @@ public class API {
         this.queue.add(stringRequest);
     }
 
+    public void getPDID(int uid, final DataCallback callback){
+        String url = "http://52.41.78.184:8000/api/users/" + uid + "/physicians/";
+
+        // Request a string response from the provided URL.
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        try {
+                            JSONArray jsonArray = new JSONArray(response);
+                            JSONObject jsonPDID = jsonArray.getJSONObject(0);
+                            callback.onSuccess(jsonPDID);
+                        } catch (JSONException j) {
+                            Log.e("JSON Conversion", "Failed to convert JSON to User");
+                            j.printStackTrace();
+                        }
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.e("Get User API", "That didn't work!");
+                error.printStackTrace();
+            }
+        });
+        // Add the request to the RequestQueue.
+        this.queue.add(stringRequest);
+    }
+
     // waits to get the User id of the user then calls the put allergy method if successful
     public void putUserAllergyData(String email, String allergy, String severity) {
         final String userAllergy = allergy;
@@ -888,6 +922,25 @@ public class API {
                 try {
                     int uid = result.getInt("pk");
                     putEmergencyContact(userFirstName, userLastName, userPhoneNum, userRelationship, uid);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+    }
+
+    public void putUserPhysicianData(String email, String fname, String lname, String phone, String address) {
+        final String PDfirst = fname;
+        final String PDlast = lname;
+        final String PDphone = phone;
+        final String PDaddress = address;
+
+        getUserId(email, new DataCallback() {
+            @Override
+            public void onSuccess(JSONObject result) {
+                try{
+                    int uid = result.getInt("pk");
+                    putPrimaryDoctor(PDfirst, PDlast, PDphone, PDaddress, uid);
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -1026,13 +1079,23 @@ public class API {
         });
     }
 
-    public void postUserIdUpdatePD(String email, final String first_name, final String last_name) {
+    public void postUserIdUpdatePD(String email, final String first_name, final String last_name, final String Phone_number, final String address) {
         getUserId(email, new DataCallback() {
             @Override
             public void onSuccess(JSONObject result) {
                 try {
                     int uid = result.getInt("pk");
-                    updateDoctor(first_name, last_name, uid);
+                    getPDID(uid, new DataCallback() {
+                        @Override
+                        public void onSuccess(JSONObject result) {
+                            try {
+                                int did = result.getInt("id");
+                                updateDoctor(first_name, last_name, address, Phone_number, did);
+                            }catch(JSONException e){
+                                e.printStackTrace();
+                            }
+                        }
+                    });
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }

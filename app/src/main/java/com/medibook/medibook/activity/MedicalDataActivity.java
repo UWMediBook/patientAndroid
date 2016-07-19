@@ -16,6 +16,8 @@ public class MedicalDataActivity extends AppCompatActivity implements View.OnCli
     private EditText etSeverity;
     private EditText etFirst_name;
     private EditText etLast_name;
+    private EditText etPhoneHome;
+    private EditText etAddress;
     private Button butCreate;
 
     @Override
@@ -27,6 +29,8 @@ public class MedicalDataActivity extends AppCompatActivity implements View.OnCli
         etSeverity = (EditText) findViewById(R.id.etSeverity);
         etFirst_name = (EditText) findViewById(R.id.etFName);
         etLast_name = (EditText) findViewById(R.id.etLName);
+        etPhoneHome = (EditText) findViewById(R.id.etPhoneHome);
+        etAddress = (EditText) findViewById(R.id.etAddress);
         butCreate = (Button) findViewById(R.id.butCreateAccount);
 
         butCreate.setOnClickListener(this);
@@ -72,9 +76,11 @@ public class MedicalDataActivity extends AppCompatActivity implements View.OnCli
             if (postDoctor) {
                 String first_name = etFirst_name.getText().toString().trim();
                 String last_name = etLast_name.getText().toString().trim();
+                String address = etAddress.getText().toString().trim();
+                String phonenumber = etPhoneHome.getText().toString().trim();
 
                 API handler = new API(this);
-                handler.putPrimaryDoctor(first_name, last_name);
+                handler.putUserPhysicianData(email, first_name, last_name, address, phonenumber);
             }
             return true;
         }

@@ -20,8 +20,6 @@ public class EditPrimaryDoctorActivity extends AppCompatActivity implements View
 
     private String userEmail;
 
-    private String[] olddata = new String[4];
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,17 +29,12 @@ public class EditPrimaryDoctorActivity extends AppCompatActivity implements View
         lname = (EditText) findViewById(R.id.lastname_pd);
         phonenum = (EditText) findViewById(R.id.phonenumber_pd);
         address = (EditText) findViewById(R.id.address_pd);
-        btnSave = (Button) findViewById(R.id.btnSave);
+        btnSave = (Button) findViewById(R.id.btnSavePD);
 
         Intent intentPD = getIntent();
         userEmail = intentPD.getStringExtra("EMAIL");
         API handler = new API(this);
         handler.getUserIdPrimaryDoctor(userEmail);
-
-        olddata[0] = fname.getText().toString().trim();
-        olddata[1] = lname.getText().toString().trim();
-        olddata[2] = phonenum.getText().toString().trim();
-        olddata[3] = address.getText().toString().trim();
 
         btnSave.setOnClickListener(this);
 
@@ -50,9 +43,12 @@ public class EditPrimaryDoctorActivity extends AppCompatActivity implements View
     public void updatePrimaryDoctor(String email){
         String first_name = fname.getText().toString().trim();
         String last_name = lname.getText().toString().trim();
+        String phonenumber = phonenum.getText().toString().trim();
+        String addr = address.getText().toString().trim();
+
 
         API handler = new API(this);
-        handler.postUserIdUpdatePD(email, first_name,last_name);
+        handler.postUserIdUpdatePD(email, first_name,last_name, phonenumber, addr);
 
     }
 

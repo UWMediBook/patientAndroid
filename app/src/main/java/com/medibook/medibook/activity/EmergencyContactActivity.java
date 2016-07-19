@@ -31,25 +31,45 @@ public class EmergencyContactActivity extends AppCompatActivity implements View.
         buttonNext.setOnClickListener(this);
     }
 
-    public void addEmergencyContact(String email){
-        String first_name = etFirstName.getText().toString().trim();
-        String last_name = etLastName.getText().toString().trim();
-        String relationship = etRelationship.getText().toString().trim();
-        String phonenumber = etPhoneNumber.getText().toString().trim();
+    public boolean addEmergencyContact(String email){
+        if (etFirstName.length() == 0 || etLastName.length() == 0 || etRelationship.length() == 0 || etPhoneNumber.length() == 0) {
+            if (etFirstName.length() == 0) {
+                etFirstName.setError("Cannot be empty");
+            }
+            if (etLastName.length() == 0) {
+                etLastName.setError("Cannot be empty");
+            }
+            if (etRelationship.length() == 0) {
+                etRelationship.setError("Cannot be empty");
+            }
+            if (etPhoneNumber.length() == 0) {
+                etPhoneNumber.setError("Cannot be empty");
+            }
+            return false;
+        } else {
+            String first_name = etFirstName.getText().toString().trim();
+            String last_name = etLastName.getText().toString().trim();
+            String relationship = etRelationship.getText().toString().trim();
+            String phonenumber = etPhoneNumber.getText().toString().trim();
 
-        API handler = new API(this);
-        handler.putUserEmergContData(email,first_name,last_name,phonenumber,relationship);
+
+            API handler = new API(this);
+            handler.putUserEmergContData(email, first_name, last_name, phonenumber, relationship);
+
+            return true;
+        }
     }
 
     public void onClick(View v) {
         if (v == buttonNext) {
             Intent intentEC = getIntent();
             String email = intentEC.getStringExtra("EMAIL");
-            addEmergencyContact(email);
-            Intent intent = new Intent(EmergencyContactActivity.this, MedicalDataActivity.class);
-            intent.putExtra("EMAIL", email);
-            startActivity(intent);
-            finish();
+            if (addEmergencyContact(email) == true) {
+                Intent intent = new Intent(EmergencyContactActivity.this, MedicalDataActivity.class);
+                intent.putExtra("EMAIL", email);
+                startActivity(intent);
+                finish();
+            }
         }
     }
 }

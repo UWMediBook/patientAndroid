@@ -75,7 +75,7 @@ public class API {
 
     // Gets the user emergency contact information
     public void getEmergencyContact(int user_id){
-        String url = "http://52.41.78.184:8000/api/users/" + user_id+"/emergency_contacts/";
+        String url = "http://52.41.78.184:8000/api/users/"+user_id+"/emergency_contacts/";
 
         // Request a string response from the provided URL.
         StringRequest stringRequest= new StringRequest(Request.Method.GET, url,

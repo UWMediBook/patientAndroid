@@ -17,7 +17,9 @@ public class EditEmergencyContactActivity extends AppCompatActivity implements V
     private EditText lname;
     private EditText relationship;
     private EditText phonenumber;
+
     private Button btnSave;
+    private String userEmail;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,7 +30,13 @@ public class EditEmergencyContactActivity extends AppCompatActivity implements V
         lname = (EditText) findViewById(R.id.last_name_ec);
         relationship = (EditText) findViewById(R.id.relationship_ec);
         phonenumber = (EditText) findViewById(R.id.phone_number_ec);
-        btnSave = (Button) findViewById(R.id.btnSaveEC);
+        btnSave = (Button) findViewById(R.id.btnSave);
+
+
+        Intent intentEC = getIntent();
+        userEmail = intentEC.getStringExtra("EMAIL");
+        API handlerID = new API(this);
+        handlerID.getUserIdEmergencyContact(userEmail);
 
         btnSave.setOnClickListener(this);
     }
@@ -46,12 +54,10 @@ public class EditEmergencyContactActivity extends AppCompatActivity implements V
     @Override
     public void onClick(View v) {
         if (v == btnSave){
-            Intent intentEC = getIntent();
-            String email = intentEC.getStringExtra("EMAIL");
-            updateEC(email);
+            updateEC(userEmail);
             Toast.makeText(EditEmergencyContactActivity.this, "Update Successful", Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(this, ViewProfileActivity.class);
-            intent.putExtra("EMAIL", email);
+            intent.putExtra("EMAIL", userEmail);
             startActivity(intent);
         }
     }

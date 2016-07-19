@@ -10,8 +10,18 @@ import org.json.JSONObject;
 public class User {
     private String first_name, last_name, gender, address, birthday, email, password, healthcard;
     private Integer id;
+    private Doctor doctor;
 
-    public User(String first_name, String last_name, Integer id, String gender, String address, String birthday, String email, String password, String healthcard){
+    public User(String first_name,
+                String last_name,
+                Integer id,
+                String gender,
+                String address,
+                String birthday,
+                String email,
+                String password,
+                String healthcard,
+                Doctor doctor){
         this.first_name = first_name;
         this.last_name = last_name;
         this.id = id;
@@ -21,6 +31,7 @@ public class User {
         this.email = email;
         this.password = password;
         this.healthcard = healthcard;
+        this.doctor = doctor;
     }
 
     public Integer getId(){return this.id;}
@@ -71,12 +82,17 @@ public class User {
             user.put("password", this.password);
             user.put("gender", this.gender);
             user.put("healthcard", this.healthcard);
+            user.put("doctor", this.doctor.toJson());
         } catch (JSONException e){
             e.printStackTrace();
         }
 
         return user.toString();
 
+    }
+
+    public Doctor getDoctor(){
+        return this.doctor;
     }
 
 }

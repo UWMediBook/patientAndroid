@@ -32,6 +32,7 @@ import com.google.android.gms.appindexing.Action;
 import com.google.android.gms.appindexing.AppIndex;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.medibook.medibook.R;
+import com.medibook.medibook.common.API;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -43,6 +44,7 @@ import static android.Manifest.permission.READ_CONTACTS;
  */
 public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<Cursor> {
 
+    public API apiHandler;
     /**
      * Id to identity READ_CONTACTS permission request.
      */
@@ -116,6 +118,9 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         // ATTENTION: This was auto-generated to implement the App Indexing API.
         // See https://g.co/AppIndexing/AndroidStudio for more information.
         client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
+
+        this.apiHandler = new API(this);
+
     }
 
     private void populateAutoComplete() {
@@ -359,7 +364,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
      * Represents an asynchronous login/registration task used to authenticate
      * the user.
      */
-    public class UserLoginTask extends AsyncTask<Void, Void, Boolean> {
+    public class UserLoginTask extends AsyncTask<Void, Void, Integer> {
 
         private final String mEmail;
         private final String mPassword;
@@ -370,37 +375,23 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         }
 
         @Override
-        protected Boolean doInBackground(Void... params) {
-            // TODO: attempt authentication against a network service.
-
-            try {
-                // Simulate network access.
-                Thread.sleep(2000);
-            } catch (InterruptedException e) {
-                return false;
-            }
-
-            for (String credential : DUMMY_CREDENTIALS) {
-                String[] pieces = credential.split(":");
-                if (pieces[0].equals(mEmail)) {
-                    // Account exists, return true if the password matches.
-                    return pieces[1].equals(mPassword);
-                }
-            }
-
-            // TODO: register the new account here.
-            return true;
+        protected Integer doInBackground(Void... params) {
+            return apiHandler.authenticate(mEmail, mPassword);
         }
 
         @Override
-        protected void onPostExecute(final Boolean success) {
+        protected void onPostExecute(final Integer is_doctor) {
             mAuthTask = null;
             showProgress(false);
 
-            if (success) {
-                //finish();
-                changeActivity();
+            if (is_doctor == 1) {
+                // Doctor
+                changeActivity("doctor", mEmail);
+            } else if (is_doctor == 0) {
+                // User
+                changeActivity("user", mEmail);
             } else {
+                // Failed
                 mPasswordView.setError(getString(R.string.error_incorrect_password));
                 mPasswordView.requestFocus();
             }
@@ -413,9 +404,18 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         }
     }
 
-    private void changeActivity(){
-        Intent intent = new Intent(this, ViewProfileActivity.class);
-        intent.putExtra("EMAIL",mEmailView.getText().toString());
+    private void changeActivity(String doctor, String email){
+        Intent intent;
+        switch(doctor){
+            case "doctor":
+                intent = new Intent(this, DoctorActivity.class);
+                break;
+            case "user":
+            default:
+                intent = new Intent(this, ViewProfileActivity.class);
+                intent.putExtra("EMAIL",email);
+                break;
+        }
         startActivity(intent);
     }
 }

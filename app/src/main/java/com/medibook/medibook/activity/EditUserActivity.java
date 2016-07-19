@@ -51,7 +51,7 @@ public class EditUserActivity extends AppCompatActivity implements View.OnClickL
         Intent intent = getIntent();
         userEmail = intent.getStringExtra("EMAIL");
         API apiHandler = new API(this);
-        apiHandler.getUser(userEmail);
+        apiHandler.getUserByEmail(userEmail);
 
         btnSaveProfile.setOnClickListener(this);
         birthday.setOnClickListener(this);

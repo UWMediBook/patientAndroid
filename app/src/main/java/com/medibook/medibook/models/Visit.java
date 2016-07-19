@@ -11,14 +11,18 @@ public class Visit {
 
     private Integer visit_id, user_id;
     private String visit;
+    private Long created;
 
-    public Visit(Integer visit_id, Integer user_id, String visit){
+    public Visit(Integer visit_id, Integer user_id, String visit,Long created){
         this.visit_id = visit_id;
         this.user_id = user_id;
         this.visit = visit;
+        this.created = created;
     }
 
     public String getVisit(){return this.visit;}
+
+    public Long getCreated(){return this.created;}
 
     public String toJson(){
         JSONObject visit = new JSONObject();

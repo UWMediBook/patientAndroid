@@ -140,7 +140,8 @@
         android:layout_below="@+id/etPassword"
         android:layout_alignParentEnd="true"
         android:layout_alignStart="@+id/etAddress"
-        android:hint="Re-Enter Password" />
+        android:hint="Re-Enter Password"
+        android:password="true" />
 
 
 </RelativeLayout>

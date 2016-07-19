@@ -25,6 +25,7 @@ import com.android.volley.ServerError;
 import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.RequestFuture;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.zxing.BarcodeFormat;
@@ -50,6 +51,9 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.TimeoutException;
 
 /**
  * Created by Kevin on 6/19/2016.
@@ -414,7 +418,8 @@ public class API {
                                     jsonUser.getString("birthday"),
                                     jsonUser.getString("email"),
                                     jsonUser.getString("password"),
-                                    jsonUser.getString("healthcard")
+                                    jsonUser.getString("healthcard"),
+                                    null
                             );
                             TextView userName = (TextView) rootView.findViewById(R.id.user_name);
                             TextView userGender = (TextView) rootView.findViewById(R.id.user_gender);
@@ -446,8 +451,8 @@ public class API {
     }
 
     // Gets the users information from the users database
-    public void getUser(String email_string) {
-        String url = "http://52.41.78.184:8000/api/users/?email=" + email_string;
+    public void getUserByEmail(String email_string) {
+        String url = "http://52.41.78.184:8000/api/users/" + email_string + "/";
 
         // Request a string response from the provided URL.
         StringRequest stringRequest= new StringRequest(Request.Method.GET, url,
@@ -455,19 +460,18 @@ public class API {
                     @Override
                     public void onResponse(String response) {
                         try{
-                            JSONArray jsonArray = new JSONArray(response);
-                            JSONObject jsonUserID = jsonArray.getJSONObject(0);
-                            JSONObject jsonUser = jsonArray.getJSONObject(0).getJSONObject("fields");
+                            JSONObject jsonUserData = new JSONObject(response);
                             User user = new User(
-                                    jsonUser.getString("first_name"),
-                                    jsonUser.getString("last_name"),
-                                    jsonUserID.getInt("pk"),
-                                    jsonUser.getString("gender"),
-                                    jsonUser.getString("address"),
-                                    jsonUser.getString("birthday"),
-                                    jsonUser.getString("email"),
-                                    jsonUser.getString("password"),
-                                    jsonUser.getString("healthcard")
+                                    jsonUserData.getString("first_name"),
+                                    jsonUserData.getString("last_name"),
+                                    jsonUserData.getInt("id"),
+                                    jsonUserData.getString("gender"),
+                                    jsonUserData.getString("address"),
+                                    jsonUserData.getString("birthday"),
+                                    jsonUserData.getString("email"),
+                                    jsonUserData.getString("password"),
+                                    jsonUserData.getString("healthcard"),
+                                    null
                             );
                             TextView userName = (TextView) rootView.findViewById(R.id.user_name);
                             TextView userGender = (TextView) rootView.findViewById(R.id.user_gender);
@@ -496,6 +500,52 @@ public class API {
         });
         // Add the request to the RequestQueue.
         this.queue.add(stringRequest);
+    }
+
+    // Gets the users information from the users database
+    public User getUserById(Integer user_id) {
+        String USER_URL = "http://52.41.78.184:8000/api/users/" + user_id + "/";
+
+        JSONObject params = new JSONObject();
+
+        RequestFuture<JSONObject> future = RequestFuture.newFuture();
+
+        JsonObjectRequest request = new JsonObjectRequest(USER_URL, null, future, future);
+        this.queue.add(request);
+        try {
+            JSONObject jsonUser = future.get(5, TimeUnit.SECONDS); // Blocks for at most 5 seconds.
+            try{
+                JSONObject jsonDoctor = jsonUser.getJSONObject("doctor");
+                Doctor doctor = new Doctor(
+                        jsonDoctor.getInt("id"),
+                        jsonDoctor.getString("first_name"),
+                        jsonDoctor.getString("last_name")
+                );
+                return new User(
+                        jsonUser.getString("first_name"),
+                        jsonUser.getString("last_name"),
+                        jsonUser.getInt("id"),
+                        jsonUser.getString("gender"),
+                        jsonUser.getString("address"),
+                        jsonUser.getString("birthday"),
+                        jsonUser.getString("email"),
+                        jsonUser.getString("password"),
+                        jsonUser.getString("healthcard"),
+                        doctor
+                );
+            } catch(JSONException j){
+                j.printStackTrace();
+            }
+        } catch (InterruptedException e) {
+            // Exception handling
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            // Exception handling
+            e.printStackTrace();
+        } catch(TimeoutException e){
+            e.printStackTrace();
+        }
+        return null;
     }
 
     // Gets the users primary doctor information
@@ -970,6 +1020,44 @@ public class API {
 
     public interface DataCallback{
         void onSuccess (JSONObject result);
+    }
+
+    public Integer authenticate(final String email,final String password){
+        String AUTHENTICATE_URL = "http://52.41.78.184:8000/api/authenticate/";
+
+        JSONObject params = new JSONObject();
+
+        try {
+            params.put("email", email);
+            params.put("password", password);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        RequestFuture<JSONObject> future = RequestFuture.newFuture();
+
+        JsonObjectRequest request = new JsonObjectRequest(AUTHENTICATE_URL, params, future, future);
+        this.queue.add(request);
+        try {
+            JSONObject response = future.get(5, TimeUnit.SECONDS); // Blocks for at most 5 seconds.
+            Integer is_doctor = 0;
+            try{
+                is_doctor = response.getInt("is_doctor");
+                return is_doctor;
+            } catch(JSONException j){
+                j.printStackTrace();
+                return -1;
+            }
+        } catch (InterruptedException e) {
+            // Exception handling
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            // Exception handling
+            e.printStackTrace();
+        } catch(TimeoutException e){
+            e.printStackTrace();
+        }
+        return -1;
     }
 
 }

@@ -54,6 +54,11 @@ public class ViewProfileActivity extends AppCompatActivity {
                 intent.putExtra("EMAIL", email);
                 startActivity(intent);
                 return true;
+            case R.id.EditEmergencyContact:
+                intent = new Intent(this, EditEmergencyContactActivity.class);
+                intent.putExtra("EMAIL", email);
+                startActivity(intent);
+                return true;
             case R.id.ViewPastOp:
                 intent = new Intent(this, ViewPastOperationsActivity.class);
                 intent.putExtra("EMAIL", email);
@@ -76,6 +81,11 @@ public class ViewProfileActivity extends AppCompatActivity {
                 return true;
             case R.id.ViewPrimaryDoctor:
                 intent = new Intent(this, ViewPrimaryDoctorActivity.class);
+                intent.putExtra("EMAIL", email);
+                startActivity(intent);
+                return true;
+            case R.id.EditPrimaryDoctor:
+                intent = new Intent(this, EditPrimaryDoctorActivity.class);
                 intent.putExtra("EMAIL", email);
                 startActivity(intent);
                 return true;

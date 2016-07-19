@@ -13,6 +13,11 @@
     <item
         android:id="@+id/ViewEmergencyContact"
         android:title="View Emergency Contact"/>
+
+    <item
+        android:id="@+id/EditEmergencyContact"
+        android:title="Edit Emergency Contact"/>
+
     <item
         android:id="@+id/ViewPastOp"
         android:title="View Past Operations"/>
@@ -28,5 +33,9 @@
     <item
         android:id="@+id/ViewPrimaryDoctor"
         android:title="View Primary Doctor"/>
+
+    <item
+        android:id="@+id/EditPrimaryDoctor"
+        android:title="Edit Primary Doctor"/>
 
 </menu>

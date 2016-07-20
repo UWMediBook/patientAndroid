@@ -17,6 +17,7 @@
         completions."
     </string>
     <string name="title_activity_profile">Profile</string>
+    <string name="agree_TOS">I agree to the <u><b>Terms of Service</b></u></string>
 
     <!-- Strings related to Settings -->
 

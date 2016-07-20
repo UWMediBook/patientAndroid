@@ -8,24 +8,47 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".medibook.MedicalDataActivity">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Medical Information"
+        android:id="@+id/basicInfo"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="10dp"/>
+
+    <View xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/divider"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginTop="16dp"
+        android:background="#B6B6B6"
+        android:layout_below="@id/basicInfo"/>
 
     <CheckBox
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="I Agree to the Terms of Service"
+        android:text="@string/agree_TOS"
         android:id="@+id/cbTerms"
         android:checked="false"
-        android:layout_below="@+id/etAddress"
+        android:layout_above="@+id/butCreateAccount"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="36dp" />
+        android:layout_marginBottom="12dp" />
 
     <Button
-        android:layout_width="wrap_content"
+        android:layout_width="120dp"
         android:layout_height="wrap_content"
-        android:text="Create Account"
+        android:text="Register"
         android:id="@+id/butCreateAccount"
-        android:layout_below="@+id/cbTerms"
-        android:layout_centerHorizontal="true" />
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="35dp"
+        style="@style/Widget.AppCompat.Button.Colored"
+        android:textSize="16sp"/>
+
+
 
     <TextView
         android:layout_width="wrap_content"
@@ -33,9 +56,11 @@
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="Known Allergies"
         android:id="@+id/tvAllergies"
-        android:layout_alignParentTop="true"
+        android:layout_below="@+id/divider"
         android:layout_alignParentStart="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="10dp"/>
 
     <EditText
         android:layout_width="wrap_content"
@@ -62,17 +87,17 @@
         android:text="Primary Doctor"
         android:id="@+id/tvDoctor"
         android:layout_below="@+id/etSeverity"
-        android:layout_marginTop="45dp"
+        android:layout_marginTop="30dp"
         android:layout_alignEnd="@+id/etSeverity"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="10dp"/>
 
     <EditText
-        android:layout_width="wrap_content"
+        android:layout_width="180dp"
         android:layout_height="wrap_content"
         android:id="@+id/etFName"
         android:layout_below="@+id/tvDoctor"
         android:layout_alignParentStart="true"
-        android:layout_alignEnd="@+id/tvDoctor"
         android:hint="First Name" />
 
     <EditText
@@ -80,10 +105,9 @@
         android:layout_height="wrap_content"
         android:id="@+id/etLName"
         android:hint="Last Name"
-        android:layout_below="@+id/etFName"
-        android:layout_alignParentStart="true"
-        android:layout_alignEnd="@+id/etFName" />
-
+        android:layout_below="@+id/tvDoctor"
+        android:layout_alignEnd="@+id/etSeverity"
+        android:layout_toEndOf="@+id/etFName"/>
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

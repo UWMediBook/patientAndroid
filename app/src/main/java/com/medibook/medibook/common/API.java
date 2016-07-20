@@ -38,6 +38,7 @@ import com.medibook.medibook.models.Allergy;
 import com.medibook.medibook.models.Contact;
 import com.medibook.medibook.models.Doctor;
 import com.medibook.medibook.models.Operation;
+import com.medibook.medibook.models.Physician;
 import com.medibook.medibook.models.Prescription;
 import com.medibook.medibook.models.User;
 import com.medibook.medibook.models.Visit;
@@ -525,9 +526,7 @@ public class API {
                 Doctor doctor = new Doctor(
                         jsonDoctor.getInt("id"),
                         jsonDoctor.getString("first_name"),
-                        jsonDoctor.getString("last_name"),
-                        jsonDoctor.getString("address"),
-                        jsonDoctor.getString("phonenumber")
+                        jsonDoctor.getString("last_name")
                 );
                 User user = new User(
                         jsonUser.getString("first_name"),
@@ -572,7 +571,7 @@ public class API {
                         try {
                             JSONArray jsonArray = new JSONArray(response);
                             JSONObject jsonPhysician = jsonArray.getJSONObject(0);
-                            Doctor doctor = new Doctor(
+                            Physician physician = new Physician(
                                     jsonPhysician.getInt("id"),
                                     jsonPhysician.getString("first_name"),
                                     jsonPhysician.getString("last_name"),
@@ -585,10 +584,10 @@ public class API {
                             TextView doctorPhone = (TextView) rootView.findViewById(R.id.phonenumber_pd);
                             TextView doctorAddress = (TextView) rootView.findViewById(R.id.address_pd);
 
-                            doctorFirst.setText(doctor.getFirst());
-                            doctorLast.setText(doctor.getLast());
-                            doctorPhone.setText(doctor.getPhoneNumber());
-                            doctorAddress.setText(doctor.getAddress());
+                            doctorFirst.setText(physician.getFirst());
+                            doctorLast.setText(physician.getLast());
+                            doctorPhone.setText(physician.getPhoneNumber());
+                            doctorAddress.setText(physician.getAddress());
 
                         } catch (JSONException j) {
                             Log.e("JSON Conversion", "Failed to convert JSON to User");

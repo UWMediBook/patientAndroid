@@ -11,21 +11,13 @@ public class Doctor {
     private Integer doctor_id;
     private String first_name, last_name, address, phonenumber;
 
-    public Doctor(Integer doctor_id, String first_name, String last_name, String address, String phonenumber){
+    public Doctor(Integer doctor_id, String first_name, String last_name){
         this.doctor_id = doctor_id;
         this.first_name = first_name;
         this.last_name = last_name;
-        this.address = address;
-        this.phonenumber = phonenumber;
     }
 
-    public String getFirst(){ return this.first_name;}
-
-    public String getLast(){ return this.last_name;}
-
-    public String getAddress() { return this.address;}
-
-    public String getPhoneNumber() {return this.phonenumber;}
+    public String getName() {return this.first_name + " "+ this.last_name;}
 
     public String toJson(){
         JSONObject doctor = new JSONObject();
@@ -36,7 +28,6 @@ public class Doctor {
         } catch (JSONException e){
             e.printStackTrace();
         }
-
         return doctor.toString();
     }
 }

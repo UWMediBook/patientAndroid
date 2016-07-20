@@ -459,55 +459,56 @@ public class API {
         String url = "http://52.41.78.184:8000/api/users/" + email_string + "/";
 
         // Request a string response from the provided URL.
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        try {
-                            JSONObject jsonUserData = new JSONObject(response);
-                            User user = new User(
-                                    jsonUserData.getString("first_name"),
-                                    jsonUserData.getString("last_name"),
-                                    jsonUserData.getInt("id"),
-                                    jsonUserData.getString("gender"),
-                                    jsonUserData.getString("address"),
-                                    jsonUserData.getLong("birthday"),
-                                    jsonUserData.getString("email"),
-                                    jsonUserData.getString("password"),
-                                    jsonUserData.getString("healthcard"),
-                                    null
-                            );
-                            TextView userFirstName = (TextView) rootView.findViewById(R.id.user_first_name);
-                            TextView userLastName = (TextView) rootView.findViewById(R.id.user_last_name);
-                            TextView userGender = (TextView) rootView.findViewById(R.id.user_gender);
-                            TextView userEmail = (TextView) rootView.findViewById(R.id.user_email);
-                            TextView userAddress = (TextView) rootView.findViewById(R.id.user_address);
-                            TextView userBirthday = (TextView) rootView.findViewById(R.id.user_birthday);
-                            TextView userHealthcard = (TextView) rootView.findViewById(R.id.user_health_card);
-                            TextView userPassword = (TextView) rootView.findViewById(R.id.user_password);
+        RequestFuture<JSONObject> future = RequestFuture.newFuture();
 
-                            userFirstName.setText(user.getFirst_name());
-                            userLastName.setText(user.getLast_name());
-                            userGender.setText(user.getGender());
-                            userBirthday.setText(user.getBirthday());
-                            userHealthcard.setText(user.getHealthcard());
-                            userAddress.setText(user.getAddress());
-                            userEmail.setText(user.getEmail());
-                            userPassword.setText(user.getPassword());
+        JsonObjectRequest request = new JsonObjectRequest(url, null, future, future);
+        this.queue.add(request);
+        try {
+            JSONObject jsonUser = future.get(5, TimeUnit.SECONDS); // Blocks for at most 5 seconds.
+            try {
+                User user = new User(
+                        jsonUser.getString("first_name"),
+                        jsonUser.getString("last_name"),
+                        jsonUser.getInt("id"),
+                        jsonUser.getString("gender"),
+                        jsonUser.getString("address"),
+                        jsonUser.getLong("birthday"),
+                        jsonUser.getString("email"),
+                        jsonUser.getString("password"),
+                        jsonUser.getString("healthcard"),
+                        null
+                );
+                TextView userFirstName = (TextView) rootView.findViewById(R.id.user_first_name);
+                TextView userLastName = (TextView) rootView.findViewById(R.id.user_last_name);
+                TextView userGender = (TextView) rootView.findViewById(R.id.user_gender);
+                TextView userEmail = (TextView) rootView.findViewById(R.id.user_email);
+                TextView userAddress = (TextView) rootView.findViewById(R.id.user_address);
+                TextView userBirthday = (TextView) rootView.findViewById(R.id.user_birthday);
+                TextView userHealthcard = (TextView) rootView.findViewById(R.id.user_health_card);
+                TextView userPassword = (TextView) rootView.findViewById(R.id.user_password);
 
-                        } catch (JSONException j) {
-                            Log.e("JSON Conversion", "Failed to convert JSON to User");
-                            j.printStackTrace();
-                        }
-                    }
-                }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Log.e("Get User API", "That didn't work!");
+                userFirstName.setText(user.getFirst_name());
+                userLastName.setText(user.getLast_name());
+                userGender.setText(user.getGender());
+                userBirthday.setText(user.getBirthday());
+                userHealthcard.setText(user.getHealthcard());
+                userAddress.setText(user.getAddress());
+                userEmail.setText(user.getEmail());
+                userPassword.setText(user.getPassword());
+
+            } catch (JSONException je) {
+                je.printStackTrace();
             }
-        });
-        // Add the request to the RequestQueue.
-        this.queue.add(stringRequest);
+
+        } catch (InterruptedException e) {
+            // Exception handling
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            // Exception handling
+            e.printStackTrace();
+        } catch (TimeoutException e) {
+            e.printStackTrace();
+        }
     }
 
     // Gets the users information from the users database

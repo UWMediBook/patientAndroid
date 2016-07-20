@@ -96,7 +96,7 @@ public class EditUserActivity extends AppCompatActivity implements View.OnClickL
             Toast toast = Toast.makeText(getApplicationContext(),"Successfully edited",Toast.LENGTH_SHORT);
             toast.show();
             getUserTask GUT = new getUserTask(userEmail);
-            GUT.execute(userEmail);
+            GUT.execute((Void) null);
             finish();
         }else if(v == birthday){
             Calendar c = Calendar.getInstance();
@@ -118,21 +118,23 @@ public class EditUserActivity extends AppCompatActivity implements View.OnClickL
             dpd.show();
         }
     }
-    public class getUserTask extends AsyncTask<String, Void, Void> {
+    public class getUserTask extends AsyncTask<Void, Void, Void> {
         private final String mEmail;
+        private API apiHandler;
 
         getUserTask(String email){
             mEmail=email;
+            this.apiHandler = new API(EditUserActivity.this);
         }
 
         @Override
-        protected Void doInBackground(String... params) {
-            apiHandler.getUserByEmail(mEmail);
+        protected Void doInBackground(Void... params) {
+            this.apiHandler.getUserByEmail(mEmail);
             return null;
         }
 
         @Override
-        protected void onPostExecute(Void aVoid) {
+        protected void onPostExecute(Void result) {
             Intent intent = new Intent(EditUserActivity.this, ViewProfileActivity.class);
             intent.putExtra("EMAIL", userEmail);
             startActivity(intent);

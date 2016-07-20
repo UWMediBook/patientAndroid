@@ -2,6 +2,8 @@ package com.medibook.medibook.activity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
+import android.media.Image;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -10,6 +12,7 @@ import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -149,24 +152,41 @@ public class ScanActivity extends AppCompatActivity implements View.OnClickListe
             LinearLayout scan_visit_layout = (LinearLayout) findViewById(R.id.scan_visit_details);
 
             try{
+                //remove bg icon
+                ImageView icon = (ImageView) findViewById(R.id.icon);
+                icon.setVisibility(View.INVISIBLE);
+
                 // User
                 User user = User.fromJson(user_data.getString("user"));
-
+                TextView title = (TextView) findViewById(R.id.patient_info);
                 TextView userName = (TextView) findViewById(R.id.user_name);
                 TextView userGender = (TextView) findViewById(R.id.user_gender);
                 TextView userBirthday = (TextView) findViewById(R.id.user_birthday);
                 TextView userHealthcard = (TextView) findViewById(R.id.user_healthcard);
+                userName.setTextSize(TypedValue.COMPLEX_UNIT_SP,18);
+                userGender.setTextSize(TypedValue.COMPLEX_UNIT_SP,18);
+                userBirthday.setTextSize(TypedValue.COMPLEX_UNIT_SP,18);
+                userHealthcard.setTextSize(TypedValue.COMPLEX_UNIT_SP,18);
+                title.setText("Patient Info");
                 userName.setText("Name: " + user.getName());
                 userGender.setText("Gender: " + user.getGender());
                 userBirthday.setText("Birthday: " + user.getBirthday());
-                userHealthcard.setText("Healthcard Number: " + user.getHealthcard());
+                userHealthcard.setText("Healthcard Number: " + user.getHealthcard()+"\n");
+                //Divider
+                View divider = new View(ScanActivity.this);
+                divider.setBackgroundColor(Color.parseColor("#B6B6B6"));
+                divider.setPadding(0,4,0,44);
+                LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(scan_visit_layout.getWidth(),2);
+                params.setMargins(0,4,0,22);
+                divider.setLayoutParams(params);
+                scan_visit_layout.addView(divider);
 
                 // Visits
                 TextView info = new TextView(ScanActivity.this);
                 String text = String.format("Past Visits");
 
                 info.setText(text);
-                info.setTextSize(TypedValue.COMPLEX_UNIT_SP,32);
+                info.setTextSize(TypedValue.COMPLEX_UNIT_SP,28);
                 info.setWidth(scan_visit_layout.getWidth());
                 scan_visit_layout.addView(info);
 
@@ -175,21 +195,25 @@ public class ScanActivity extends AppCompatActivity implements View.OnClickListe
                     Visit visit = Visit.fromJson(jsonVisits.getString(i));
 
                     info = new TextView(ScanActivity.this);
-                    text = String.format("Visit Date: %s \nVisit Details: %s \n", visit.getCreated(), visit.getVisit());
-
+                    text = String.format("Date: %s \nDetails: %s \n", visit.getCreated(), visit.getVisit());
+                    info.setTextSize(TypedValue.COMPLEX_UNIT_SP,18);
                     info.setText(text);
                     info.setWidth(scan_visit_layout.getWidth());
                     scan_visit_layout.addView(info);
                 }
-
+                View divider0 = new View(ScanActivity.this);
+                divider0.setBackgroundColor(Color.parseColor("#B6B6B6"));
+                divider0.setPadding(0,4,0,44);
+                divider0.setLayoutParams(params);
+                scan_visit_layout.addView(divider0);
                 // Prescriptions
 
                 info = new TextView(ScanActivity.this);
-                text = String.format("Patient's Prescriptions");
+                text = String.format("Prescriptions");
 
                 info.setText(text);
                 info.setWidth(scan_visit_layout.getWidth());
-                info.setTextSize(TypedValue.COMPLEX_UNIT_SP,32);
+                info.setTextSize(TypedValue.COMPLEX_UNIT_SP,28);
                 scan_visit_layout.addView(info);
 
                 JSONArray jsonPrescriptions = user_data.getJSONArray("prescriptions");
@@ -197,13 +221,18 @@ public class ScanActivity extends AppCompatActivity implements View.OnClickListe
                     Prescription prescription = Prescription.fromJson(jsonPrescriptions.getString(i));
 
                     info = new TextView(ScanActivity.this);
-                    text = String.format("Prescription Name: %s \nPrescription Dosage: %s \n", prescription.getName(), prescription.getDosage());
-
+                    text = String.format("Drug Name: %s \nDosage: %s \n", prescription.getName(), prescription.getDosage());
+                    info.setTextSize(TypedValue.COMPLEX_UNIT_SP,18);
                     info.setText(text);
                     info.setWidth(scan_visit_layout.getWidth());
                     scan_visit_layout.addView(info);
                 }
-
+                //Divider
+                View divider1 = new View(ScanActivity.this);
+                divider1.setBackgroundColor(Color.parseColor("#B6B6B6"));
+                divider1.setPadding(0,4,0,44);
+                divider1.setLayoutParams(params);
+                scan_visit_layout.addView(divider1);
                 // Operations
 
                 info = new TextView(ScanActivity.this);
@@ -211,27 +240,31 @@ public class ScanActivity extends AppCompatActivity implements View.OnClickListe
 
                 info.setText(text);
                 info.setWidth(scan_visit_layout.getWidth());
-                info.setTextSize(TypedValue.COMPLEX_UNIT_SP,32);
+                info.setTextSize(TypedValue.COMPLEX_UNIT_SP,28);
                 scan_visit_layout.addView(info);
                 JSONArray jsonOperations = user_data.getJSONArray("operations");
                 for (int i = 0; i < jsonOperations.length(); i++) {
                     Operation operation = Operation.fromJson(jsonOperations.getString(i));
 
                     info = new TextView(ScanActivity.this);
-                    text = String.format("Operation Date: %s \nOperation Details: %s \n", operation.getCreated(), operation.getOperation());
-
+                    text = String.format("Date: %s \nDetails: %s \n", operation.getCreated(), operation.getOperation());
+                    info.setTextSize(TypedValue.COMPLEX_UNIT_SP,18);
                     info.setText(text);
                     info.setWidth(scan_visit_layout.getWidth());
                     scan_visit_layout.addView(info);
                 }
-
+                View divider2 = new View(ScanActivity.this);
+                divider2.setBackgroundColor(Color.parseColor("#B6B6B6"));
+                divider2.setPadding(0,4,0,44);
+                divider2.setLayoutParams(params);
+                scan_visit_layout.addView(divider2);
                 // Allergies
                 info = new TextView(ScanActivity.this);
                 text = String.format("Allergies");
 
                 info.setText(text);
                 info.setWidth(scan_visit_layout.getWidth());
-                info.setTextSize(TypedValue.COMPLEX_UNIT_SP,32);
+                info.setTextSize(TypedValue.COMPLEX_UNIT_SP,28);
                 scan_visit_layout.addView(info);
 
                 JSONArray jsonAllergies = user_data.getJSONArray("allergies");
@@ -239,8 +272,8 @@ public class ScanActivity extends AppCompatActivity implements View.OnClickListe
                     Allergy allergy = Allergy.fromJson(jsonAllergies.getString(i));
 
                     info = new TextView(ScanActivity.this);
-                    text = String.format("Allergy Name: %s \nAllergy Severity: %s \n", allergy.getName(), allergy.getSeverity());
-
+                    text = String.format("Name: %s \nSeverity: %s \n", allergy.getName(), allergy.getSeverity());
+                    info.setTextSize(TypedValue.COMPLEX_UNIT_SP,18);
                     info.setText(text);
                     info.setWidth(scan_visit_layout.getWidth());
                     scan_visit_layout.addView(info);

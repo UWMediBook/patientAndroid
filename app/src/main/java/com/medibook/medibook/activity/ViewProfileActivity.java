@@ -17,6 +17,15 @@ public class ViewProfileActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        refresh();
+    }
+    @Override
+    protected void onResume(){
+        super.onResume();
+        refresh();
+    }
+
+    private void refresh() {
         setContentView(R.layout.activity_view_profile);
 
         Intent intent = getIntent();
@@ -24,8 +33,6 @@ public class ViewProfileActivity extends AppCompatActivity {
         API apiHandler = new API(this);
         apiHandler.getUserByEmail(email);
     }
-
-
     public boolean onCreateOptionsMenu(Menu menu) {
         // Overflow menu
         MenuInflater inflater = getMenuInflater();

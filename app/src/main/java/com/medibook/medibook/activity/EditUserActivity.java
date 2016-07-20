@@ -70,8 +70,11 @@ public class EditUserActivity extends AppCompatActivity implements View.OnClickL
         String uEmail = email.getText().toString().trim();
         String birthdate = birthday.getText().toString().trim();
         String[] splitDate = birthdate.split("/");
+        mYear = Integer.parseInt(splitDate[2]);
+        mMonth = Integer.parseInt(splitDate[1]) - 1;
+        mDay = Integer.parseInt(splitDate[0]);
         dob.setTimeZone(TimeZone.getTimeZone("UTC"));
-        dob.set(Integer.parseInt(splitDate[2]), Integer.parseInt(splitDate[1]), Integer.parseInt(splitDate[0]));
+        dob.set(mYear, mMonth, mDay);
 
         String uGender = genderBtn.getText().toString().trim();
         String uAddress = address.getText().toString().trim();
@@ -81,6 +84,7 @@ public class EditUserActivity extends AppCompatActivity implements View.OnClickL
 
         API handler = new API(this);
         handler.postUserWithDoctorID(userEmail,FName,LName,uAddress,uGender,dob,uEmail,uPassword,uHealthCard);
+
     }
 
     @Override

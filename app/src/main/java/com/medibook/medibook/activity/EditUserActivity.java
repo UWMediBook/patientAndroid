@@ -16,15 +16,18 @@ import com.medibook.medibook.R;
 import com.medibook.medibook.common.API;
 
 import java.util.Calendar;
+import java.util.TimeZone;
 
 public class EditUserActivity extends AppCompatActivity implements View.OnClickListener {
-    private EditText name;
+    private EditText first_name;
+    private EditText last_name;
     private EditText email;
     private EditText birthday;
     private EditText gender;
     private EditText healthcard;
     private EditText address;
     private EditText password;
+
     private String userEmail;
     private RadioGroup rbGender;
 
@@ -32,12 +35,14 @@ public class EditUserActivity extends AppCompatActivity implements View.OnClickL
     private int mYear, mMonth, mDay;
     Calendar dob = Calendar.getInstance();
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_user);
 
-        name = (EditText) findViewById(R.id.etFname);
+        first_name = (EditText) findViewById(R.id.user_first_name);
+        last_name = (EditText) findViewById(R.id.user_last_name);
         email = (EditText) findViewById(R.id.user_email);
         birthday = (EditText) findViewById(R.id.user_birthday);
         address = (EditText) findViewById(R.id.user_address);
@@ -46,7 +51,7 @@ public class EditUserActivity extends AppCompatActivity implements View.OnClickL
         rbGender=(RadioGroup) findViewById(R.id.rg1);
 
 
-        btnSaveProfile = (Button) findViewById(R.id.btnSave);
+        btnSaveProfile = (Button) findViewById(R.id.btnSaveUser);
 
         Intent intent = getIntent();
         userEmail = intent.getStringExtra("EMAIL");
@@ -60,17 +65,26 @@ public class EditUserActivity extends AppCompatActivity implements View.OnClickL
     private void updateUser() {
         int selected=rbGender.getCheckedRadioButtonId();
         RadioButton genderBtn=(RadioButton) findViewById(selected);
-        String uName = name.getText().toString().trim();
+        String FName = first_name.getText().toString().trim();
+        String LName = last_name.getText().toString().trim();
         String uEmail = email.getText().toString().trim();
+        String birthdate = birthday.getText().toString().trim();
+        String[] splitDate = birthdate.split("/");
+        mYear = Integer.parseInt(splitDate[2]);
+        mMonth = Integer.parseInt(splitDate[1]) - 1;
+        mDay = Integer.parseInt(splitDate[0]);
+        dob.setTimeZone(TimeZone.getTimeZone("UTC"));
         dob.set(mYear, mMonth, mDay);
+
         String uGender = genderBtn.getText().toString().trim();
         String uAddress = address.getText().toString().trim();
         String uPassword = password.getText().toString().trim();
         String uHealthCard = healthcard.getText().toString().trim();
-        String[] nameSplit = uName.split("\\s");
+        long x = dob.getTimeInMillis()/1000;
 
         API handler = new API(this);
-        handler.postUserIdUpdateUser(userEmail,nameSplit[0],nameSplit[1],uAddress,uGender,dob,uEmail,uPassword,uHealthCard);
+        handler.postUserWithDoctorID(userEmail,FName,LName,uAddress,uGender,dob,uEmail,uPassword,uHealthCard);
+
     }
 
     @Override
@@ -82,6 +96,7 @@ public class EditUserActivity extends AppCompatActivity implements View.OnClickL
             Intent intent = new Intent(this, ViewProfileActivity.class);
             intent.putExtra("EMAIL", userEmail);
             startActivity(intent);
+            finish();
         }else if(v == birthday){
             Calendar c = Calendar.getInstance();
             mYear = c.get(Calendar.YEAR);

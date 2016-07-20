@@ -7,6 +7,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.Button;
+import android.widget.EditText;
 
 import com.medibook.medibook.R;
 import com.medibook.medibook.common.API;
@@ -16,15 +17,22 @@ public class ViewProfileActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        refresh();
+    }
+    @Override
+    protected void onResume(){
+        super.onResume();
+        refresh();
+    }
+
+    private void refresh() {
         setContentView(R.layout.activity_view_profile);
 
         Intent intent = getIntent();
         String email = intent.getStringExtra("EMAIL");
         API apiHandler = new API(this);
         apiHandler.getUserByEmail(email);
-
     }
-
     public boolean onCreateOptionsMenu(Menu menu) {
         // Overflow menu
         MenuInflater inflater = getMenuInflater();

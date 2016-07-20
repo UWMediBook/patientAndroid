@@ -120,9 +120,6 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
 
         this.apiHandler = new API(this);
-
-        Intent intent = new Intent(this, DoctorActivity.class);
-        startActivity(intent);
     }
 
     private void populateAutoComplete() {

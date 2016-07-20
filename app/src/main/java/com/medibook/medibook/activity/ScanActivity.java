@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
@@ -161,25 +162,42 @@ public class ScanActivity extends AppCompatActivity implements View.OnClickListe
                 userHealthcard.setText("Healthcard Number: " + user.getHealthcard());
 
                 // Visits
+                TextView info = new TextView(ScanActivity.this);
+                String text = String.format("Past Visits");
+
+                info.setText(text);
+                info.setTextSize(TypedValue.COMPLEX_UNIT_SP,32);
+                info.setWidth(scan_visit_layout.getWidth());
+                scan_visit_layout.addView(info);
+
                 JSONArray jsonVisits = user_data.getJSONArray("visits");
                 for (int i = 0; i < jsonVisits.length(); i++) {
                     Visit visit = Visit.fromJson(jsonVisits.getString(i));
 
-                    TextView visit_info = new TextView(ScanActivity.this);
-                    String visit_text = String.format("Visit Date: %s \nVisit Details: %s \n", visit.getCreated(), visit.getVisit());
+                    info = new TextView(ScanActivity.this);
+                    text = String.format("Visit Date: %s \nVisit Details: %s \n", visit.getCreated(), visit.getVisit());
 
-                    visit_info.setText(visit_text);
-                    visit_info.setWidth(scan_visit_layout.getWidth());
-                    scan_visit_layout.addView(visit_info);
+                    info.setText(text);
+                    info.setWidth(scan_visit_layout.getWidth());
+                    scan_visit_layout.addView(info);
                 }
 
                 // Prescriptions
+
+                info = new TextView(ScanActivity.this);
+                text = String.format("Patient's Prescriptions");
+
+                info.setText(text);
+                info.setWidth(scan_visit_layout.getWidth());
+                info.setTextSize(TypedValue.COMPLEX_UNIT_SP,32);
+                scan_visit_layout.addView(info);
+
                 JSONArray jsonPrescriptions = user_data.getJSONArray("prescriptions");
                 for (int i = 0; i < jsonPrescriptions.length(); i++) {
                     Prescription prescription = Prescription.fromJson(jsonPrescriptions.getString(i));
 
-                    TextView info = new TextView(ScanActivity.this);
-                    String text = String.format("Prescription Name: %s \nPrescription Dosage: %s \n", prescription.getName(), prescription.getDosage());
+                    info = new TextView(ScanActivity.this);
+                    text = String.format("Prescription Name: %s \nPrescription Dosage: %s \n", prescription.getName(), prescription.getDosage());
 
                     info.setText(text);
                     info.setWidth(scan_visit_layout.getWidth());
@@ -187,12 +205,20 @@ public class ScanActivity extends AppCompatActivity implements View.OnClickListe
                 }
 
                 // Operations
+
+                info = new TextView(ScanActivity.this);
+                text = String.format("Previous Operations");
+
+                info.setText(text);
+                info.setWidth(scan_visit_layout.getWidth());
+                info.setTextSize(TypedValue.COMPLEX_UNIT_SP,32);
+                scan_visit_layout.addView(info);
                 JSONArray jsonOperations = user_data.getJSONArray("operations");
                 for (int i = 0; i < jsonOperations.length(); i++) {
                     Operation operation = Operation.fromJson(jsonOperations.getString(i));
 
-                    TextView info = new TextView(ScanActivity.this);
-                    String text = String.format("Operation Date: %s \nOperation Details: %s \n", operation.getCreated(), operation.getOperation());
+                    info = new TextView(ScanActivity.this);
+                    text = String.format("Operation Date: %s \nOperation Details: %s \n", operation.getCreated(), operation.getOperation());
 
                     info.setText(text);
                     info.setWidth(scan_visit_layout.getWidth());
@@ -200,12 +226,20 @@ public class ScanActivity extends AppCompatActivity implements View.OnClickListe
                 }
 
                 // Allergies
+                info = new TextView(ScanActivity.this);
+                text = String.format("Allergies");
+
+                info.setText(text);
+                info.setWidth(scan_visit_layout.getWidth());
+                info.setTextSize(TypedValue.COMPLEX_UNIT_SP,32);
+                scan_visit_layout.addView(info);
+
                 JSONArray jsonAllergies = user_data.getJSONArray("allergies");
                 for (int i = 0; i < jsonAllergies.length(); i++) {
                     Allergy allergy = Allergy.fromJson(jsonAllergies.getString(i));
 
-                    TextView info = new TextView(ScanActivity.this);
-                    String text = String.format("Allergy Name: %s \nAllergy Severity: %s \n", allergy.getName(), allergy.getSeverity());
+                    info = new TextView(ScanActivity.this);
+                    text = String.format("Allergy Name: %s \nAllergy Severity: %s \n", allergy.getName(), allergy.getSeverity());
 
                     info.setText(text);
                     info.setWidth(scan_visit_layout.getWidth());

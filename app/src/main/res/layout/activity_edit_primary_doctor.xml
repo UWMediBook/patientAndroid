@@ -16,21 +16,31 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.medibook.medibook.activity.EditPrimaryDoctorActivity">
-
     <TextView
+        android:id="@+id/tvTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Edit Primary Doctor Data"
-        android:id="@+id/textView3"
+        android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="10dp"
+        android:text="Edit Primary Doctor"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <View xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/divider"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginBottom="28dp"
+        android:layout_marginTop="20dp"
+        android:background="#B6B6B6"
+        android:layout_below="@id/tvTitle"/>
 
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/firstname_pd"
-        android:layout_below="@+id/textView3"
+        android:layout_below="@+id/divider"
         android:layout_alignParentStart="true"
         android:hint="First Name"
         android:layout_alignEnd="@+id/lastname_pd" />
@@ -45,12 +55,15 @@
         android:layout_alignParentEnd="true" />
 
     <Button
+        style="@style/Widget.AppCompat.Button"
+        android:id="@+id/btnSavePD"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Save Updates"
-        android:id="@+id/btnSavePD"
-        android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true" />
+        android:text="Save"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="35dp"
+        android:textSize="16sp"/>
 
     <EditText
         android:layout_width="wrap_content"

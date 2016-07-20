@@ -15,7 +15,7 @@ import android.widget.Toast;
 import com.medibook.medibook.R;
 import com.medibook.medibook.common.API;
 
-public class EditPrimaryDoctorActivity extends AppCompatActivity implements View.OnClickListener{
+public class EditPrimaryDoctorActivity extends AppCompatActivity implements View.OnClickListener {
     private EditText fname;
     private EditText lname;
     private EditText phonenum;
@@ -34,6 +34,7 @@ public class EditPrimaryDoctorActivity extends AppCompatActivity implements View
             selectItem(position);
         }
     }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -63,7 +64,7 @@ public class EditPrimaryDoctorActivity extends AppCompatActivity implements View
 
     }
 
-    public void updatePrimaryDoctor(String email){
+    public void updatePrimaryDoctor(String email) {
         String first_name = fname.getText().toString().trim();
         String last_name = lname.getText().toString().trim();
         String phonenumber = phonenum.getText().toString().trim();
@@ -71,13 +72,13 @@ public class EditPrimaryDoctorActivity extends AppCompatActivity implements View
 
 
         API handler = new API(this);
-        handler.postUserIdUpdatePD(email, first_name,last_name, phonenumber, addr);
+        handler.postUserIdUpdatePD(email, first_name, last_name, phonenumber, addr);
 
     }
 
     @Override
     public void onClick(View v) {
-        if (v == btnSave){
+        if (v == btnSave) {
             Intent intentEC = getIntent();
             String email = intentEC.getStringExtra("EMAIL");
             updatePrimaryDoctor(email);
@@ -85,68 +86,81 @@ public class EditPrimaryDoctorActivity extends AppCompatActivity implements View
             Intent intent = new Intent(this, ViewProfileActivity.class);
             intent.putExtra("EMAIL", email);
             startActivity(intent);
+            finish();
         }
     }
+
     private boolean selectItem(int position) {
 //        Toast.makeText(this, mOptions[position], Toast.LENGTH_SHORT).show();
         Intent intent;
         Intent intentEmail = getIntent();
         String email = intentEmail.getStringExtra("EMAIL");
-        switch (mOptions[position]){
+        switch (mOptions[position]) {
             case "Profile":
                 intent = new Intent(this, ViewProfileActivity.class);
                 intent.putExtra("EMAIL", email);
                 startActivity(intent);
+                finish();
                 return true;
             case "Edit Profile":
                 intent = new Intent(this, EditUserActivity.class);
                 intent.putExtra("EMAIL", email);
                 startActivity(intent);
+                finish();
                 return true;
             case "Allergies":
                 intent = new Intent(this, ViewAllergiesActivity.class);
                 intent.putExtra("EMAIL", email);
                 startActivity(intent);
+                finish();
                 return true;
             case "Emergency Contact":
-                intent = new Intent(this,ViewEmergencyContactActivity.class);
+                intent = new Intent(this, ViewEmergencyContactActivity.class);
                 intent.putExtra("EMAIL", email);
                 startActivity(intent);
+                finish();
                 return true;
             case "Past Operations":
                 intent = new Intent(this, ViewPastOperationsActivity.class);
                 intent.putExtra("EMAIL", email);
                 startActivity(intent);
+                finish();
                 return true;
             case "Past Visits":
                 intent = new Intent(this, ViewPastVisitsActivity.class);
                 intent.putExtra("EMAIL", email);
                 startActivity(intent);
+                finish();
                 return true;
             case "Generate QR Code":
-                intent = new Intent(this,generateQRActivity.class);
+                intent = new Intent(this, generateQRActivity.class);
                 intent.putExtra("EMAIL", email);
                 startActivity(intent);
+                finish();
                 return true;
             case "Prescriptions":
                 intent = new Intent(this, ViewPrescriptionsActivity.class);
                 intent.putExtra("EMAIL", email);
                 startActivity(intent);
+                finish();
                 return true;
             case "Primary Doctor":
                 intent = new Intent(this, ViewPrimaryDoctorActivity.class);
                 intent.putExtra("EMAIL", email);
                 startActivity(intent);
+                finish();
                 return true;
             case "Edit Primary Doctor":
                 intent = new Intent(this, EditPrimaryDoctorActivity.class);
                 intent.putExtra("EMAIL", email);
                 startActivity(intent);
+                finish();
                 return true;
             case "Edit Emergency Contact":
                 intent = new Intent(this, EditEmergencyContactActivity.class);
                 intent.putExtra("EMAIL", email);
                 startActivity(intent);
+                finish();
                 return true;
         }
         // Highlight the selected item, update the title, and close the drawer

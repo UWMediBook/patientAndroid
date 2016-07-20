@@ -76,56 +76,67 @@ public class EditEmergencyContactActivity extends AppCompatActivity implements V
                 intent = new Intent(this, ViewProfileActivity.class);
                 intent.putExtra("EMAIL", email);
                 startActivity(intent);
+                finish();
                 return true;
             case "Edit Profile":
                 intent = new Intent(this, EditUserActivity.class);
                 intent.putExtra("EMAIL", email);
                 startActivity(intent);
+                finish();
                 return true;
             case "Allergies":
                 intent = new Intent(this, ViewAllergiesActivity.class);
                 intent.putExtra("EMAIL", email);
                 startActivity(intent);
+                finish();
                 return true;
             case "Emergency Contact":
                 intent = new Intent(this,ViewEmergencyContactActivity.class);
                 intent.putExtra("EMAIL", email);
                 startActivity(intent);
+                finish();
                 return true;
             case "Past Operations":
                 intent = new Intent(this, ViewPastOperationsActivity.class);
                 intent.putExtra("EMAIL", email);
                 startActivity(intent);
+                finish();
                 return true;
             case "Past Visits":
                 intent = new Intent(this, ViewPastVisitsActivity.class);
                 intent.putExtra("EMAIL", email);
                 startActivity(intent);
+                finish();
                 return true;
             case "Generate QR Code":
                 intent = new Intent(this,generateQRActivity.class);
                 intent.putExtra("EMAIL", email);
                 startActivity(intent);
+                finish();
                 return true;
             case "Prescriptions":
                 intent = new Intent(this, ViewPrescriptionsActivity.class);
                 intent.putExtra("EMAIL", email);
                 startActivity(intent);
+                finish();
                 return true;
             case "Primary Doctor":
                 intent = new Intent(this, ViewPrimaryDoctorActivity.class);
                 intent.putExtra("EMAIL", email);
                 startActivity(intent);
+                finish();
                 return true;
             case "Edit Primary Doctor":
                 intent = new Intent(this, EditPrimaryDoctorActivity.class);
                 intent.putExtra("EMAIL", email);
                 startActivity(intent);
+                finish();
                 return true;
             case "Edit Emergency Contact":
                 intent = new Intent(this, EditEmergencyContactActivity.class);
                 intent.putExtra("EMAIL", email);
                 startActivity(intent);
+                finish();
                 return true;
         }
         // Highlight the selected item, update the title, and close the drawer
@@ -151,6 +162,7 @@ public class EditEmergencyContactActivity extends AppCompatActivity implements V
             Intent intent = new Intent(this, ViewProfileActivity.class);
             intent.putExtra("EMAIL", userEmail);
             startActivity(intent);
+            finish();
         }
     }
 }

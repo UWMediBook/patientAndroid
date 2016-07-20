@@ -153,7 +153,8 @@
         android:id="@+id/user_birthday"
         android:layout_below="@+id/textView24"
         android:layout_alignStart="@+id/textView24"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignParentEnd="true"
+        android:focusable="false" />
 
     <EditText
         android:layout_width="wrap_content"

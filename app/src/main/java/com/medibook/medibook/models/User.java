@@ -81,6 +81,8 @@ public class User {
         return this.healthcard;
     }
 
+    public String getPassword(){return this.password;}
+
     public String toJson(){
         JSONObject user = new JSONObject();
         try{

@@ -344,10 +344,10 @@ public class API {
     }
 
     // Updates the user table
-    public void updateUser(final String fname, final String lname, final String address, final String gender, final Calendar birthday, final String email, final String password, final String healthcard, int user_id) {
-        String REGISTER_URL = "http://52.41.78.184:8000/api/users/" + user_id;
+    public void updateUser(final String fname, final String lname, final String address, final String gender, final Calendar birthday, final String email, final String password, final String healthcard,int doctor_id, int user_id) {
+        String REGISTER_URL = "http://52.41.78.184:8000/api/users/" + user_id+"/";
 
-        long dob = birthday.getTimeInMillis() / 1000;
+        long dob = birthday.getTimeInMillis()/1000;
 
         JSONObject params = new JSONObject();
 
@@ -358,9 +358,9 @@ public class API {
             params.put("gender", gender);
             params.put("birthday", dob);
             params.put("email", email);
-            params.put("password", password);
+          //  params.put("password", password);
             params.put("healthcard", healthcard);
-            params.put("doctor_id", "1");
+            params.put("doctor_id", null);
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -483,6 +483,7 @@ public class API {
                             TextView userAddress = (TextView) rootView.findViewById(R.id.user_address);
                             TextView userBirthday = (TextView) rootView.findViewById(R.id.user_birthday);
                             TextView userHealthcard = (TextView) rootView.findViewById(R.id.user_health_card);
+                            TextView userPassword = (TextView) rootView.findViewById(R.id.user_password);
 
                             userFirstName.setText(user.getFirst_name());
                             userLastName.setText(user.getLast_name());
@@ -491,6 +492,7 @@ public class API {
                             userHealthcard.setText(user.getHealthcard());
                             userAddress.setText(user.getAddress());
                             userEmail.setText(user.getEmail());
+                            userPassword.setText(user.getPassword());
 
                         } catch (JSONException j) {
                             Log.e("JSON Conversion", "Failed to convert JSON to User");
@@ -1041,16 +1043,28 @@ public class API {
         });
     }
 
-    public void postUserIdUpdateUser(String userEmail, final String fname, final String lname, final String address, final String gender, final Calendar birthday, final String email, final String password, final String healthcard) {
-        getUserId(userEmail, new DataCallback() {
+    public void postUserWithDoctorID(String email, final String fname, final String lname, final String address, final String gender, final Calendar birthday, final String userEmail, final String password, final String healthcard){
+        getUserId(email, new DataCallback() {
             @Override
             public void onSuccess(JSONObject result) {
                 try {
-                    int uid = result.getInt("pk");
-                    updateUser(fname, lname, address, gender, birthday, email, password, healthcard, uid);
+                    final int uid = result.getInt("pk");
+                    getPDID(uid, new DataCallback() {
+                        @Override
+                        public void onSuccess(JSONObject result) {
+                            try {
+                                int did = result.getInt("id");
+                                updateUser(fname,lname,address,gender,birthday,userEmail,password,healthcard,did,uid);
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+
+                        }
+                    });
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
+
             }
         });
     }

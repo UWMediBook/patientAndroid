@@ -10,23 +10,14 @@
     tools:context="com.medibook.medibook.activity.RegisterMainActivity">
 
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Next"
-        android:id="@+id/butNext"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true" />
-
-
     <RadioGroup
         android:id="@+id/rg1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:layout_marginLeft="-3dp"
-        android:layout_above="@+id/butNext"
-        android:layout_alignEnd="@+id/butNext">
+        android:layout_above="@+id/btnSaveUser"
+        android:layout_alignParentStart="true">
 
         <RadioButton
             android:id="@+id/radioButton1"
@@ -115,7 +106,6 @@
         android:id="@+id/user_first_name"
         android:layout_below="@+id/textView20"
         android:layout_alignStart="@+id/textView20"
-        android:layout_toStartOf="@+id/butNext"
         android:layout_alignEnd="@+id/textView25" />
 
     <EditText
@@ -184,6 +174,23 @@
         android:id="@+id/textView26"
         android:layout_below="@+id/user_email"
         android:layout_alignParentStart="true" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Save Updates"
+        android:id="@+id/btnSaveUser"
+        android:layout_alignParentBottom="true"
+        android:layout_alignStart="@+id/textView21" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:id="@+id/user_gender"
+        android:layout_below="@+id/rg1"
+        android:layout_toEndOf="@+id/textView22"
+        android:visibility="gone" />
 
 
 </RelativeLayout>

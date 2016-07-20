@@ -10,23 +10,45 @@
     tools:context=".activity.ViewPrimaryDoctorActivity">
 
     <TextView
+        android:id="@+id/tvTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Primary Doctor Information"
-        android:id="@+id/tvTitle"
+        android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="10dp"
+        android:text="Primary Doctor Information"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
 
+    <View xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/divider"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginBottom="28dp"
+        android:layout_marginTop="20dp"
+        android:background="#B6B6B6"
+        android:layout_below="@id/tvTitle"/>
+    <ImageView
+        android:id="@+id/doc_placeholder"
+        android:layout_width="300dp"
+        android:layout_height="200dp"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/divider"
+        android:src="@drawable/doc_placeholder"
+        android:layout_marginBottom="10dp"
+        />
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/doc_placeholder">
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:id="@+id/firstname_pd"
-        android:layout_marginTop="49dp"
-        android:layout_below="@+id/tvTitle"
         android:layout_alignEnd="@+id/lastname_pd"
-        android:layout_alignStart="@+id/lastname_pd" />
+        android:layout_alignStart="@+id/lastname_pd"
+        android:layout_marginBottom="8dp"/>
 
     <TextView
         android:layout_width="wrap_content"
@@ -35,7 +57,8 @@
         android:id="@+id/lastname_pd"
         android:layout_below="@+id/firstname_pd"
         android:layout_alignParentEnd="true"
-        android:layout_toEndOf="@+id/textView15" />
+        android:layout_toEndOf="@+id/textView15"
+        android:layout_marginBottom="8dp" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -44,7 +67,8 @@
         android:id="@+id/phonenumber_pd"
         android:layout_below="@+id/lastname_pd"
         android:layout_alignEnd="@+id/lastname_pd"
-        android:layout_toEndOf="@+id/textView15" />
+        android:layout_toEndOf="@+id/textView15"
+        android:layout_marginBottom="8dp"/>
 
     <TextView
         android:layout_width="wrap_content"
@@ -62,7 +86,8 @@
         android:text="First Name: "
         android:id="@+id/textView13"
         android:layout_alignTop="@+id/firstname_pd"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="8dp"/>
 
     <TextView
         android:layout_width="wrap_content"
@@ -71,7 +96,8 @@
         android:text="Last Name: "
         android:id="@+id/textView14"
         android:layout_below="@+id/textView13"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="8dp"/>
 
     <TextView
         android:layout_width="wrap_content"
@@ -80,7 +106,8 @@
         android:text="Phone Number: "
         android:id="@+id/textView15"
         android:layout_below="@+id/textView14"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="8dp"/>
 
     <TextView
         android:layout_width="wrap_content"
@@ -91,4 +118,5 @@
         android:layout_below="@+id/textView15"
         android:layout_alignParentStart="true" />
 
+</RelativeLayout>
 </RelativeLayout>

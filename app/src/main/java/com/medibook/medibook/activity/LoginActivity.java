@@ -421,7 +421,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         Intent intent;
         switch(type_of_user){
             case "doctor":
-                intent = new Intent(this, DoctorActivity.class);
+                intent = new Intent(this, ScanActivity.class);
                 intent.putExtra("DOCTOR_JSON", identification_string);
                 break;
             case "user":

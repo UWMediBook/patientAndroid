@@ -10,13 +10,29 @@
     tools:context="com.medibook.medibook.activity.EditEmergencyContactActivity">
 
     <TextView
+        android:id="@+id/tvTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Edit Emergency Contact Data"
-        android:id="@+id/textView4"
+        android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="10dp"
+        android:text="Edit Emergency Contact"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <View xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/divider"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginBottom="28dp"
+        android:layout_marginTop="20dp"
+        android:background="#B6B6B6"
+        android:layout_below="@id/tvTitle"/>
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="8dp"
+        android:layout_below="@id/divider">
 
     <EditText
         android:layout_width="wrap_content"
@@ -36,7 +52,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="Last Name"
         android:id="@+id/textView9"
         android:layout_below="@+id/first_name_ec"
@@ -45,7 +61,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="Relationship"
         android:id="@+id/textView10"
         android:layout_below="@+id/textView12"
@@ -56,17 +72,15 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="First Name"
         android:id="@+id/textView11"
-        android:layout_below="@+id/textView4"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="60dp" />
+        android:layout_alignParentStart="true"/>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="Phone Number"
         android:id="@+id/textView12"
         android:layout_below="@+id/last_name_ec"
@@ -80,13 +94,7 @@
         android:layout_alignParentStart="true"
         android:layout_alignEnd="@+id/first_name_ec" />
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Save Update"
-        android:id="@+id/btnSave"
-        android:layout_below="@+id/relationship_ec"
-        android:layout_centerHorizontal="true" />
+
 
     <EditText
         android:layout_width="wrap_content"
@@ -95,4 +103,17 @@
         android:layout_below="@+id/textView12"
         android:layout_alignStart="@+id/textView12"
         android:layout_alignEnd="@+id/last_name_ec" />
+
+    </RelativeLayout>
+
+    <Button
+        style="@style/Widget.AppCompat.Button"
+        android:id="@+id/btnSave"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Save"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="35dp"
+        android:textSize="16sp"/>
 </RelativeLayout>

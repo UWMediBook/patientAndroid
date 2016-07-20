@@ -13,6 +13,8 @@ import com.medibook.medibook.common.API;
 
 public class ViewProfileActivity extends AppCompatActivity {
 
+    private Button btnEditProfile;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,7 +30,7 @@ public class ViewProfileActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         // Overflow menu
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.user_menu, menu);
+        inflater.inflate(R.menu.doctor_menu, menu);
 
         return true;
     }
@@ -41,12 +43,10 @@ public class ViewProfileActivity extends AppCompatActivity {
         switch (item.getItemId()){
             case R.id.EditProfile:
                 intent = new Intent(this, EditUserActivity.class);
-                intent.putExtra("EMAIL", email);
                 startActivity(intent);
                 return true;
             case R.id.ViewAllergies:
                 intent = new Intent(this, ViewAllergiesActivity.class);
-                intent.putExtra("EMAIL", email);
                 startActivity(intent);
                 return true;
             case R.id.ViewEmergencyContact:
@@ -54,19 +54,12 @@ public class ViewProfileActivity extends AppCompatActivity {
                 intent.putExtra("EMAIL", email);
                 startActivity(intent);
                 return true;
-            case R.id.EditEmergencyContact:
-                intent = new Intent(this, EditEmergencyContactActivity.class);
-                intent.putExtra("EMAIL", email);
-                startActivity(intent);
-                return true;
             case R.id.ViewPastOp:
                 intent = new Intent(this, ViewPastOperationsActivity.class);
-                intent.putExtra("EMAIL", email);
                 startActivity(intent);
                 return true;
             case R.id.ViewPastVisits:
                 intent = new Intent(this, ViewPastVisitsActivity.class);
-                intent.putExtra("EMAIL", email);
                 startActivity(intent);
                 return true;
             case R.id.generateQR:
@@ -76,17 +69,10 @@ public class ViewProfileActivity extends AppCompatActivity {
                 return true;
             case R.id.ViewPrescriptions:
                 intent = new Intent(this, ViewPrescriptionsActivity.class);
-                intent.putExtra("EMAIL", email);
                 startActivity(intent);
                 return true;
             case R.id.ViewPrimaryDoctor:
                 intent = new Intent(this, ViewPrimaryDoctorActivity.class);
-                intent.putExtra("EMAIL", email);
-                startActivity(intent);
-                return true;
-            case R.id.EditPrimaryDoctor:
-                intent = new Intent(this, EditPrimaryDoctorActivity.class);
-                intent.putExtra("EMAIL", email);
                 startActivity(intent);
                 return true;
             default:

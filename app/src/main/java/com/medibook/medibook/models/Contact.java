@@ -21,10 +21,6 @@ public class Contact {
         this.relationship = relationship;
     }
 
-    public String getFirst_name(){return this.first_name;}
-
-    public String getLast_name(){return this.last_name;}
-
     public String getName(){
         return this.first_name + " " +this.last_name;
     }

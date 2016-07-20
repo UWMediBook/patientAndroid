@@ -49,9 +49,7 @@
         <activity
             android:name=".activity.ScanActivity"
             android:label="@string/title_activity_scan"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".activity.EditEmergencyContactActivity" />
-        <activity android:name=".activity.EditPrimaryDoctorActivity"></activity>
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

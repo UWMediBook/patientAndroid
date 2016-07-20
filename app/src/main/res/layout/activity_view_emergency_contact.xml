@@ -22,11 +22,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="First name"
-        android:id="@+id/first_name_ec"
-        android:layout_marginTop="53dp"
+        android:text="Name"
+        android:id="@+id/name_ec"
         android:layout_below="@+id/textView2"
-        android:layout_alignStart="@+id/relationship_ec" />
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="48dp" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -34,9 +34,8 @@
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="Relationship"
         android:id="@+id/relationship_ec"
-        android:layout_below="@+id/first_name_ec"
-        android:layout_alignStart="@+id/phone_number_ec"
-        android:layout_marginTop="25dp" />
+        android:layout_below="@+id/name_ec"
+        android:layout_alignParentStart="true" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -45,52 +44,6 @@
         android:text="Phone Number"
         android:id="@+id/phone_number_ec"
         android:layout_below="@+id/relationship_ec"
-        android:layout_toEndOf="@+id/textView5"
-        android:layout_marginStart="48dp" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="First Name:"
-        android:id="@+id/textView5"
-        android:layout_alignTop="@+id/first_name_ec"
-        android:layout_alignParentStart="true" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Last Name:"
-        android:id="@+id/textView6"
-        android:layout_below="@+id/textView5"
-        android:layout_alignParentStart="true" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Last Name"
-        android:id="@+id/last_name_ec"
-        android:layout_alignBottom="@+id/textView6"
-        android:layout_alignStart="@+id/first_name_ec" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Relationship:"
-        android:id="@+id/textView7"
-        android:layout_alignTop="@+id/relationship_ec"
-        android:layout_alignParentStart="true" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Phone Number:"
-        android:id="@+id/textView8"
-        android:layout_alignBottom="@+id/phone_number_ec"
         android:layout_alignParentStart="true" />
 
 </RelativeLayout>

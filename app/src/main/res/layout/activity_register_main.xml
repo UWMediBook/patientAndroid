@@ -7,7 +7,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.medibook.medibook.activity.RegisterMainActivity">
+    tools:context=".medibook.LoginActivity">
 
     <EditText
         android:layout_width="wrap_content"
@@ -68,9 +68,9 @@
         android:layout_height="wrap_content"
         android:id="@+id/etAddress"
         android:hint="Address"
-        android:layout_below="@+id/etHCNumber"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignTop="@+id/rg1"
+        android:layout_alignEnd="@+id/radioButton"
+        android:layout_toEndOf="@+id/rg1" />
 
 
 
@@ -83,8 +83,20 @@
         android:hint="Health Card Number"
         android:layout_below="@+id/etDOB"
         android:layout_alignEnd="@+id/etDOB"
-        android:layout_toEndOf="@+id/rg1"
-        android:layout_alignParentStart="true" />
+        android:layout_toEndOf="@+id/rg1" />
+    <RadioGroup
+        android:id="@+id/rg1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_below="@+id/etHCNumber"
+        android:layout_marginLeft="-3dp"
+        android:layout_marginBottom="3dp"
+        android:layout_marginTop="3dp">
+
+
+    </RadioGroup>
+
 
     <Button
         android:layout_width="wrap_content"
@@ -94,53 +106,41 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true" />
 
+    <RadioButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Other"
+        android:id="@+id/radioButton"
+        android:layout_alignTop="@+id/radioButton2"
+        android:layout_alignBottom="@+id/radioButton2"
+        android:layout_alignParentEnd="true" />
+
+    <RadioButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Female"
+        android:layout_marginRight="15dp"
+        android:id="@+id/radioButton2"
+        android:layout_alignTop="@+id/radioButton1"
+        android:layout_alignEnd="@+id/butNext" />
+
+    <RadioButton
+        android:id="@+id/radioButton1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Male"
+        android:layout_marginRight="15dp"
+        android:layout_below="@+id/etAddress"
+        android:layout_alignParentStart="true" />
+
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/etPassword_2"
         android:layout_below="@+id/etPassword"
         android:layout_alignParentEnd="true"
-        android:hint="Re-Enter Password"
-        android:layout_alignParentStart="true"
-        android:password="true" />
-
-
-    <RadioGroup
-        android:id="@+id/rg1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginLeft="-3dp"
-        android:layout_below="@+id/etAddress"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentEnd="true">
-
-        <RadioButton
-            android:id="@+id/radioButton1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Male"
-            android:layout_marginRight="15dp"
-            android:layout_below="@+id/etAddress"
-            android:layout_toEndOf="@+id/rg1" />
-
-        <RadioButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Other"
-            android:id="@+id/radioButton"
-            android:layout_below="@+id/etAddress"
-            android:layout_alignParentEnd="true" />
-
-        <RadioButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Female"
-            android:id="@+id/radioButton2"
-            android:layout_alignTop="@+id/radioButton1"
-            android:layout_alignStart="@+id/butNext" />
-    </RadioGroup>
-
+        android:layout_alignStart="@+id/etAddress"
+        android:hint="Re-Enter Password" />
 
 
 </RelativeLayout>

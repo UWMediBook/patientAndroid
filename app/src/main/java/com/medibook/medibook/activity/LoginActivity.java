@@ -121,8 +121,6 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
         this.apiHandler = new API(this);
 
-        Intent intent = new Intent(this, DoctorActivity.class);
-        startActivity(intent);
     }
 
     private void populateAutoComplete() {
@@ -384,19 +382,18 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         @Override
         protected void onPostExecute(final Integer is_doctor) {
             mAuthTask = null;
-            showProgress(true);
+            showProgress(false);
 
-            switch(is_doctor){
-                case 1:
-                    changeActivity("doctor", mEmail);
-                    break;
-                case 0:
-                    changeActivity("user", mEmail);
-                    break;
-                default:
-                    mPasswordView.setError(getString(R.string.error_incorrect_password));
-                    mPasswordView.requestFocus();
-                    break;
+            if (is_doctor == 1) {
+                // Doctor
+                changeActivity("doctor", mEmail);
+            } else if (is_doctor == 0) {
+                // User
+                changeActivity("user", mEmail);
+            } else {
+                // Failed
+                mPasswordView.setError(getString(R.string.error_incorrect_password));
+                mPasswordView.requestFocus();
             }
         }
 

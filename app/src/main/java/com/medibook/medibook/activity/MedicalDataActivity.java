@@ -32,65 +32,26 @@ public class MedicalDataActivity extends AppCompatActivity implements View.OnCli
         butCreate.setOnClickListener(this);
     }
 
-    private boolean addMedicalData(String email) {
-        boolean postAllergy;
-        boolean postDoctor;
-        if (etAllergy.length() == 0 && etSeverity.length() == 0) {
-            postAllergy = false;
-        }else{
-            postAllergy = true;
-        }
-        if (etFirst_name.length() == 0 && etLast_name.length() == 0) {
-            postDoctor = false;
-        }else{
-            postDoctor = true;
-        }
+    private void addMedicalData(String email) {
+        String allergy = etAllergy.getText().toString().trim();
+        String severity = etSeverity.getText().toString().trim();
+        String first_name = etFirst_name.getText().toString().trim();
+        String last_name = etLast_name.getText().toString().trim();
 
-        if ((etAllergy.length() == 0 && etSeverity.length() != 0) || (etAllergy.length() != 0 && etSeverity.length() == 0) || (etFirst_name.length() == 0 && etLast_name.length() != 0) || (etFirst_name.length() != 0 && etLast_name.length() == 0)) {
-            if (etAllergy.length() == 0 && etSeverity.length() != 0) {
-                etAllergy.setError("Cannot be empty if Severity is entered");
-            }
-            if (etAllergy.length() != 0 && etSeverity.length() == 0) {
-                etSeverity.setError("Cannot be empty if Allergy is entered");
-            }
-            if (etFirst_name.length() == 0 && etLast_name.length() != 0) {
-                etFirst_name.setError("Cannot be empty if Last Name is entered");
-            }
-            if (etFirst_name.length() != 0 && etLast_name.length() == 0) {
-                etLast_name.setError("Cannot be empty if First Name is entered");
-            }
-            return false;
-        } else {
-            if (postAllergy) {
-                String allergy = etAllergy.getText().toString().trim();
-                String severity = etSeverity.getText().toString().trim();
-
-                API handler = new API(this);
-                handler.putUserAllergyData(email, allergy, severity);
-
-            }
-            if (postDoctor) {
-                String first_name = etFirst_name.getText().toString().trim();
-                String last_name = etLast_name.getText().toString().trim();
-
-                API handler = new API(this);
-                handler.putPrimaryDoctor(first_name, last_name);
-            }
-            return true;
-        }
-
+        API handler = new API(this);
+        handler.putPrimaryDoctor(first_name, last_name);
+        handler.putUserAllergyData(email,allergy, severity);
     }
 
     public void onClick(View v) {
         if (v == butCreate) {
             Intent intentMD = getIntent();
             String email = intentMD.getStringExtra("EMAIL");
-            if (addMedicalData(email)) {
-                Intent intent = new Intent(MedicalDataActivity.this, ViewProfileActivity.class);
-                intent.putExtra("EMAIL", email);
-                startActivity(intent);
-                finish();
-            }
+            addMedicalData(email);
+            Intent intent = new Intent(MedicalDataActivity.this, ViewProfileActivity.class);
+            intent.putExtra("EMAIL", email);
+            startActivity(intent);
+            finish();
         }
     }
 }

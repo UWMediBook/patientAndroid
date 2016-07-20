@@ -3,21 +3,27 @@ package com.medibook.medibook.models;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.SimpleDateFormat;
+
 /**
  * Created by Kevin on 6/18/2016.
  */
 
 public class User {
-    private String first_name, last_name, gender, address, birthday, email, password, healthcard;
+    private String first_name, last_name, gender, address, email, password, healthcard;
     private Integer id;
     private Doctor doctor;
+    private Long birthday;
+
+    private SimpleDateFormat sdf = new SimpleDateFormat("EEE, MMM dd, yyyy");
+
 
     public User(String first_name,
                 String last_name,
                 Integer id,
                 String gender,
                 String address,
-                String birthday,
+                Long birthday,
                 String email,
                 String password,
                 String healthcard,
@@ -60,7 +66,7 @@ public class User {
     }
 
     public String getBirthday(){
-        return this.birthday;
+        return sdf.format(this.birthday * 1000);
     }
 
     public String getEmail(){
@@ -74,6 +80,7 @@ public class User {
     public String toJson(){
         JSONObject user = new JSONObject();
         try{
+            user.put("id", this.id);
             user.put("first_name", this.first_name);
             user.put("last_name", this.last_name);
             user.put("address", this.address);
@@ -90,6 +97,31 @@ public class User {
         return user.toString();
 
     }
+
+    public static User fromJson(String user_data){
+        try{
+            JSONObject jsonUser = new JSONObject(user_data);
+            User user = new User(
+                    jsonUser.getString("first_name"),
+                    jsonUser.getString("last_name"),
+                    jsonUser.getInt("id"),
+                    jsonUser.getString("gender"),
+                    jsonUser.getString("address"),
+                    jsonUser.getLong("birthday"),
+                    jsonUser.getString("email"),
+                    jsonUser.getString("password"),
+                    jsonUser.getString("healthcard"),
+                    null
+            );
+            return user;
+        } catch (JSONException je){
+            je.printStackTrace();
+        }
+
+        return null;
+    }
+
+
 
     public Doctor getDoctor(){
         return this.doctor;

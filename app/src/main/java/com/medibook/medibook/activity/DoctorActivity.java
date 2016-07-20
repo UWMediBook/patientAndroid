@@ -6,12 +6,14 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 
 import com.medibook.medibook.R;
+import com.medibook.medibook.models.Doctor;
 
 public class DoctorActivity extends AppCompatActivity {
 
@@ -22,14 +24,11 @@ public class DoctorActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-//        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-//        fab.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-//                        .setAction("Action", null).show();
-//            }
-//        });
+        Intent intent = getIntent();
+        String doctor_json = intent.getStringExtra("DOCTOR_JSON");
+
+        Doctor doctor = Doctor.fromJson(doctor_json);
+
     }
 
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -46,10 +45,6 @@ public class DoctorActivity extends AppCompatActivity {
         Intent intentEmail = getIntent();
         String email = intentEmail.getStringExtra("EMAIL");
         switch (item.getItemId()){
-            case R.id.EditProfile:
-                intent = new Intent(this, EditUserActivity.class);
-                startActivity(intent);
-                return true;
             case R.id.action_scan:
                 intent = new Intent(this, ScanActivity.class);
                 startActivity(intent);

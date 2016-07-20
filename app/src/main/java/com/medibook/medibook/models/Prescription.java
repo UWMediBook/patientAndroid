@@ -1,5 +1,7 @@
 package com.medibook.medibook.models;
 
+import android.util.Log;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -9,31 +11,49 @@ import org.json.JSONObject;
  */
 public class Prescription {
 
-    private Integer prescription_id, user_id;
-    private String prescription, name_of_prescription;
+    private Integer id, user_id;
+    private String dosage, name;
 
-    public Prescription(Integer prescription_id, Integer user_id,String name_of_prescription, String prescription){
-        this.prescription_id = prescription_id;
+    public Prescription(Integer id, Integer user_id,String name, String dosage){
+        this.id = id;
         this.user_id = user_id;
-        this.name_of_prescription = name_of_prescription;
-        this.prescription = prescription;
+        this.name = name;
+        this.dosage = dosage;
     }
 
-    public String getName(){return this.name_of_prescription; }
+    public String getName(){return this.name; }
 
-    public String getPrescription(){ return this.prescription;}
+    public String getDosage(){ return this.dosage;}
 
     public String toJson(){
         JSONObject prescription = new JSONObject();
         try{
-            prescription.put("PRESCRIPTION_ID", this.prescription_id);
-            prescription.put("USER_ID", this.user_id);
-            prescription.put("PRESCRIPTION", this.prescription);
+            prescription.put("id", this.id);
+            prescription.put("user_id", this.user_id);
+            prescription.put("name", this.name);
+            prescription.put("dosage", this.dosage);
         } catch (JSONException e){
             e.printStackTrace();
         }
 
         return prescription.toString();
+    }
+
+    public static Prescription fromJson(String prescription_data){
+        try{
+            JSONObject jsonPrescription = new JSONObject(prescription_data);
+            Prescription prescription = new Prescription(
+                    jsonPrescription.getInt("id"),
+                    jsonPrescription.getInt("user_id"),
+                    jsonPrescription.getString("name"),
+                    jsonPrescription.getString("dosage")
+            );
+            return prescription;
+        } catch (JSONException je){
+            je.printStackTrace();
+        }
+
+        return null;
     }
 
 }

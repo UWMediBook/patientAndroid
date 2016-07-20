@@ -24,6 +24,7 @@ import com.android.volley.Response;
 import com.android.volley.ServerError;
 import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.RequestFuture;
 import com.android.volley.toolbox.StringRequest;
@@ -46,9 +47,13 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.w3c.dom.Text;
 
+import java.lang.reflect.Array;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
@@ -56,7 +61,7 @@ import java.util.concurrent.TimeoutException;
 
 /**
  * Created by Kevin on 6/19/2016.
- *
+ * <p/>
  * Modified by Jason on 7/13/2016
  * Modified by Jesper on 7/13/2016
  */
@@ -64,10 +69,10 @@ public class API {
     private RequestQueue queue;
     private View rootView;
 
-    public API(Context context){
+    public API(Context context) {
         // Instantiate the RequestQueue.
         this.queue = Volley.newRequestQueue(context);
-        this.rootView = ((Activity)context).getWindow().getDecorView().findViewById(android.R.id.content);
+        this.rootView = ((Activity) context).getWindow().getDecorView().findViewById(android.R.id.content);
     }
 
     // Gets the user emergency contact information
@@ -75,11 +80,11 @@ public class API {
         String url = "http://52.41.78.184:8000/api/users/" + user_id+"/emergency_contacts/";
 
         // Request a string response from the provided URL.
-        StringRequest stringRequest= new StringRequest(Request.Method.GET, url,
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-                        try{
+                        try {
                             JSONArray jsonArray = new JSONArray(response);
                             JSONObject jsonContact = jsonArray.getJSONObject(0);
                             JSONObject jsonContactUID = jsonContact.getJSONObject("user");
@@ -99,7 +104,7 @@ public class API {
                             contactPhoneNumber.setText("Phone Number: " + contact.getPhone_number());
                             contactRelationship.setText("Relationship: " + contact.getRelationship());
 
-                        } catch(JSONException j){
+                        } catch (JSONException j) {
                             Log.e("JSON Conversion", "Failed to convert JSON to User");
                             j.printStackTrace();
                         }
@@ -139,10 +144,10 @@ public class API {
             public void onErrorResponse(VolleyError error) {
                 NetworkResponse networkResponse = error.networkResponse;
                 if (networkResponse != null) {
-                    Log.e("Volley", "Error. HTTP Status Code:"+networkResponse.statusCode);
+                    Log.e("Volley", "Error. HTTP Status Code:" + networkResponse.statusCode);
                 }
             }
-        }){
+        }) {
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
                 HashMap<String, String> headers = new HashMap<String, String>();
@@ -154,7 +159,7 @@ public class API {
     }
 
     // Put Emergency Contact information about the user to the emergency contact database
-    public void putEmergencyContact(final String first_name,final String last_name, final String phone_number, final String relationship, final int user_id){
+    public void putEmergencyContact(final String first_name, final String last_name, final String phone_number, final String relationship, final int user_id) {
         String EMERGENCY_CONTACT_URL = "http://52.41.78.184:8000/api/emergency_contacts/";
 
         JSONObject params = new JSONObject();
@@ -178,10 +183,10 @@ public class API {
             public void onErrorResponse(VolleyError error) {
                 NetworkResponse networkResponse = error.networkResponse;
                 if (networkResponse != null) {
-                    Log.e("Volley", "Error. HTTP Status Code:"+networkResponse.statusCode);
+                    Log.e("Volley", "Error. HTTP Status Code:" + networkResponse.statusCode);
                 }
             }
-        }){
+        }) {
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
                 HashMap<String, String> headers = new HashMap<String, String>();
@@ -193,7 +198,7 @@ public class API {
     }
 
     // Put the Allergy information about the user to the allergy databsae
-    public void putUserAllergy(final String allergy_name, final String severity, final int user_id){
+    public void putUserAllergy(final String allergy_name, final String severity, final int user_id) {
         String ALLERGY_URL = "http://52.41.78.184:8000/api/allergies/";
 
         JSONObject params = new JSONObject();
@@ -214,10 +219,10 @@ public class API {
             public void onErrorResponse(VolleyError error) {
                 NetworkResponse networkResponse = error.networkResponse;
                 if (networkResponse != null) {
-                    Log.e("Volley", "Error. HTTP Status Code:"+networkResponse.statusCode);
+                    Log.e("Volley", "Error. HTTP Status Code:" + networkResponse.statusCode);
                 }
             }
-        }){
+        }) {
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
                 HashMap<String, String> headers = new HashMap<String, String>();
@@ -230,14 +235,14 @@ public class API {
 
     // Gets the list of the users allergies along with the severity of the allergy
     public void getAllergy(int user_id) {
-        String url = "http://52.41.78.184:8000/api/users/"+user_id+"/allergies/";
+        String url = "http://52.41.78.184:8000/api/users/" + user_id + "/allergies/";
 
         // Request a string response from the provided URL.
-        StringRequest stringRequest= new StringRequest(Request.Method.GET, url,
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-                        try{
+                        try {
                             JSONArray jsonArray = new JSONArray(response);
                             String allergyData = "";
                             for (int i = 0; i < jsonArray.length(); i++) {
@@ -250,22 +255,22 @@ public class API {
                                         jsonAllergy.getInt("allergy_id")
                                 );
 
-                                if (allergy.getSeverity().equals("S") || allergy.getSeverity().equals("s")){
+                                if (allergy.getSeverity().equals("S") || allergy.getSeverity().equals("s")) {
                                     severityData = "Severe";
-                                }else if(allergy.getSeverity().equals("m")||allergy.getSeverity().equals("M")){
+                                } else if (allergy.getSeverity().equals("m") || allergy.getSeverity().equals("M")) {
                                     severityData = "Mild";
-                                }else{
+                                } else {
                                     severityData = "Unknown";
                                 }
 
-                                allergyData = allergyData + "Allergy Name: "+ allergy.getAllergyName() +"\nSeverity of Allergy: " + severityData + "\n \n";
+                                allergyData = allergyData + "Allergy Name: " + allergy.getName() + "\nSeverity of Allergy: " + severityData + "\n \n";
                             }
 
                             TextView allergyInfo = (TextView) rootView.findViewById(R.id.tvAllergyList);
 
                             allergyInfo.setText(allergyData);
 
-                        } catch(JSONException j){
+                        } catch (JSONException j) {
                             Log.e("JSON Conversion", "Failed to convert JSON to User");
                             j.printStackTrace();
                         }
@@ -281,10 +286,10 @@ public class API {
     }
 
     // Put the users personal information entered by the user to the user database.
-    public void putUser(final String fname, final String lname, final String address, final String gender, final Calendar birthday, final String email, final String password, final String healthcard){
+    public void putUser(final String fname, final String lname, final String address, final String gender, final Calendar birthday, final String email, final String password, final String healthcard) {
         String REGISTER_URL = "http://52.41.78.184:8000/api/users/";
 
-        long dob = birthday.getTimeInMillis()/1000;
+        long dob = birthday.getTimeInMillis() / 1000;
 
         JSONObject params = new JSONObject();
 
@@ -297,7 +302,7 @@ public class API {
             params.put("email", email);
             params.put("password", password);
             params.put("healthcard", healthcard);
-            params.put("doctor_id","1");
+            params.put("doctor_id", "1");
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -310,11 +315,11 @@ public class API {
             public void onErrorResponse(VolleyError error) {
                 NetworkResponse networkResponse = error.networkResponse;
                 if (networkResponse != null) {
-                    Log.e("Volley", "Error. HTTP Status Code:"+networkResponse.statusCode);
+                    Log.e("Volley", "Error. HTTP Status Code:" + networkResponse.statusCode);
                 }
                 if (error instanceof TimeoutError) {
                     Log.e("Volley", "TimeoutError");
-                }else if(error instanceof NoConnectionError){
+                } else if (error instanceof NoConnectionError) {
                     Log.e("Volley", "NoConnectionError");
                 } else if (error instanceof AuthFailureError) {
                     Log.e("Volley", "AuthFailureError");
@@ -326,7 +331,7 @@ public class API {
                     Log.e("Volley", "ParseError");
                 }
             }
-        }){
+        }) {
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
                 HashMap<String, String> headers = new HashMap<String, String>();
@@ -339,10 +344,10 @@ public class API {
     }
 
     // Updates the user table
-    public void updateUser(final String fname, final String lname, final String address, final String gender, final Calendar birthday, final String email, final String password, final String healthcard,int user_id){
-        String REGISTER_URL = "http://52.41.78.184:8000/api/users/"+user_id;
+    public void updateUser(final String fname, final String lname, final String address, final String gender, final Calendar birthday, final String email, final String password, final String healthcard, int user_id) {
+        String REGISTER_URL = "http://52.41.78.184:8000/api/users/" + user_id;
 
-        long dob = birthday.getTimeInMillis()/1000;
+        long dob = birthday.getTimeInMillis() / 1000;
 
         JSONObject params = new JSONObject();
 
@@ -355,7 +360,7 @@ public class API {
             params.put("email", email);
             params.put("password", password);
             params.put("healthcard", healthcard);
-            params.put("doctor_id","1");
+            params.put("doctor_id", "1");
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -368,11 +373,11 @@ public class API {
             public void onErrorResponse(VolleyError error) {
                 NetworkResponse networkResponse = error.networkResponse;
                 if (networkResponse != null) {
-                    Log.e("Volley", "Error. HTTP Status Code:"+networkResponse.statusCode);
+                    Log.e("Volley", "Error. HTTP Status Code:" + networkResponse.statusCode);
                 }
                 if (error instanceof TimeoutError) {
                     Log.e("Volley", "TimeoutError");
-                }else if(error instanceof NoConnectionError){
+                } else if (error instanceof NoConnectionError) {
                     Log.e("Volley", "NoConnectionError");
                 } else if (error instanceof AuthFailureError) {
                     Log.e("Volley", "AuthFailureError");
@@ -384,7 +389,7 @@ public class API {
                     Log.e("Volley", "ParseError");
                 }
             }
-        }){
+        }) {
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
                 HashMap<String, String> headers = new HashMap<String, String>();
@@ -401,11 +406,11 @@ public class API {
         String url = "http://52.41.78.184:8000/api/users/" + uid;
 
         // Request a string response from the provided URL.
-        StringRequest stringRequest= new StringRequest(Request.Method.GET, url,
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-                        try{
+                        try {
                             JSONObject jsonUser = new JSONObject(response);
                             User user = new User(
                                     jsonUser.getString("first_name"),
@@ -413,7 +418,7 @@ public class API {
                                     jsonUser.getInt("id"),
                                     jsonUser.getString("gender"),
                                     jsonUser.getString("address"),
-                                    jsonUser.getString("birthday"),
+                                    jsonUser.getLong("birthday"),
                                     jsonUser.getString("email"),
                                     jsonUser.getString("password"),
                                     jsonUser.getString("healthcard"),
@@ -433,7 +438,7 @@ public class API {
                             userAddress.setText("Address: " + user.getAddress());
                             userEmail.setText("Email: " + user.getEmail());
 
-                        } catch(JSONException j){
+                        } catch (JSONException j) {
                             Log.e("JSON Conversion", "Failed to convert JSON to User");
                             j.printStackTrace();
                         }
@@ -453,11 +458,11 @@ public class API {
         String url = "http://52.41.78.184:8000/api/users/" + email_string + "/";
 
         // Request a string response from the provided URL.
-        StringRequest stringRequest= new StringRequest(Request.Method.GET, url,
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-                        try{
+                        try {
                             JSONObject jsonUserData = new JSONObject(response);
                             User user = new User(
                                     jsonUserData.getString("first_name"),
@@ -465,7 +470,7 @@ public class API {
                                     jsonUserData.getInt("id"),
                                     jsonUserData.getString("gender"),
                                     jsonUserData.getString("address"),
-                                    jsonUserData.getString("birthday"),
+                                    jsonUserData.getLong("birthday"),
                                     jsonUserData.getString("email"),
                                     jsonUserData.getString("password"),
                                     jsonUserData.getString("healthcard"),
@@ -485,7 +490,7 @@ public class API {
                             userAddress.setText("Address: " + user.getAddress());
                             userEmail.setText("Email: " + user.getEmail());
 
-                        } catch(JSONException j){
+                        } catch (JSONException j) {
                             Log.e("JSON Conversion", "Failed to convert JSON to User");
                             j.printStackTrace();
                         }
@@ -498,52 +503,6 @@ public class API {
         });
         // Add the request to the RequestQueue.
         this.queue.add(stringRequest);
-    }
-
-    // Gets the users information from the users database
-    public User getUserById(Integer user_id) {
-        String USER_URL = "http://52.41.78.184:8000/api/users/" + user_id + "/";
-
-        JSONObject params = new JSONObject();
-
-        RequestFuture<JSONObject> future = RequestFuture.newFuture();
-
-        JsonObjectRequest request = new JsonObjectRequest(USER_URL, null, future, future);
-        this.queue.add(request);
-        try {
-            JSONObject jsonUser = future.get(5, TimeUnit.SECONDS); // Blocks for at most 5 seconds.
-            try{
-                JSONObject jsonDoctor = jsonUser.getJSONObject("doctor");
-                Doctor doctor = new Doctor(
-                        jsonDoctor.getInt("id"),
-                        jsonDoctor.getString("first_name"),
-                        jsonDoctor.getString("last_name")
-                );
-                return new User(
-                        jsonUser.getString("first_name"),
-                        jsonUser.getString("last_name"),
-                        jsonUser.getInt("id"),
-                        jsonUser.getString("gender"),
-                        jsonUser.getString("address"),
-                        jsonUser.getString("birthday"),
-                        jsonUser.getString("email"),
-                        jsonUser.getString("password"),
-                        jsonUser.getString("healthcard"),
-                        doctor
-                );
-            } catch(JSONException j){
-                j.printStackTrace();
-            }
-        } catch (InterruptedException e) {
-            // Exception handling
-            e.printStackTrace();
-        } catch (ExecutionException e) {
-            // Exception handling
-            e.printStackTrace();
-        } catch(TimeoutException e){
-            e.printStackTrace();
-        }
-        return null;
     }
 
     // Gets the users primary doctor information
@@ -561,7 +520,9 @@ public class API {
                             Doctor doctor = new Doctor(
                                     jsonPrimaryDoctor.getInt("id"),
                                     jsonPrimaryDoctor.getString("first_name"),
-                                    jsonPrimaryDoctor.getString("last_name")
+                                    jsonPrimaryDoctor.getString("last_name"),
+                                    jsonPrimaryDoctor.getString("email"),
+                                    jsonPrimaryDoctor.getString("password")
                             );
 
                             TextView doctorName = (TextView) rootView.findViewById(R.id.name_pd);
@@ -584,7 +545,7 @@ public class API {
     }
 
     // Put the information entered by the user about their primary doctor to the doctor database
-    public void putPrimaryDoctor(final String first_name,final String last_name){
+    public void putPrimaryDoctor(final String first_name, final String last_name) {
         String DOCTOR_URL = "http://52.41.78.184:8000/api/doctors/";
 
         JSONObject params = new JSONObject();
@@ -605,10 +566,10 @@ public class API {
             public void onErrorResponse(VolleyError error) {
                 NetworkResponse networkResponse = error.networkResponse;
                 if (networkResponse != null) {
-                    Log.e("Volley", "Error. HTTP Status Code:"+networkResponse.statusCode);
+                    Log.e("Volley", "Error. HTTP Status Code:" + networkResponse.statusCode);
                 }
             }
-        }){
+        }) {
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
                 HashMap<String, String> headers = new HashMap<String, String>();
@@ -620,8 +581,8 @@ public class API {
     }
 
     // Updates the Users Primary doctor information
-    public void updateDoctor(final String first_name,final String last_name, int user_id){
-        String DOCTOR_URL = "http://52.41.78.184:8000/api/users/"+user_id+"/doctors/";
+    public void updateDoctor(final String first_name, final String last_name, int user_id) {
+        String DOCTOR_URL = "http://52.41.78.184:8000/api/users/" + user_id + "/doctors/";
 
         JSONObject params = new JSONObject();
 
@@ -641,10 +602,10 @@ public class API {
             public void onErrorResponse(VolleyError error) {
                 NetworkResponse networkResponse = error.networkResponse;
                 if (networkResponse != null) {
-                    Log.e("Volley", "Error. HTTP Status Code:"+networkResponse.statusCode);
+                    Log.e("Volley", "Error. HTTP Status Code:" + networkResponse.statusCode);
                 }
             }
-        }){
+        }) {
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
                 HashMap<String, String> headers = new HashMap<String, String>();
@@ -657,14 +618,14 @@ public class API {
 
     // Gets the users prescriptions
     public void getPrescriptions(int user_id) {
-        String url = "http://52.41.78.184:8000/api/users/"+user_id+"/prescriptions/";
+        String url = "http://52.41.78.184:8000/api/users/" + user_id + "/prescriptions/";
 
         // Request a string response from the provided URL.
         StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-                        try{
+                        try {
                             JSONArray jsonArray = new JSONArray(response);
                             String prescriptionData = "";
                             for (int i = 0; i < jsonArray.length(); i++) {
@@ -675,14 +636,14 @@ public class API {
                                         jsonPrescription.getString("name"),
                                         jsonPrescription.getString("dosage")
                                 );
-                                prescriptionData = prescriptionData + "Prescription Name: "+ prescription.getName() +"\nDosage for prescription: " +prescription.getPrescription()+ "\n \n";
+                                prescriptionData = prescriptionData + "Prescription Name: " + prescription.getName() + "\nDosage for prescription: " + prescription.getDosage() + "\n \n";
                             }
 
                             TextView prescriptionInfo = (TextView) rootView.findViewById(R.id.tvPrescriptionList);
 
                             prescriptionInfo.setText(prescriptionData);
 
-                        } catch(JSONException j){
+                        } catch (JSONException j) {
                             Log.e("JSON Conversion", "Failed to convert allergy to JSON");
                         }
                     }
@@ -705,7 +666,7 @@ public class API {
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-                        try{
+                        try {
                             TextView operationName = (TextView) rootView.findViewById(R.id.tvPastOperationList);
                             String OperationData = "";
                             JSONArray jsonArray = new JSONArray(response);
@@ -714,13 +675,15 @@ public class API {
                                 Operation operation = new Operation(
                                         jsonOperation.getInt("id"),
                                         jsonOperation.getInt("user"),
-                                        jsonOperation.getString("operation")
+                                        jsonOperation.getString("operation"),
+                                        jsonOperation.getLong("created_at"),
+                                        jsonOperation.getLong("updated_at")
                                 );
-                                OperationData = OperationData + "Operation "+ (i+1) +":\n" +operation.getOperation()+ "\n \n";
+                                OperationData = OperationData + "Operation " + (i + 1) + ":\n" + operation.getOperation() + "\n \n";
                             }
 
                             operationName.setText(OperationData);
-                        } catch(JSONException j){
+                        } catch (JSONException j) {
                             Log.e("JSON Conversion", "Failed to convert allergy to JSON");
                         }
                     }
@@ -735,15 +698,15 @@ public class API {
     }
 
     // Gets the users past visits to a medical facility
-    public void getPastVisits(int user_id){
-        String url = "http://52.41.78.184:8000/api/users/"+user_id+"/visits/";
+    public void getPastVisits(int user_id) {
+        String url = "http://52.41.78.184:8000/api/users/" + user_id + "/visits/";
 
         // Request a string response from the provided URL.
         StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-                        try{
+                        try {
                             String visitData = "";
                             JSONArray jsonArray = new JSONArray(response);
 
@@ -753,7 +716,9 @@ public class API {
                                 Visit visit = new Visit(
                                         jsonVisit.getInt("id"),
                                         jsonVisit.getInt("user"),
-                                        jsonVisit.getString("visit")
+                                        jsonVisit.getString("visit"),
+                                        jsonVisit.getLong("created_at"),
+                                        jsonVisit.getLong("updated_at")
                                 );
                                 visitData = visitData + "Visit "+ (i+1) +":\n" +visit.getVisit()+ "\n \n";
 
@@ -762,8 +727,8 @@ public class API {
 
                             visitInfo.setText(visitData);
 
-                        } catch(JSONException j){
-                            Log.e("JSON Conversion", "Failed to convert allergy to JSON");
+                        } catch (JSONException j) {
+                            Log.e("JSON Conversion", "Failed to convert past visit to JSON");
                         }
                     }
                 }, new Response.ErrorListener() {
@@ -781,15 +746,15 @@ public class API {
         String url = "http://52.41.78.184:8000/api/users/?email=" + email_string;
 
         // Request a string response from the provided URL.
-        StringRequest stringRequest= new StringRequest(Request.Method.GET, url,
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-                        try{
+                        try {
                             JSONArray jsonArray = new JSONArray(response);
                             JSONObject jsonUserID = jsonArray.getJSONObject(0);
                             callback.onSuccess(jsonUserID);
-                        } catch(JSONException j){
+                        } catch (JSONException j) {
                             Log.e("JSON Conversion", "Failed to convert JSON to User");
                             j.printStackTrace();
                         }
@@ -798,6 +763,35 @@ public class API {
             @Override
             public void onErrorResponse(VolleyError error) {
                 Log.e("Get User API", "That didn't work!");
+                error.printStackTrace();
+            }
+        });
+        // Add the request to the RequestQueue.
+        this.queue.add(stringRequest);
+    }
+
+    public void getECID(int uid, final DataCallback callback) {
+        String url = "http://52.41.78.184:8000/api/users/" + uid + "/emergency_contacts/";
+
+        // Request a string response from the provided URL.
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        try {
+                            JSONArray jsonArray = new JSONArray(response);
+                            JSONObject jsonECID = jsonArray.getJSONObject(0);
+                            callback.onSuccess(jsonECID);
+                        } catch (JSONException j) {
+                            Log.e("JSON Conversion", "Failed to convert JSON to User");
+                            j.printStackTrace();
+                        }
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.e("Get User API", "That didn't work!");
+                error.printStackTrace();
             }
         });
         // Add the request to the RequestQueue.
@@ -805,16 +799,16 @@ public class API {
     }
 
     // waits to get the User id of the user then calls the put allergy method if successful
-    public void putUserAllergyData(String email,String allergy,String severity){
+    public void putUserAllergyData(String email, String allergy, String severity) {
         final String userAllergy = allergy;
         final String userSeverity = severity;
         getUserId(email, new DataCallback() {
             @Override
             public void onSuccess(JSONObject result) {
-                try{
+                try {
                     int uid = result.getInt("pk");
-                    putUserAllergy(userAllergy,userSeverity,uid);
-                }catch (JSONException e){
+                    putUserAllergy(userAllergy, userSeverity, uid);
+                } catch (JSONException e) {
                     e.printStackTrace();
                 }
             }
@@ -822,18 +816,18 @@ public class API {
     }
 
     // waits to get the User id of the user then calls the post emergency contact method if successful
-    public void putUserEmergContData(String email, String fname, String lname, String phone, String relationship){
+    public void putUserEmergContData(String email, String fname, String lname, String phone, String relationship) {
         final String userFirstName = fname;
         final String userLastName = lname;
         final String userPhoneNum = phone;
         final String userRelationship = relationship;
 
-        getUserId(email, new DataCallback(){
+        getUserId(email, new DataCallback() {
             @Override
             public void onSuccess(JSONObject result) {
                 try {
                     int uid = result.getInt("pk");
-                    putEmergencyContact(userFirstName,userLastName,userPhoneNum,userRelationship,uid);
+                    putEmergencyContact(userFirstName, userLastName, userPhoneNum, userRelationship, uid);
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -842,7 +836,7 @@ public class API {
     }
 
     // waits to get the user id of the user then calls the GET users emergency contact information
-    public void getUserIdEmergencyContact(String email){
+    public void getUserIdEmergencyContact(String email) {
         getUserId(email, new DataCallback() {
             @Override
             public void onSuccess(JSONObject result) {
@@ -857,7 +851,7 @@ public class API {
     }
 
     // Wait to get the user id of the user then calls the GET users Allergies
-    public void getUserIdAllergies(String email){
+    public void getUserIdAllergies(String email) {
         getUserId(email, new DataCallback() {
             @Override
             public void onSuccess(JSONObject result) {
@@ -872,7 +866,7 @@ public class API {
     }
 
     // Wait to get the user id of the user then calls the GET users Visits
-    public void getUserIdVisits(String email){
+    public void getUserIdVisits(String email) {
         getUserId(email, new DataCallback() {
             @Override
             public void onSuccess(JSONObject result) {
@@ -888,7 +882,7 @@ public class API {
     }
 
     // Wait to get the user id of the user then calls the GET users Prescriptions
-    public void getUserIdPrescriptions(String email){
+    public void getUserIdPrescriptions(String email) {
         getUserId(email, new DataCallback() {
             @Override
             public void onSuccess(JSONObject result) {
@@ -904,7 +898,7 @@ public class API {
     }
 
     // Wait to get the user id of the user then calls the GET users Operations
-    public void getUserIdOperations(String email){
+    public void getUserIdOperations(String email) {
         getUserId(email, new DataCallback() {
             @Override
             public void onSuccess(JSONObject result) {
@@ -920,7 +914,7 @@ public class API {
     }
 
     // Wait to get the user if of the user then calls the GET users Primary Doctor
-    public void getUserIdPrimaryDoctor(String email){
+    public void getUserIdPrimaryDoctor(String email) {
         getUserId(email, new DataCallback() {
             @Override
             public void onSuccess(JSONObject result) {
@@ -934,13 +928,13 @@ public class API {
         });
     }
 
-    public void postUserIdUpdateUser(String userEmail, final String fname, final String lname, final String address, final String gender, final Calendar birthday, final String email, final String password, final String healthcard){
+    public void postUserIdUpdateUser(String userEmail, final String fname, final String lname, final String address, final String gender, final Calendar birthday, final String email, final String password, final String healthcard) {
         getUserId(userEmail, new DataCallback() {
             @Override
             public void onSuccess(JSONObject result) {
                 try {
                     int uid = result.getInt("pk");
-                    updateUser(fname,lname,address,gender,birthday,email,password,healthcard,uid);
+                    updateUser(fname, lname, address, gender, birthday, email, password, healthcard, uid);
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -948,7 +942,7 @@ public class API {
         });
     }
 
-    public void postUserIdUpdateEC(String email, final String first_name, final String last_name, final String relationship, final String phone_number){
+    public void postUserIdUpdateEC(String email, final String first_name, final String last_name, final String relationship, final String phone_number) {
         getUserId(email, new DataCallback() {
             @Override
             public void onSuccess(JSONObject result) {
@@ -962,13 +956,13 @@ public class API {
         });
     }
 
-    public void postUserIdUpdatePD(String email, final String first_name, final String last_name){
+    public void postUserIdUpdatePD(String email, final String first_name, final String last_name) {
         getUserId(email, new DataCallback() {
             @Override
             public void onSuccess(JSONObject result) {
                 try {
                     int uid = result.getInt("pk");
-                    updateDoctor(first_name,last_name,uid);
+                    updateDoctor(first_name, last_name, uid);
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -983,7 +977,7 @@ public class API {
             public void onSuccess(JSONObject result) {
                 try {
                     int uid = result.getInt("pk");
-                    String qrInputText = uid+"";
+                    String qrInputText = uid + "";
 
                     //Encode with a QR Code image
                     QRCodeEncoder qrCodeEncoder = new QRCodeEncoder(qrInputText,
@@ -1007,11 +1001,15 @@ public class API {
         });
     }
 
-    public interface DataCallback{
-        void onSuccess (JSONObject result);
+    public interface DataCallback {
+        void onSuccess(JSONObject result);
     }
 
-    public Integer authenticate(final String email,final String password){
+    /*
+     * THESE METHODS BLOCK THE MAIN UI THREAD: USE WITH CAUTION - Kevin
+     */
+
+    public Integer authenticate(final String email, final String password) {
         String AUTHENTICATE_URL = "http://52.41.78.184:8000/api/authenticate/";
 
         JSONObject params = new JSONObject();
@@ -1029,11 +1027,11 @@ public class API {
         this.queue.add(request);
         try {
             JSONObject response = future.get(5, TimeUnit.SECONDS); // Blocks for at most 5 seconds.
-            Integer is_doctor = 0;
-            try{
+            Integer is_doctor;
+            try {
                 is_doctor = response.getInt("is_doctor");
                 return is_doctor;
-            } catch(JSONException j){
+            } catch (JSONException j) {
                 j.printStackTrace();
                 return -1;
             }
@@ -1043,10 +1041,315 @@ public class API {
         } catch (ExecutionException e) {
             // Exception handling
             e.printStackTrace();
-        } catch(TimeoutException e){
+        } catch (TimeoutException e) {
             e.printStackTrace();
         }
         return -1;
+    }
+
+    /*
+     * GET Doctor By Id
+     */
+    public Doctor getDoctorById(final int doctor_id) {
+        String DOCTOR_URL = "http://52.41.78.184:8000/api/doctors/" + doctor_id + "/";
+
+        RequestFuture<JSONObject> future = RequestFuture.newFuture();
+
+        JsonObjectRequest request = new JsonObjectRequest(DOCTOR_URL, null, future, future);
+        this.queue.add(request);
+
+        try {
+            JSONObject jsonDoctor = future.get(5, TimeUnit.SECONDS); // Blocks for at most 5 seconds.
+
+            try {
+                Doctor doctor = new Doctor(
+                        jsonDoctor.getInt("id"),
+                        jsonDoctor.getString("first_name"),
+                        jsonDoctor.getString("last_name"),
+                        jsonDoctor.getString("email"),
+                        jsonDoctor.getString("password")
+                );
+
+                return doctor;
+            } catch (JSONException j) {
+                j.printStackTrace();
+                return null;
+            }
+        } catch (InterruptedException e) {
+            // Exception handling
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            // Exception handling
+            e.printStackTrace();
+        } catch (TimeoutException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    /*
+     * GET Doctor By Email
+     */
+    public Doctor getDoctorByEmail(final String email) {
+        String DOCTOR_URL = "http://52.41.78.184:8000/api/doctors/" + email + "/";
+
+        RequestFuture<JSONObject> future = RequestFuture.newFuture();
+
+        JsonObjectRequest request = new JsonObjectRequest(DOCTOR_URL, null, future, future);
+        this.queue.add(request);
+
+        try {
+            JSONObject jsonDoctor = future.get(5, TimeUnit.SECONDS); // Blocks for at most 5 seconds.
+
+            try {
+                Doctor doctor = new Doctor(
+                        jsonDoctor.getInt("id"),
+                        jsonDoctor.getString("first_name"),
+                        jsonDoctor.getString("last_name"),
+                        jsonDoctor.getString("email"),
+                        jsonDoctor.getString("password")
+                );
+
+                return doctor;
+            } catch (JSONException j) {
+                j.printStackTrace();
+                return null;
+            }
+        } catch (InterruptedException e) {
+            // Exception handling
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            // Exception handling
+            e.printStackTrace();
+        } catch (TimeoutException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    /*
+     * GET Visits by User ID
+     */
+    public List<Visit> getVisitsByUserId(final int user_id){
+        List<Visit> visits = new ArrayList<>();
+
+        String VISITS_URL = "http://52.41.78.184:8000/api/users/" + user_id + "/visits/";
+
+        RequestFuture<JSONArray> future = RequestFuture.newFuture();
+
+        JsonArrayRequest request = new JsonArrayRequest(VISITS_URL, future, future);
+        this.queue.add(request);
+
+        try {
+            JSONArray jsonVisits = future.get(5, TimeUnit.SECONDS); // Blocks for at most 5 seconds.
+
+            try {
+                for (int i = 0; i < jsonVisits.length(); i++) {
+                    JSONObject jsonVisit = jsonVisits.getJSONObject(i);
+                    Visit visit = new Visit(
+                            jsonVisit.getInt("id"),
+                            jsonVisit.getJSONObject("user").getInt("id"),
+                            jsonVisit.getString("visit"),
+                            jsonVisit.getLong("created_at"),
+                            jsonVisit.getLong("updated_at")
+                    );
+                    visits.add(visit);
+                }
+
+            } catch (JSONException j) {
+                j.printStackTrace();
+            }
+        } catch (InterruptedException e) {
+            // Exception handling
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            // Exception handling
+            e.printStackTrace();
+        } catch (TimeoutException e) {
+            e.printStackTrace();
+        }
+        return visits;
+    }
+
+    /*
+     * GET Prescriptions by User ID
+     */
+    public List<Prescription> getPrescriptionsByUserId(final int user_id){
+        List<Prescription> prescriptions = new ArrayList<>();
+
+        String VISITS_URL = "http://52.41.78.184:8000/api/users/" + user_id + "/prescriptions/";
+
+        RequestFuture<JSONArray> future = RequestFuture.newFuture();
+
+        JsonArrayRequest request = new JsonArrayRequest(VISITS_URL, future, future);
+        this.queue.add(request);
+
+        try {
+            JSONArray jsonPrescriptions = future.get(5, TimeUnit.SECONDS); // Blocks for at most 5 seconds.
+
+            try {
+                for (int i = 0; i < jsonPrescriptions.length(); i++) {
+                    JSONObject jsonPrescription = jsonPrescriptions.getJSONObject(i);
+                    Prescription prescription = new Prescription(
+                            jsonPrescription.getInt("id"),
+                            jsonPrescription.getJSONObject("user").getInt("id"),
+                            jsonPrescription.getString("name"),
+                            jsonPrescription.getString("dosage")
+                    );
+                    prescriptions.add(prescription);
+                }
+
+            } catch (JSONException j) {
+                j.printStackTrace();
+            }
+        } catch (InterruptedException e) {
+            // Exception handling
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            // Exception handling
+            e.printStackTrace();
+        } catch (TimeoutException e) {
+            e.printStackTrace();
+        }
+        return prescriptions;
+    }
+
+    /*
+     * GET Operations by User ID
+     */
+    public List<Operation> getOperationsByUserId(final int user_id){
+        List<Operation> operations = new ArrayList<>();
+
+        String VISITS_URL = "http://52.41.78.184:8000/api/users/" + user_id + "/operations/";
+
+        RequestFuture<JSONArray> future = RequestFuture.newFuture();
+
+        JsonArrayRequest request = new JsonArrayRequest(VISITS_URL, future, future);
+        this.queue.add(request);
+
+        try {
+            JSONArray json_array = future.get(5, TimeUnit.SECONDS); // Blocks for at most 5 seconds.
+
+            try {
+                for (int i = 0; i < json_array.length(); i++) {
+                    JSONObject json_object = json_array.getJSONObject(i);
+                    Operation operation = new Operation(
+                            json_object.getInt("id"),
+                            json_object.getJSONObject("user").getInt("id"),
+                            json_object.getString("operation"),
+                            json_object.getLong("created_at"),
+                            json_object.getLong("updated_at")
+                    );
+                    operations.add(operation);
+                }
+
+            } catch (JSONException j) {
+                j.printStackTrace();
+            }
+        } catch (InterruptedException e) {
+            // Exception handling
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            // Exception handling
+            e.printStackTrace();
+        } catch (TimeoutException e) {
+            e.printStackTrace();
+        }
+        return operations;
+    }
+
+    /*
+     * GET Allergies by User ID
+     */
+    public List<Allergy> getAllergiesByUserId(final int user_id){
+        List<Allergy> obj_list = new ArrayList<>();
+
+        String VISITS_URL = "http://52.41.78.184:8000/api/users/" + user_id + "/allergies/";
+
+        RequestFuture<JSONArray> future = RequestFuture.newFuture();
+
+        JsonArrayRequest request = new JsonArrayRequest(VISITS_URL, future, future);
+        this.queue.add(request);
+
+        try {
+            JSONArray json_array = future.get(5, TimeUnit.SECONDS); // Blocks for at most 5 seconds.
+
+            try {
+                for (int i = 0; i < json_array.length(); i++) {
+                    JSONObject json_object = json_array.getJSONObject(i);
+                    Allergy allergy = new Allergy(
+                            json_object.getJSONObject("user").getInt("id"),
+                            json_object.getString("name"),
+                            json_object.getString("severity"),
+                            json_object.getInt("id")
+                    );
+                    obj_list.add(allergy);
+                }
+
+            } catch (JSONException j) {
+                j.printStackTrace();
+            }
+        } catch (InterruptedException e) {
+            // Exception handling
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            // Exception handling
+            e.printStackTrace();
+        } catch (TimeoutException e) {
+            e.printStackTrace();
+        }
+        return obj_list;
+    }
+
+    // Gets the users information from the users database
+    public User getUserById(final Integer user_id) {
+        String USER_URL = "http://52.41.78.184:8000/api/users/" + user_id + "/";
+
+        // Request a string response from the provided URL.
+        RequestFuture<JSONObject> future = RequestFuture.newFuture();
+
+        JsonObjectRequest request = new JsonObjectRequest(USER_URL, null, future, future);
+        this.queue.add(request);
+        try {
+            JSONObject jsonUser = future.get(5, TimeUnit.SECONDS); // Blocks for at most 5 seconds.
+            try {
+                JSONObject jsonDoctor = jsonUser.getJSONObject("doctor");
+                Doctor doctor = new Doctor(
+                        jsonDoctor.getInt("id"),
+                        jsonDoctor.getString("first_name"),
+                        jsonDoctor.getString("last_name"),
+                        jsonDoctor.getString("email"),
+                        jsonDoctor.getString("password")
+                );
+                User user = new User(
+                        jsonUser.getString("first_name"),
+                        jsonUser.getString("last_name"),
+                        jsonUser.getInt("id"),
+                        jsonUser.getString("gender"),
+                        jsonUser.getString("address"),
+                        jsonUser.getLong("birthday"),
+                        jsonUser.getString("email"),
+                        jsonUser.getString("password"),
+                        jsonUser.getString("healthcard"),
+                        doctor
+                );
+                return user;
+
+            } catch (JSONException je) {
+                je.printStackTrace();
+                return null;
+            }
+
+        } catch (InterruptedException e) {
+            // Exception handling
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            // Exception handling
+            e.printStackTrace();
+        } catch (TimeoutException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
 }

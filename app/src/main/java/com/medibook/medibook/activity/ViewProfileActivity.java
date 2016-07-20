@@ -30,7 +30,7 @@ public class ViewProfileActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         // Overflow menu
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.doctor_menu, menu);
+        inflater.inflate(R.menu.main_menu, menu);
 
         return true;
     }

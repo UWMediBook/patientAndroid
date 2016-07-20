@@ -18,6 +18,7 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -33,6 +34,7 @@ import com.google.android.gms.appindexing.AppIndex;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.medibook.medibook.R;
 import com.medibook.medibook.common.API;
+import com.medibook.medibook.models.Doctor;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -71,7 +73,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
      * ATTENTION: This was auto-generated to implement the App Indexing API.
      * See https://g.co/AppIndexing/AndroidStudio for more information.
      */
-    private GoogleApiClient client;
+//    private GoogleApiClient client;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -117,9 +119,12 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
         // ATTENTION: This was auto-generated to implement the App Indexing API.
         // See https://g.co/AppIndexing/AndroidStudio for more information.
-        client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
+//        client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
 
         this.apiHandler = new API(this);
+
+        Intent intent = new Intent(this, ScanActivity.class);
+        startActivity(intent);
 
     }
 
@@ -315,18 +320,18 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
         // ATTENTION: This was auto-generated to implement the App Indexing API.
         // See https://g.co/AppIndexing/AndroidStudio for more information.
-        client.connect();
-        Action viewAction = Action.newAction(
-                Action.TYPE_VIEW, // TODO: choose an action type.
-                "Login Page", // TODO: Define a title for the content shown.
-                // TODO: If you have web page content that matches this app activity's content,
-                // make sure this auto-generated web page URL is correct.
-                // Otherwise, set the URL to null.
-                Uri.parse("http://host/path"),
-                // TODO: Make sure this auto-generated app URL is correct.
-                Uri.parse("android-app://com.medibook.medibook/http/host/path")
-        );
-        AppIndex.AppIndexApi.start(client, viewAction);
+//        client.connect();
+//        Action viewAction = Action.newAction(
+//                Action.TYPE_VIEW, // TODO: choose an action type.
+//                "Login Page", // TODO: Define a title for the content shown.
+//                // TODO: If you have web page content that matches this app activity's content,
+//                // make sure this auto-generated web page URL is correct.
+//                // Otherwise, set the URL to null.
+//                Uri.parse("http://host/path"),
+//                // TODO: Make sure this auto-generated app URL is correct.
+//                Uri.parse("android-app://com.medibook.medibook/http/host/path")
+//        );
+//        AppIndex.AppIndexApi.start(client, viewAction);
     }
 
     @Override
@@ -335,18 +340,18 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
         // ATTENTION: This was auto-generated to implement the App Indexing API.
         // See https://g.co/AppIndexing/AndroidStudio for more information.
-        Action viewAction = Action.newAction(
-                Action.TYPE_VIEW, // TODO: choose an action type.
-                "Login Page", // TODO: Define a title for the content shown.
-                // TODO: If you have web page content that matches this app activity's content,
-                // make sure this auto-generated web page URL is correct.
-                // Otherwise, set the URL to null.
-                Uri.parse("http://host/path"),
-                // TODO: Make sure this auto-generated app URL is correct.
-                Uri.parse("android-app://com.medibook.medibook/http/host/path")
-        );
-        AppIndex.AppIndexApi.end(client, viewAction);
-        client.disconnect();
+//        Action viewAction = Action.newAction(
+//                Action.TYPE_VIEW, // TODO: choose an action type.
+//                "Login Page", // TODO: Define a title for the content shown.
+//                // TODO: If you have web page content that matches this app activity's content,
+//                // make sure this auto-generated web page URL is correct.
+//                // Otherwise, set the URL to null.
+//                Uri.parse("http://host/path"),
+//                // TODO: Make sure this auto-generated app URL is correct.
+//                Uri.parse("android-app://com.medibook.medibook/http/host/path")
+//        );
+//        AppIndex.AppIndexApi.end(client, viewAction);
+//        client.disconnect();
     }
 
 
@@ -364,7 +369,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
      * Represents an asynchronous login/registration task used to authenticate
      * the user.
      */
-    public class UserLoginTask extends AsyncTask<Void, Void, Integer> {
+    public class UserLoginTask extends AsyncTask<Void, Void, String> {
 
         private final String mEmail;
         private final String mPassword;
@@ -375,25 +380,33 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         }
 
         @Override
-        protected Integer doInBackground(Void... params) {
-            return apiHandler.authenticate(mEmail, mPassword);
+        protected String doInBackground(Void... params) {
+            switch(apiHandler.authenticate(mEmail, mPassword)){
+                case 1:
+                    return apiHandler.getDoctorByEmail(mEmail).toJson();
+                case 0:
+                    return mEmail;
+                default:
+                    return null;
+            }
         }
 
         @Override
-        protected void onPostExecute(final Integer is_doctor) {
+        protected void onPostExecute(final String identification) {
             mAuthTask = null;
             showProgress(false);
 
-            if (is_doctor == 1) {
-                // Doctor
-                changeActivity("doctor", mEmail);
-            } else if (is_doctor == 0) {
-                // User
-                changeActivity("user", mEmail);
-            } else {
-                // Failed
+            if(identification == null){
                 mPasswordView.setError(getString(R.string.error_incorrect_password));
                 mPasswordView.requestFocus();
+                return;
+            }
+
+            // TODO: Make this check more beautiful
+            if(identification.substring(0, 1).equals("{")){
+                changeActivity("doctor", identification);
+            } else {
+                changeActivity("user", mEmail);
             }
         }
 
@@ -404,16 +417,17 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         }
     }
 
-    private void changeActivity(String doctor, String email){
+    private void changeActivity(String type_of_user, String identification_string){
         Intent intent;
-        switch(doctor){
+        switch(type_of_user){
             case "doctor":
                 intent = new Intent(this, DoctorActivity.class);
+                intent.putExtra("DOCTOR_JSON", identification_string);
                 break;
             case "user":
             default:
                 intent = new Intent(this, ViewProfileActivity.class);
-                intent.putExtra("EMAIL",email);
+                intent.putExtra("EMAIL",identification_string);
                 break;
         }
         startActivity(intent);

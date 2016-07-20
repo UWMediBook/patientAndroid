@@ -8,41 +8,68 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.medibook.medibook.activity.RegisterMainActivity">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Edit Profile"
+        android:id="@+id/basicInfo"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="10dp"/>
+
+    <View xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/divider"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginTop="16dp"
+        android:background="#B6B6B6"
+        android:layout_below="@id/basicInfo"/>
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/divider">
 
 
     <RadioGroup
         android:id="@+id/rg1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
+        android:layout_below="@+id/user_health_card"
+        android:layout_marginBottom="3dp"
         android:layout_marginLeft="-3dp"
-        android:layout_above="@+id/btnSaveUser"
-        android:layout_alignParentStart="true">
+        android:layout_marginTop="3dp"
+        android:orientation="horizontal">
 
         <RadioButton
             android:id="@+id/radioButton1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Male"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/etAddress"
             android:layout_marginRight="15dp"
-            android:layout_below="@+id/etAddress"
-            android:layout_toEndOf="@+id/rg1" />
+            android:text="Male" />
 
         <RadioButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Other"
-            android:id="@+id/radioButton"
-            android:layout_below="@+id/etAddress"
-            android:layout_alignParentEnd="true" />
-
-        <RadioButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Female"
             android:id="@+id/radioButton2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignEnd="@+id/butNext"
             android:layout_alignTop="@+id/radioButton1"
-            android:layout_alignStart="@+id/butNext" />
+            android:layout_marginRight="15dp"
+            android:text="Female" />
+
+        <RadioButton
+            android:id="@+id/radioButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/radioButton2"
+            android:layout_alignParentEnd="true"
+            android:layout_alignTop="@+id/radioButton2"
+            android:text="Other" />
+
     </RadioGroup>
 
     <TextView
@@ -50,18 +77,8 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="First Name:"
-        android:id="@+id/textView20"
-        android:layout_below="@+id/textView21"
-        android:layout_alignStart="@+id/rg1" />
+        android:id="@+id/textView20"/>
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Edit User Information"
-        android:id="@+id/textView21"
-        android:layout_alignParentTop="true"
-        android:layout_toEndOf="@+id/textView20" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -69,7 +86,6 @@
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="Last Name:"
         android:id="@+id/textView22"
-        android:layout_below="@+id/textView21"
         android:layout_alignStart="@+id/user_last_name" />
 
     <TextView
@@ -91,14 +107,13 @@
         android:layout_alignStart="@+id/user_address" />
 
     <TextView
-        android:layout_width="wrap_content"
+        android:layout_width="180dp"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="Healthcard number:"
         android:id="@+id/textView25"
-        android:layout_below="@+id/textView24"
-        android:layout_alignStart="@+id/textView24"
-        android:layout_marginTop="33dp" />
+        android:layout_below="@+id/user_birthday"
+        android:layout_alignStart="@+id/textView24"/>
 
     <EditText
         android:layout_width="wrap_content"
@@ -148,7 +163,8 @@
         android:id="@+id/textView27"
         android:layout_below="@+id/user_health_card"
         android:layout_alignParentStart="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignParentEnd="true"
+        android:visibility="gone" />
 
     <EditText
         android:layout_width="wrap_content"
@@ -156,15 +172,17 @@
         android:id="@+id/user_email"
         android:layout_below="@+id/textView27"
         android:layout_alignParentStart="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignParentEnd="true"
+        android:visibility="gone" />
 
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/user_password"
-        android:layout_above="@+id/rg1"
+        android:layout_below="@+id/textView26"
         android:layout_alignParentStart="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignParentEnd="true"
+        android:visibility="gone" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -173,24 +191,28 @@
         android:text="Password"
         android:id="@+id/textView26"
         android:layout_below="@+id/user_email"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:visibility="gone" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:id="@+id/user_gender"
+            android:layout_below="@+id/rg1"
+            android:layout_toEndOf="@+id/textView22"
+            android:visibility="gone" />
+    </RelativeLayout>
 
     <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Save Updates"
+        style="@style/Widget.AppCompat.Button"
         android:id="@+id/btnSaveUser"
-        android:layout_alignParentBottom="true"
-        android:layout_alignStart="@+id/textView21" />
-
-    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:id="@+id/user_gender"
-        android:layout_below="@+id/rg1"
-        android:layout_toEndOf="@+id/textView22"
-        android:visibility="gone" />
+        android:text="Save"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="20dp"
+        android:textSize="16sp"/>
 
 
 </RelativeLayout>

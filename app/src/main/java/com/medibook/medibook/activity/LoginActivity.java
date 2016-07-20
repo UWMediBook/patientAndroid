@@ -123,8 +123,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
         this.apiHandler = new API(this);
 
-        Intent intent = new Intent(this, ScanActivity.class);
-        startActivity(intent);
+//        Intent intent = new Intent(this, ScanActivity.class);
+//        startActivity(intent);
 
     }
 

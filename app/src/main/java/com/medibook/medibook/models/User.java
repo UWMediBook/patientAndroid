@@ -4,6 +4,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.text.SimpleDateFormat;
+import java.util.TimeZone;
 
 /**
  * Created by Kevin on 6/18/2016.
@@ -16,7 +17,6 @@ public class User {
     private Doctor doctor;
 
     private SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-
 
     public User(String first_name,
                 String last_name,
@@ -70,6 +70,7 @@ public class User {
     }
 
     public String getBirthday(){
+        sdf.setTimeZone(TimeZone.getTimeZone("UTC"));
         return (sdf.format(this.birthday * 1000));
     }
 

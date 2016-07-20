@@ -348,7 +348,7 @@ public class API {
     public void updateUser(final String fname, final String lname, final String address, final String gender, final Calendar birthday, final String email, final String password, final String healthcard,int doctor_id, int user_id) {
         String REGISTER_URL = "http://52.41.78.184:8000/api/users/" + user_id+"/";
 
-        long dob = birthday.getTimeInMillis()/1000;
+        long dob = birthday.getTimeInMillis() / 1000;
 
         JSONObject params = new JSONObject();
 

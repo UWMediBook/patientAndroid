@@ -44,6 +44,8 @@ public class EditUserActivity extends AppCompatActivity implements View.OnClickL
     private int mYear, mMonth, mDay;
     Calendar dob = Calendar.getInstance();
 
+    private String[] splitDate;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,9 +58,8 @@ public class EditUserActivity extends AppCompatActivity implements View.OnClickL
         birthday = (EditText) findViewById(R.id.user_birthday);
         address = (EditText) findViewById(R.id.user_address);
         healthcard = (EditText) findViewById(R.id.user_health_card);
-        password = (EditText)findViewById(R.id.user_password);
-        rbGender=(RadioGroup) findViewById(R.id.rg1);
-
+        password = (EditText) findViewById(R.id.user_password);
+        rbGender = (RadioGroup) findViewById(R.id.rg1);
 
         btnSaveProfile = (Button) findViewById(R.id.btnSaveUser);
         mOptions = getResources().getStringArray(R.array.optionsArray);
@@ -78,6 +79,7 @@ public class EditUserActivity extends AppCompatActivity implements View.OnClickL
         btnSaveProfile.setOnClickListener(this);
         birthday.setOnClickListener(this);
     }
+
     private class DrawerItemClickListener implements ListView.OnItemClickListener {
         @Override
         public void onItemClick(AdapterView parent, View view, int position, long id) {
@@ -85,13 +87,15 @@ public class EditUserActivity extends AppCompatActivity implements View.OnClickL
         }
     }
 
-    /** Swaps fragments in the main content view */
+    /**
+     * Swaps fragments in the main content view
+     */
     private boolean selectItem(int position) {
 //        Toast.makeText(this, mOptions[position], Toast.LENGTH_SHORT).show();
         Intent intent;
         Intent intentEmail = getIntent();
         String email = intentEmail.getStringExtra("EMAIL");
-        switch (mOptions[position]){
+        switch (mOptions[position]) {
             case "Profile":
                 intent = new Intent(this, ViewProfileActivity.class);
                 intent.putExtra("EMAIL", email);
@@ -111,7 +115,7 @@ public class EditUserActivity extends AppCompatActivity implements View.OnClickL
                 finish();
                 return true;
             case "Emergency Contact":
-                intent = new Intent(this,ViewEmergencyContactActivity.class);
+                intent = new Intent(this, ViewEmergencyContactActivity.class);
                 intent.putExtra("EMAIL", email);
                 startActivity(intent);
                 finish();
@@ -129,7 +133,7 @@ public class EditUserActivity extends AppCompatActivity implements View.OnClickL
                 finish();
                 return true;
             case "Generate QR Code":
-                intent = new Intent(this,generateQRActivity.class);
+                intent = new Intent(this, generateQRActivity.class);
                 intent.putExtra("EMAIL", email);
                 startActivity(intent);
                 finish();
@@ -164,9 +168,10 @@ public class EditUserActivity extends AppCompatActivity implements View.OnClickL
         mDrawerLayout.closeDrawer(mDrawerList);
         return true;
     }
+
     private void updateUser() {
-        int selected=rbGender.getCheckedRadioButtonId();
-        RadioButton genderBtn=(RadioButton) findViewById(selected);
+        int selected = rbGender.getCheckedRadioButtonId();
+        RadioButton genderBtn = (RadioButton) findViewById(selected);
         String FName = first_name.getText().toString().trim();
         String LName = last_name.getText().toString().trim();
         String uEmail = email.getText().toString().trim();
@@ -184,22 +189,24 @@ public class EditUserActivity extends AppCompatActivity implements View.OnClickL
         String uHealthCard = healthcard.getText().toString().trim();
 
         API handler = new API(this);
-        handler.postUserWithDoctorID(userEmail,FName,LName,uAddress,uGender,dob,uEmail,uPassword,uHealthCard);
+        handler.postUserWithDoctorID(userEmail, FName, LName, uAddress, uGender, dob, uEmail, uPassword, uHealthCard);
 
     }
 
     @Override
     public void onClick(View v) {
-        if (v== btnSaveProfile){
+        if (v == btnSaveProfile) {
             updateUser();
-            Toast toast = Toast.makeText(getApplicationContext(),"Successfully edited",Toast.LENGTH_SHORT);
+            Toast toast = Toast.makeText(getApplicationContext(), "Successfully edited", Toast.LENGTH_SHORT);
             toast.show();
             Intent intent = new Intent(this, ViewProfileActivity.class);
             intent.putExtra("EMAIL", userEmail);
             startActivity(intent);
             finish();
-        }else if(v == birthday){
+        } else if (v == birthday) {
             Calendar c = Calendar.getInstance();
+            c.setTimeZone(TimeZone.getTimeZone("UTC"));
+
             mYear = c.get(Calendar.YEAR);
             mMonth = c.get(Calendar.MONTH);
             mDay = c.get(Calendar.DAY_OF_MONTH);
@@ -207,7 +214,7 @@ public class EditUserActivity extends AppCompatActivity implements View.OnClickL
             DatePickerDialog dpd = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
                 @Override
                 public void onDateSet(DatePicker view, int year, int month, int day) {
-                    birthday.setText(day + "/" + (month+1) + "/" +year);
+                    birthday.setText(day + "/" + (month + 1) + "/" + year);
 
                     mYear = year;
                     mMonth = month;

@@ -13,54 +13,156 @@
     tools:showIn="@layout/activity_view_profile">
 
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="User Information"
         android:id="@+id/tvTitle"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentStart="true" />
-
-    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="First Name: "
-        android:id="@+id/textView17"
-        android:layout_below="@+id/tvTitle"
         android:layout_alignParentStart="true"
-        android:layout_marginTop="31dp" />
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="10dp"
+        android:text="User Profile"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <View xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/divider"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginBottom="28dp"
+        android:layout_marginTop="20dp"
+        android:background="#B6B6B6"
+        android:layout_below="@id/tvTitle"/>
+    <RelativeLayout
+        android:id="@+id/icons"
+        android:layout_width="40dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/divider"
+        >
+
+        <RelativeLayout
+            android:id="@+id/user_section"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/user_icon"
+                android:layout_width="30dp"
+                android:layout_height="40dp"
+                android:src="@drawable/user_icon"/>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/email_section"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:layout_below="@+id/user_section">
+
+            <ImageView
+                android:id="@+id/email_icon"
+                android:layout_width="30dp"
+                android:layout_height="40dp"
+                android:src="@drawable/email_icon"
+                />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/birthday_section"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:layout_below="@+id/email_section">
+            <ImageView
+                android:id="@+id/birthday_icon"
+                android:layout_width="30dp"
+                android:layout_height="40dp"
+                android:src="@drawable/birthday_icon"
+                />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/gender_section"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:layout_below="@+id/birthday_section">
+            <ImageView
+                android:id="@+id/gender_icon"
+                android:layout_width="30dp"
+                android:layout_height="40dp"
+                android:src="@drawable/gender1"
+                />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/address_section"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:layout_below="@+id/healthcard_section">
+            <ImageView
+                android:id="@+id/address_icon"
+                android:layout_width="30dp"
+                android:layout_height="40dp"
+                android:src="@drawable/address_icon"
+                />
+        </RelativeLayout>
+        <RelativeLayout
+            android:id="@+id/healthcard_section"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/gender_section">
+            <ImageView
+                android:id="@+id/healthcard_icon"
+                android:layout_width="30dp"
+                android:layout_height="40dp"
+                android:src="@drawable/heart_icon"
+                />
+
+        </RelativeLayout>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/divider"
+        android:layout_toEndOf="@+id/icons">
 
     <TextView
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="40dp"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Last Name: "
-        android:id="@+id/textView18"
+        android:text="Name: "
+        android:id="@+id/textView17"
+        android:layout_marginTop="8dp"
+        android:layout_alignParentStart="true"
+         />
+
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="E-mail: "
+        android:id="@+id/textView19"
+        android:layout_below="@+id/textView28"
+        android:layout_alignParentStart="true"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Gender: "
+        android:id="@+id/textView28"
         android:layout_below="@+id/textView17"
         android:layout_alignParentStart="true" />
 
     <TextView
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="E-mail: "
-        android:id="@+id/textView19"
-        android:layout_below="@+id/textView28"
-        android:layout_alignParentStart="true" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Gender: "
-        android:id="@+id/textView28"
-        android:layout_below="@+id/textView18"
-        android:layout_alignParentStart="true" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="40dp"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="Birthday: "
         android:id="@+id/textView29"
@@ -69,7 +171,7 @@
 
     <TextView
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="40dp"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="Health Card #: "
         android:id="@+id/textView30"
@@ -78,7 +180,7 @@
 
     <TextView
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="40dp"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="Address: "
         android:id="@+id/textView31"
@@ -87,34 +189,33 @@
 
     <TextView
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="40dp"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:id="@+id/user_first_name"
         android:layout_alignBottom="@+id/textView17"
-        android:layout_alignParentEnd="true"
-        android:layout_toEndOf="@+id/textView30" />
+        android:layout_toEndOf="@+id/textView30"
+        android:layout_marginRight="4dp"/>
 
     <TextView
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="40dp"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:id="@+id/user_last_name"
+        android:layout_alignBottom="@+id/textView17"
+        android:layout_toEndOf="@+id/user_first_name" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:id="@+id/user_gender"
         android:layout_below="@+id/user_first_name"
         android:layout_alignParentEnd="true"
         android:layout_toEndOf="@+id/textView30" />
 
     <TextView
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:id="@+id/user_gender"
-        android:layout_below="@+id/user_last_name"
-        android:layout_alignParentEnd="true"
-        android:layout_toEndOf="@+id/textView30" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="40dp"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:id="@+id/user_email"
         android:layout_below="@+id/user_gender"
@@ -123,7 +224,7 @@
 
     <TextView
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="40dp"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:id="@+id/user_birthday"
         android:layout_below="@+id/user_email"
@@ -132,7 +233,7 @@
 
     <TextView
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="40dp"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:id="@+id/user_health_card"
         android:layout_below="@+id/user_birthday"
@@ -141,11 +242,11 @@
 
     <TextView
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="40dp"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:id="@+id/user_address"
         android:layout_below="@+id/user_health_card"
         android:layout_alignParentEnd="true"
         android:layout_alignStart="@+id/user_health_card" />
-
+    </RelativeLayout>
 </RelativeLayout>

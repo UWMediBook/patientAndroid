@@ -402,58 +402,6 @@ public class API {
     }
 
     // Gets the users information from the users database
-    public void doctorGetUser(int uid) {
-        String url = "http://52.41.78.184:8000/api/users/" + uid;
-
-        // Request a string response from the provided URL.
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        try {
-                            JSONObject jsonUser = new JSONObject(response);
-                            User user = new User(
-                                    jsonUser.getString("first_name"),
-                                    jsonUser.getString("last_name"),
-                                    jsonUser.getInt("id"),
-                                    jsonUser.getString("gender"),
-                                    jsonUser.getString("address"),
-                                    jsonUser.getLong("birthday"),
-                                    jsonUser.getString("email"),
-                                    jsonUser.getString("password"),
-                                    jsonUser.getString("healthcard"),
-                                    null
-                            );
-                            TextView userName = (TextView) rootView.findViewById(R.id.user_name);
-                            TextView userGender = (TextView) rootView.findViewById(R.id.user_gender);
-                            TextView userEmail = (TextView) rootView.findViewById(R.id.user_email);
-                            TextView userAddress = (TextView) rootView.findViewById(R.id.user_address);
-                            TextView userBirthday = (TextView) rootView.findViewById(R.id.user_birthday);
-                            TextView userHealthcard = (TextView) rootView.findViewById(R.id.user_health_card);
-
-                            userName.setText("Name: " + user.getName());
-                            userGender.setText("Gender: " + user.getGender());
-                            userBirthday.setText("Birthday: " + user.getBirthday());
-                            userHealthcard.setText("Healthcard Number: " + user.getHealthcard());
-                            userAddress.setText("Address: " + user.getAddress());
-                            userEmail.setText("Email: " + user.getEmail());
-
-                        } catch (JSONException j) {
-                            Log.e("JSON Conversion", "Failed to convert JSON to User");
-                            j.printStackTrace();
-                        }
-                    }
-                }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Log.e("Get User API", "That didn't work!");
-            }
-        });
-        // Add the request to the RequestQueue.
-        this.queue.add(stringRequest);
-    }
-
-    // Gets the users information from the users database
     public void getUserByEmail(String email_string) {
         String url = "http://52.41.78.184:8000/api/users/" + email_string + "/";
 
@@ -473,8 +421,7 @@ public class API {
                                     jsonUserData.getLong("birthday"),
                                     jsonUserData.getString("email"),
                                     jsonUserData.getString("password"),
-                                    jsonUserData.getString("healthcard"),
-                                    null
+                                    jsonUserData.getString("healthcard")
                             );
                             TextView userName = (TextView) rootView.findViewById(R.id.user_name);
                             TextView userGender = (TextView) rootView.findViewById(R.id.user_gender);
@@ -1313,14 +1260,6 @@ public class API {
         try {
             JSONObject jsonUser = future.get(5, TimeUnit.SECONDS); // Blocks for at most 5 seconds.
             try {
-                JSONObject jsonDoctor = jsonUser.getJSONObject("doctor");
-                Doctor doctor = new Doctor(
-                        jsonDoctor.getInt("id"),
-                        jsonDoctor.getString("first_name"),
-                        jsonDoctor.getString("last_name"),
-                        jsonDoctor.getString("email"),
-                        jsonDoctor.getString("password")
-                );
                 User user = new User(
                         jsonUser.getString("first_name"),
                         jsonUser.getString("last_name"),
@@ -1330,8 +1269,7 @@ public class API {
                         jsonUser.getLong("birthday"),
                         jsonUser.getString("email"),
                         jsonUser.getString("password"),
-                        jsonUser.getString("healthcard"),
-                        doctor
+                        jsonUser.getString("healthcard")
                 );
                 return user;
 

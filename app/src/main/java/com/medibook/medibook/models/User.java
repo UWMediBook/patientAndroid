@@ -12,7 +12,6 @@ import java.text.SimpleDateFormat;
 public class User {
     private String first_name, last_name, gender, address, email, password, healthcard;
     private Integer id;
-    private Doctor doctor;
     private Long birthday;
 
     private SimpleDateFormat sdf = new SimpleDateFormat("EEE, MMM dd, yyyy");
@@ -26,8 +25,7 @@ public class User {
                 Long birthday,
                 String email,
                 String password,
-                String healthcard,
-                Doctor doctor){
+                String healthcard){
         this.first_name = first_name;
         this.last_name = last_name;
         this.id = id;
@@ -37,7 +35,6 @@ public class User {
         this.email = email;
         this.password = password;
         this.healthcard = healthcard;
-        this.doctor = doctor;
     }
 
     public Integer getId(){return this.id;}
@@ -89,7 +86,6 @@ public class User {
             user.put("password", this.password);
             user.put("gender", this.gender);
             user.put("healthcard", this.healthcard);
-            user.put("doctor", this.doctor.toJson());
         } catch (JSONException e){
             e.printStackTrace();
         }
@@ -110,8 +106,7 @@ public class User {
                     jsonUser.getLong("birthday"),
                     jsonUser.getString("email"),
                     jsonUser.getString("password"),
-                    jsonUser.getString("healthcard"),
-                    null
+                    jsonUser.getString("healthcard")
             );
             return user;
         } catch (JSONException je){
@@ -120,11 +115,4 @@ public class User {
 
         return null;
     }
-
-
-
-    public Doctor getDoctor(){
-        return this.doctor;
-    }
-
 }

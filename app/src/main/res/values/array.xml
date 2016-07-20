@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="optionsArray">
+        <item>Profile</item>
+        <item>Generate QR Code</item>
+        <item>Emergency Contact</item>
+        <item>Allergies</item>
+        <item>Past Operations</item>
+        <item>Past Visits</item>
+        <item>Prescriptions</item>
+        <item>Primary Doctor</item>
+        <item>Edit Profile</item>
+        <item>Edit Primary Doctor</item>
+        <item>Edit Emergency Contact</item>
+    </string-array>
+</resources>

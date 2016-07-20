@@ -10,22 +10,34 @@
     tools:context="com.medibook.medibook.activity.ViewAllergiesActivity">
 
     <TextView
+        android:id="@+id/tvTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Known Allergies"
-        android:id="@+id/tvAllergy"
-        android:layout_alignParentTop="true"
         android:layout_alignParentStart="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="10dp"
+        android:text="Known Allergies"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <View xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/divider"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginBottom="28dp"
+        android:layout_marginTop="20dp"
+        android:background="#B6B6B6"
+        android:layout_below="@id/tvTitle"/>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="This is where the list of the allergies will go"
+        android:text=""
         android:id="@+id/tvAllergyList"
-        android:layout_below="@+id/tvAllergy"
+        android:layout_below="@+id/divider"
         android:layout_alignParentStart="true"
         android:layout_alignParentBottom="true"
-        android:layout_alignEnd="@+id/tvAllergy" />
+        android:layout_alignEnd="@+id/divider"
+        android:layout_marginLeft="6dp"
+        android:textSize="18sp"/>
 </RelativeLayout>

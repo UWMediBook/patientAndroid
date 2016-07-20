@@ -2,6 +2,7 @@ package com.medibook.medibook.activity;
 
 import android.app.DatePickerDialog;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -35,6 +36,7 @@ public class EditUserActivity extends AppCompatActivity implements View.OnClickL
     private int mYear, mMonth, mDay;
     Calendar dob = Calendar.getInstance();
 
+    public API apiHandler;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,7 +73,7 @@ public class EditUserActivity extends AppCompatActivity implements View.OnClickL
         String birthdate = birthday.getText().toString().trim();
         String[] splitDate = birthdate.split("/");
         mYear = Integer.parseInt(splitDate[2]);
-        mMonth = Integer.parseInt(splitDate[1]) - 1;
+        mMonth = Integer.parseInt(splitDate[1]);
         mDay = Integer.parseInt(splitDate[0]);
         dob.setTimeZone(TimeZone.getTimeZone("UTC"));
         dob.set(mYear, mMonth, mDay);
@@ -93,9 +95,8 @@ public class EditUserActivity extends AppCompatActivity implements View.OnClickL
             updateUser();
             Toast toast = Toast.makeText(getApplicationContext(),"Successfully edited",Toast.LENGTH_SHORT);
             toast.show();
-            Intent intent = new Intent(this, ViewProfileActivity.class);
-            intent.putExtra("EMAIL", userEmail);
-            startActivity(intent);
+            getUserTask GUT = new getUserTask(userEmail);
+            GUT.execute(userEmail);
             finish();
         }else if(v == birthday){
             Calendar c = Calendar.getInstance();
@@ -115,6 +116,26 @@ public class EditUserActivity extends AppCompatActivity implements View.OnClickL
                 }
             }, mYear, mMonth, mDay);
             dpd.show();
+        }
+    }
+    public class getUserTask extends AsyncTask<String, Void, Void> {
+        private final String mEmail;
+
+        getUserTask(String email){
+            mEmail=email;
+        }
+
+        @Override
+        protected Void doInBackground(String... params) {
+            apiHandler.getUserByEmail(mEmail);
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            Intent intent = new Intent(EditUserActivity.this, ViewProfileActivity.class);
+            intent.putExtra("EMAIL", userEmail);
+            startActivity(intent);
         }
     }
 }
